@@ -18,20 +18,20 @@ export class AnalysisComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  analyse() {
-        this.httpClient.post('http://127.0.0.1:5000/analysis',
-      {
-        'lib': 1,
-        'msg': `${this.msg}`,
-      }).subscribe(
-        data => { console.log("POST Request is successful ", this.data); },
-        error => { console.log("Error", error); }
-      );
-      alert(`The selected text is ${this.data}`);
-  }
-
-  // analyse2() {
-  //   alert(`The selected text is ${this.msg}`);
+  // analyse() {
+  //       this.httpClient.post('http://127.0.0.1:5000/analysis',
+  //     {
+  //       lib: 1,
+  //       msg: `${this.msg}`,
+  //     }).subscribe(
+  //       data => { console.log(`POST Request is successful ${this.data}`); },
+  //       error => { console.log(`Error ${error}`); }
+  //     );
+  //       alert(`The selected text is ${this.data}`);
   // }
+
+  analyse() {
+    alert(`{msg: ${this.msg}, lib: ${this.lib}}`);
+  }
 
 }
