@@ -22,7 +22,7 @@ export class AnalysisComponent implements OnInit {
         this.httpClient.post('http://127.0.0.1:5000/analysis',
       {
         'lib': 1,
-        'msg': `${}`,
+        'msg': `${this.msg}`,
       }).subscribe(
         data => { console.log("POST Request is successful ", this.data); },
         error => { console.log("Error", error); }
