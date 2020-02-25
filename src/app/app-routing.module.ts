@@ -5,10 +5,17 @@ import { IndexComponent } from './components/index/index.component';
 
 
 const routes: Routes = [
+  // home
   {
     path: '',
     component: IndexComponent,
   },
+  {
+    path: 'home',
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  // analysis
   {
     path: 'analysis',
     component: AnalysisComponent
