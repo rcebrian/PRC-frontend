@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+import { AnalysisService } from 'src/app/analysis.service';
 
 @Component({
   selector: 'app-analysis',
@@ -13,25 +13,13 @@ export class AnalysisComponent implements OnInit {
   lib: number;
   data: Text;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private analysisService: AnalysisService) { }
 
   ngOnInit(): void {
   }
 
-  // analyse() {
-  //       this.httpClient.post('http://127.0.0.1:5000/analysis',
-  //     {
-  //       lib: 1,
-  //       msg: `${this.msg}`,
-  //     }).subscribe(
-  //       data => { console.log(`POST Request is successful ${this.data}`); },
-  //       error => { console.log(`Error ${error}`); }
-  //     );
-  //       alert(`The selected text is ${this.data}`);
-  // }
-
-  analyse() {
-    alert(`{msg: ${this.msg}, lib: ${this.lib}}`);
+  getAnalysis() {
+    this.analysisService.getAnalysis(this.lib, this.msg);
+    alert(`${this.lib} -> ${this.msg}`);
   }
-
 }

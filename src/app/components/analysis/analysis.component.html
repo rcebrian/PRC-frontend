@@ -3,8 +3,8 @@
     <label>Library</label>
     <select [(ngModel)]="lib" name="lib" class="form-control">
       <option selected disabled>Select library</option>
-      <option value='1'>TextBlob</option>
-      <option value='2'>Vader</option>
+      <option value=1>TextBlob</option>
+      <option value=2>Vader</option>
     </select>
   </div>
 
@@ -14,6 +14,6 @@
   </div>
 
   <div class="form-group">
-    <input type="submit" value="Analyse" class="form-control" (click)="analyse()">
+    <input type="submit" value="Analyse" class="form-control" (click)="getAnalysis()">
   </div>
 </form>
