@@ -2,7 +2,7 @@
   <div class="form-group">
     <label>Library</label>
     <select [(ngModel)]="lib" name="lib" class="form-control">
-      <option selected disabled>Select library</option>
+      <option selected disabled value=0>Select library</option>
       <option value=1>TextBlob</option>
       <option value=2>Vader</option>
     </select>
@@ -10,10 +10,15 @@
 
   <div class="form-group">
     <label>Message</label>
-    <input [(ngModel)]="msg" type="text" name="message" class="form-control" placeholder="Some text">
+    <textarea [(ngModel)]="msg" type="text" name="message" class="form-control" placeholder="Some text"></textarea>
   </div>
 
   <div class="form-group">
     <input type="submit" value="Analyse" class="form-control" (click)="getAnalysis()">
+    <div *ngIf="resultAnalysisData">
+      <span>Polarity data: {{resultAnalysisData.polarity}}</span><br>
+      <span>Polarity data: {{resultAnalysisData.subjectivity}}</span>
+    </div>
+    <!--<span>Subjectivity data: {{resultAnalysisData.subjectivity}}</span>-->
   </div>
 </form>

@@ -12,13 +12,21 @@ export class AnalysisService {
   constructor(private httpClient: HttpClient) { }
 
   getAnalysis(lib: number, msg: Text) {
-    this.httpClient.post(`${environment.apiurl}/analysis`,
+    return this.httpClient.post(`${environment.apiurl}/analysis`,
       {
         lib: parseInt(`${lib}`),
         msg: `${msg}`,
-      }).subscribe(
-        data => { console.log(`POST succesfull`) },
-        error => { console.log(`Error ${error}`); }
-      );
+      });
+
+    /* Con promesas
+    const data = this.httpClient.post(`${environment.apiurl}/analysis`,
+      {
+        lib: parseInt(`${lib}`),
+        msg: `${msg}`,
+      }).toPromise();
+
+    // @ts-ignore
+    this.resultAnalysisData = data;
+    return this.resultAnalysisData;*/
   }
 }
