@@ -26,3 +26,12 @@ div.resultTitle{
 div.listResult {
   background:#e3f2fd;
 }
+
+label.card-text{
+  white-space: pre-wrap;
+}
+
+div.resultList{
+  margin-bottom: $margin;
+  border-bottom: 1px solid #0911cc;
+}
