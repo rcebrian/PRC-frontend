@@ -4,7 +4,6 @@ import {AnalysisService} from 'src/app/analysis.service';
 import {HttpClient} from '@angular/common/http';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {DialogBodyComponent} from '../dialog-body/dialog-body.component';
-import {empty} from "rxjs/internal/Observer";
 
 export class Sentiment {
   polarity: Text;
@@ -30,7 +29,7 @@ export class AnalysisComponent implements OnInit {
   messageExist: boolean;
   listResult: Array<string> = [];
 
-  constructor(private analysisService: AnalysisService, private httpClient: HttpClient, public dialog: MatDialog) {
+  constructor(private analysisService: AnalysisService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -52,9 +51,7 @@ export class AnalysisComponent implements OnInit {
       data => {
         this.resultAnalysisData = data as Sentiment;
       },
-      error => {
-        console.log(this.resultAnalysisData);
-      }
+      error => { console.log(this.resultAnalysisData); }
     );
 
     this.msgSave = this.msg;
@@ -64,6 +61,8 @@ export class AnalysisComponent implements OnInit {
   openDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.msg;
+    dialogConfig.maxWidth = '60%';
     this.dialog.open(DialogBodyComponent, dialogConfig);
+
   }
 }

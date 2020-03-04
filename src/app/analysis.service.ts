@@ -17,16 +17,12 @@ export class AnalysisService {
         lib: parseInt(`${lib}`),
         msg: `${msg}`,
       });
+  }
 
-    /* Con promesas
-    const data = this.httpClient.post(`${environment.apiurl}/analysis`,
+  getTranslation(msg: Text) {
+    return this.httpClient.post(`${environment.apiurl}/translate`,
       {
-        lib: parseInt(`${lib}`),
         msg: `${msg}`,
-      }).toPromise();
-
-    // @ts-ignore
-    this.resultAnalysisData = data;
-    return this.resultAnalysisData;*/
+      });
   }
 }

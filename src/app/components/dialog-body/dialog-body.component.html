@@ -1,10 +1,11 @@
-<h2 mat-dialog-title>This is a Dialog title</h2>
-
-<mat-dialog-content>
-
-  <p> Place content here </p>
-</mat-dialog-content>
-
 <mat-dialog-actions>
-  <button class="mat-raised-button" (click)="close()">{{data}}</button>
+  <button class="mat-raised-button close-btn" (click)="close()">X</button>
 </mat-dialog-actions>
+<h2 mat-dialog-title>Translation to English</h2>
+<mat-dialog-content>
+  <div *ngIf="message; else elseBlock" id="break">
+    <p>{{message["translation"]}}</p>
+    <div><p id="info">***This text will be used for analysis***</p></div>
+  </div>
+  <ng-template #elseBlock><img src="assets/img/loading.gif" alt="loading gift" class="logo"></ng-template>
+</mat-dialog-content>
