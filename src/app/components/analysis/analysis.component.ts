@@ -37,9 +37,11 @@ export class AnalysisComponent implements OnInit {
 
   getAnalysis() {
     if (this.messageExist) {
-      const cinco = this.msgSave + '\nPolarity data: ' + this.resultAnalysisData.polarity
+      const result = this.msgSave + '\nPolarity data: ' + this.resultAnalysisData.polarity
         + '\nSubjectivity data: ' + this.resultAnalysisData.subjectivity;
-      this.listResult.push(cinco);
+
+      // Guarda los nuevos elementos al principio del array
+      this.listResult.unshift(result);
     }
 
     // Get result of the sentiment analysis
