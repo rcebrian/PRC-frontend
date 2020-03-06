@@ -9,6 +9,13 @@ export class Sentiment {
   subjectivity: Text;
 }
 
+export class SentimentLog {
+  lib: number;
+  message: Text;
+  polarity: Text;
+  subjectivity: Text;
+}
+
 @Component({
   selector: 'app-analysis',
   templateUrl: './analysis.component.html',
@@ -29,7 +36,7 @@ export class AnalysisComponent implements OnInit {
   // Use for sentiment text result
   msgSave: Text;
   messageExist: boolean;
-  listResult: Array<string> = [];
+  listResult: Array<SentimentLog> = [];
 
   constructor(private analysisService: AnalysisService, public dialog: MatDialog) {
   }
@@ -44,12 +51,14 @@ export class AnalysisComponent implements OnInit {
 
   getAnalysis() {
     if (this.messageExist) {
-      const result = `${this.msgSave}
-Polarity data: ${this.resultAnalysisData.polarity}
-Subjectivity data: ${this.resultAnalysisData.subjectivity}`;
-
+      const sLog = {
+        lib: this.lib,
+        message: this.msgSave,
+        polarity: this.resultAnalysisData.polarity,
+        subjectivity: this.resultAnalysisData.subjectivity,
+      } as SentimentLog;
       // Guarda los nuevos elementos al principio del array
-      this.listResult.unshift(result);
+      this.listResult.unshift(sLog);
     }
 
     // Get result of the sentiment analysis
@@ -83,6 +92,8 @@ Subjectivity data: ${this.resultAnalysisData.subjectivity}`;
         this.connection = false;
         clearInterval(this.interval);
         this.interval = setInterval(this.checkConnection.bind(this), 2000);
-      });
+      }
+    );
   }
+
 }

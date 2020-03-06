@@ -17,7 +17,8 @@
       <div class="form-group row has-success">
         <label class="control-label col-md-2 col-2">Message</label>
         <div class="col-md-8 col-9">
-          <textarea [(ngModel)]="msg" type="text" name="message" class="form-control" placeholder="Some text"></textarea>
+          <textarea [(ngModel)]="msg" type="text" name="message" class="form-control"
+                    placeholder="Some text"></textarea>
         </div>
         <div class="col-md-2 col-1" *ngIf="connection">
           <div *ngIf="msg">
@@ -50,9 +51,9 @@
       <div class="card-body">
         <div *ngIf="resultAnalysisData">
           <p class="card-text">
-            <b>Message:</b><span> {{ msgSave }}</span><br>
-            <b>Polarity data:</b><span> {{ resultAnalysisData.polarity }}</span><br>
-            <b>Subjectivity data:</b><span> {{ resultAnalysisData.subjectivity }}</span>
+            <b>Message: </b><span> {{ msgSave }}</span><br>
+            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span><br>
+            <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span> {{ resultAnalysisData.subjectivity }}</span>
           </p>
         </div>
       </div>
@@ -77,8 +78,10 @@
         <div *ngIf="listResult">
           <div class="resultList" *ngFor="let result of listResult">
             <label class="card-text">
-              <b>Message:</b>
-              <span>{{ result }}</span>
+              <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
+              <b>Message: </b><span>{{ result.message }}</span><br>
+              <b>Polarity: </b><span>{{ result.polarity }}</span><br>
+              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span> {{ result.subjectivity }}</span>
               <br>
             </label>
           </div>
