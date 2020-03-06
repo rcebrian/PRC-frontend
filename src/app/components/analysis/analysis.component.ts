@@ -1,8 +1,7 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {AnalysisService} from 'src/app/analysis.service';
-import {HttpClient} from '@angular/common/http';
-import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DialogBodyComponent} from '../dialog-body/dialog-body.component';
 
 export class Sentiment {
@@ -20,6 +19,9 @@ export class AnalysisComponent implements OnInit {
   // Use for send data to python
   msg: Text;
   lib: number;
+  connection: boolean;
+  interval;
+
 
   // Actual sentiment
   resultAnalysisData: Sentiment;
@@ -34,13 +36,17 @@ export class AnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.lib = 0;
+    this.connection = true;
     this.messageExist = false;
+    // @ts-ignore
+    this.interval = setInterval(this.checkConnection.bind(this), 2000);
   }
 
   getAnalysis() {
     if (this.messageExist) {
-      const result = this.msgSave + '\nPolarity data: ' + this.resultAnalysisData.polarity
-        + '\nSubjectivity data: ' + this.resultAnalysisData.subjectivity;
+      const result = `${this.msgSave}
+Polarity data: ${this.resultAnalysisData.polarity}
+Subjectivity data: ${this.resultAnalysisData.subjectivity}`;
 
       // Guarda los nuevos elementos al principio del array
       this.listResult.unshift(result);
@@ -51,9 +57,10 @@ export class AnalysisComponent implements OnInit {
       data => {
         this.resultAnalysisData = data as Sentiment;
       },
-      error => { console.log(this.resultAnalysisData); }
+      error => {
+        alert(`An error occurred with the server connection`);
+      }
     );
-
     this.msgSave = this.msg;
     this.messageExist = true;
   }
@@ -63,6 +70,19 @@ export class AnalysisComponent implements OnInit {
     dialogConfig.data = this.msg;
     dialogConfig.maxWidth = '60%';
     this.dialog.open(DialogBodyComponent, dialogConfig);
+  }
 
+  checkConnection() {
+    this.analysisService.getTranslation(this.msg).subscribe(
+      () => {
+        this.connection = true;
+        clearInterval(this.interval);
+        this.interval = setInterval(this.checkConnection.bind(this), 300000);
+      },
+      error => {
+        this.connection = false;
+        clearInterval(this.interval);
+        this.interval = setInterval(this.checkConnection.bind(this), 2000);
+      });
   }
 }

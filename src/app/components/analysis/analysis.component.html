@@ -1,5 +1,7 @@
+<!-- Analysis input -->
 <div class="row">
   <div class="col-md-3 col-1"></div>
+
   <div class="col-md-6 col-10">
     <form class="form-horizontal">
       <div class="form-group row">
@@ -12,15 +14,15 @@
           </select>
         </div>
       </div>
-
-      <div class="form-group row">
+      <div class="form-group row has-success">
         <label class="control-label col-md-2 col-2">Message</label>
         <div class="col-md-8 col-9">
           <textarea [(ngModel)]="msg" type="text" name="message" class="form-control" placeholder="Some text"></textarea>
         </div>
-        <div class="col-md-2 col-1">
+        <div class="col-md-2 col-1" *ngIf="connection">
           <div *ngIf="msg">
-            <button mat-raised-button (click)="openDialog()" class="translate"><img src="assets/img/translate.png" alt="logo ue" class="logo"></button>
+            <button mat-raised-button (click)="openDialog()" class="translate" type="submit"><i
+              class="fas fa-globe-europe fa-3x"></i></button>
           </div>
         </div>
       </div>
@@ -30,41 +32,60 @@
       </div>
     </form>
   </div>
+
   <div class="col-md-3 col-1"></div>
 </div>
 
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
-  <div class="card">
-      <div class="card-header">Sentiment Analysis result</div>
-      <div class="card-body">
-        <div *ngIf="resultAnalysisData">
-        <p class="card-text">
-          <b>Message:</b><span> {{msgSave}}</span><br>
-          Polarity data:<span> {{resultAnalysisData.polarity}}</span><br>
-          Subjectivity data: <span> {{resultAnalysisData.subjectivity}}</span>
-        </p>
-        </div>
-      </div>
-  </div>
-  </div>
-  <div class="col-md-2"></div>
-</div>
-
+<!-- Last result-->
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
     <div class="card">
-      <div class="card-header listResult">Latest results</div>
+      <div class="card-header">
+        <div class="row">
+          <div class="col-1"><i class="fas fa-percentage"></i></div>
+          <div class="col-11">Sentiment Analysis result</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div *ngIf="resultAnalysisData">
+          <p class="card-text">
+            <b>Message:</b><span> {{ msgSave }}</span><br>
+            <b>Polarity data:</b><span> {{ resultAnalysisData.polarity }}</span><br>
+            <b>Subjectivity data:</b><span> {{ resultAnalysisData.subjectivity }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+</div>
+
+<!-- Previous results cards-->
+<div class="row">
+  <div class="col-md-2"></div>
+
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header listResult">
+        <div class="row">
+          <div class="col-1"><i class="fas fa-list"></i></div>
+          <div class="col-11">Previous results</div>
+        </div>
+      </div>
       <div class="card-body">
         <div *ngIf="listResult">
           <div class="resultList" *ngFor="let result of listResult">
-            <label class="card-text"><b>Message:</b><span> {{result}}</span><br></label>
+            <label class="card-text">
+              <b>Message:</b>
+              <span>{{ result }}</span>
+              <br>
+            </label>
           </div>
         </div>
       </div>
     </div>
   </div>
+
   <div class="col-md-2"></div>
 </div>

@@ -1,5 +1,5 @@
 <mat-dialog-actions>
-  <button class="mat-raised-button close-btn" (click)="close()">X</button>
+  <button class="mat-raised-button close-btn" (click)="close()"><i class="fas fa-times"></i></button>
 </mat-dialog-actions>
 <h2 mat-dialog-title>Translation to English</h2>
 <mat-dialog-content>
@@ -7,5 +7,5 @@
     <p>{{message["translation"]}}</p>
     <div><p id="info">***This text will be used for analysis***</p></div>
   </div>
-  <ng-template #elseBlock><img src="assets/img/loading.gif" alt="loading gift" class="logo"></ng-template>
+  <ng-template #elseBlock><i class="fa-li fa fa-spinner fa-spin"></i></ng-template>
 </mat-dialog-content>

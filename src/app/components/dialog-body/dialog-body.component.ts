@@ -20,7 +20,8 @@ export class DialogBodyComponent implements OnInit {
         this.message = data as JSON;
       },
       error => {
-        console.log(this.message);
+        alert(`An error occurred with the server connection`);
+        this.close();
       }
     );
   }
