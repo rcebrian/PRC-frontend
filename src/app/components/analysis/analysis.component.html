@@ -81,7 +81,7 @@
               <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
               <b>Message: </b><span>{{ result.message }}</span><br>
               <b>Polarity: </b><span>{{ result.polarity }}</span><br>
-              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!resultAnalysisData.subjectivity"> {{ result.subjectivity }}</span>
+              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!result.subjectivity"> {{ result.subjectivity }}</span>
             </label>
           </div>
         </div>
