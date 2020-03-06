@@ -52,9 +52,8 @@
         <div *ngIf="resultAnalysisData">
           <p class="card-text">
             <b>Message: </b><span> {{ msgSave }}</span><br>
-            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span>
-            <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span> {{ resultAnalysisData.subjectivity }}</span>
-            <br>
+            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span><br>
+            <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span *ngIf="!!resultAnalysisData.subjectivity">{{ resultAnalysisData.subjectivity }}</span>
           </p>
         </div>
       </div>
@@ -82,8 +81,7 @@
               <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
               <b>Message: </b><span>{{ result.message }}</span><br>
               <b>Polarity: </b><span>{{ result.polarity }}</span><br>
-              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span> {{ result.subjectivity }}</span>
-              <br>
+              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!resultAnalysisData.subjectivity"> {{ result.subjectivity }}</span>
             </label>
           </div>
         </div>
