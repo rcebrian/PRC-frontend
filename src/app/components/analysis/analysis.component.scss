@@ -10,28 +10,28 @@ h1.title {
 }
 
 div.card {
-  margin:$margin;
+  margin: $margin;
   box-shadow: $box-shadow-bottom-only;
 }
 
-div.card-header{
-  background:$background-color;
+div.card-header {
+  background: $background-color;
 }
 
-div.resultTitle{
+div.resultTitle {
   margin-right: 0;
-  background:$background-color;
+  background: $background-color;
 }
 
 div.listResult {
-  background:#e3f2fd;
+  background: #e3f2fd;
 }
 
-label.card-text{
+label.card-text {
   white-space: pre-wrap;
 }
 
-div.resultList{
+div.resultList {
   margin-bottom: $margin;
   border-bottom: 1px solid #0911cc;
 }
@@ -45,29 +45,19 @@ button.translate {
   margin-top: 10%;
   background-color: transparent;
 }
-.form-btn{
+
+.form-btn {
   background-color: #bbdefb;
   border-color: #2780E3;
   border-width: medium;
-  font-weight:bold;
+  font-weight: bold;
 }
 
-button.submit{
+button.submit {
   background-color: $background-color;
 }
-.far{
+
+.far {
   margin-left: 20px;
   font-size: 25px;
-}
-
-.beam {
-  color: #388e3c;
-}
-
-.frown {
-  color: #d32f2f;
-}
-
-.meh {
-  color: #fbc02d;
 }

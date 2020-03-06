@@ -6,6 +6,29 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "../node_modules/bootswatch/dist/cosmo/bootswatch";
 
-html, body{
+/*
+ * variables
+ */
+$positive-color: #388e3c;
+$neutral-color: #fbc02d;
+$negative-color: #d32f2f;
+
+
+/*
+ * classes
+ */
+html, body {
   height: 100%;
+}
+
+.positive {
+  color: $positive-color;
+}
+
+.neutral {
+  color: $neutral-color;
+}
+
+.negative {
+  color: $negative-color;
 }

@@ -57,9 +57,9 @@
           <p class="card-text">
             <b>Message: </b><span> {{ msgSave }}</span><br>
             <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam beam"></i>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh meh"></i>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown frown"></i>
+            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
+            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
+            <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
             <br>
             <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span *ngIf="!!resultAnalysisData.subjectivity">{{ resultAnalysisData.subjectivity }}</span>
           </p>
@@ -89,9 +89,9 @@
               <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
               <b>Message: </b><span>{{ result.message }}</span><br>
               <b>Polarity: </b><span>{{ result.polarity }}</span>
-              <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam beam"></i>
-              <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh meh"></i>
-              <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown frown"></i>
+              <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam positive"></i>
+              <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh neutral"></i>
+              <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown negative"></i>
               <br>
               <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!result.subjectivity"> {{ result.subjectivity }}</span>
             </label>
