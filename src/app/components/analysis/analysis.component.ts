@@ -42,7 +42,7 @@ export class AnalysisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lib = 0;
+    this.lib = 1;
     this.connection = true;
     this.messageExist = false;
     // @ts-ignore
