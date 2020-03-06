@@ -99,4 +99,16 @@ export class AnalysisComponent implements OnInit {
   getError() {
     alert(`Enter a message please.`);
   }
+
+  generateIcon(polarity: number) {
+    if (polarity >= -1 && polarity < -0.5) {
+      return -1;
+    } else if (polarity >= -0.5 && polarity <= 0.5) {
+      return 0;
+    } else if (polarity > 0.5 && polarity <= 1) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
 }
