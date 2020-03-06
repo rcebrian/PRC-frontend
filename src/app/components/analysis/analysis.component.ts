@@ -96,4 +96,7 @@ export class AnalysisComponent implements OnInit {
     );
   }
 
+  getError() {
+    alert(`Enter a message please.`);
+  }
 }
