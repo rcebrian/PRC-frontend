@@ -52,7 +52,11 @@
         <div *ngIf="resultAnalysisData">
           <p class="card-text">
             <b>Message: </b><span> {{ msgSave }}</span><br>
-            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span><i *ngIf="resultAnalysisData.polarity>0" class="far fa-smile-beam"></i><i *ngIf="resultAnalysisData.polarity<0" class="far fa-frown"></i><i *ngIf="resultAnalysisData.polarity==0" class="far fa-meh"></i><br>
+            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span>
+            <i *ngIf="resultAnalysisData.polarity > 0" class="far fa-smile-beam beam"></i>
+            <i *ngIf="resultAnalysisData.polarity < 0" class="far fa-frown frown"></i>
+            <i *ngIf="resultAnalysisData.polarity === 0" class="far fa-meh meh"></i>
+            <br>
             <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span *ngIf="!!resultAnalysisData.subjectivity">{{ resultAnalysisData.subjectivity }}</span>
           </p>
         </div>
@@ -80,7 +84,11 @@
             <label class="card-text">
               <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
               <b>Message: </b><span>{{ result.message }}</span><br>
-              <b>Polarity: </b><span>{{ result.polarity }}</span><i *ngIf="result.polarity>0" class="far fa-smile-beam"></i><i *ngIf="result.polarity<0" class="far fa-frown"></i><i *ngIf="result.polarity==0" class="far fa-meh"></i><br>
+              <b>Polarity: </b><span>{{ result.polarity }}</span>
+              <i *ngIf="result.polarity > 0" class="far fa-smile-beam beam"></i>
+              <i *ngIf="result.polarity < 0" class="far fa-frown frown"></i>
+              <i *ngIf="result.polarity === 0" class="far fa-meh meh"></i>
+              <br>
               <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!result.subjectivity"> {{ result.subjectivity }}</span>
             </label>
           </div>
