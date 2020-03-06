@@ -1,0 +1,63 @@
+$title-font: normal 24px/1.5 'Open Sans', sans-serif;
+$cool-red: #F44336;
+$background-color: #bbdefb;
+$box-shadow-bottom-only: 0 2px 1px 0 rgba(0, 0, 0, 0.2);
+$margin: 1em;
+
+h1.title {
+  font: $title-font;
+  color: $cool-red;
+}
+
+div.card {
+  margin: $margin;
+  box-shadow: $box-shadow-bottom-only;
+}
+
+div.card-header {
+  background: $background-color;
+}
+
+div.resultTitle {
+  margin-right: 0;
+  background: $background-color;
+}
+
+div.listResult {
+  background: #e3f2fd;
+}
+
+label.card-text {
+  white-space: pre-wrap;
+}
+
+div.resultList {
+  margin-bottom: $margin;
+  border-bottom: 1px solid #0911cc;
+}
+
+div.submit {
+  margin-left: 35%;
+  width: 30%;
+}
+
+button.translate {
+  margin-top: 10%;
+  background-color: transparent;
+}
+
+.form-btn {
+  background-color: #bbdefb;
+  border-color: #2780E3;
+  border-width: medium;
+  font-weight: bold;
+}
+
+button.submit {
+  background-color: $background-color;
+}
+
+.far {
+  margin-left: 20px;
+  font-size: 25px;
+}
