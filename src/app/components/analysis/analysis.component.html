@@ -52,7 +52,7 @@
         <div *ngIf="resultAnalysisData">
           <p class="card-text">
             <b>Message: </b><span> {{ msgSave }}</span><br>
-            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span><br>
+            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span><i *ngIf="resultAnalysisData.polarity>0" class="far fa-smile-beam"></i><i *ngIf="resultAnalysisData.polarity<0" class="far fa-frown"></i><i *ngIf="resultAnalysisData.polarity==0" class="far fa-meh"></i><br>
             <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span *ngIf="!!resultAnalysisData.subjectivity">{{ resultAnalysisData.subjectivity }}</span>
           </p>
         </div>

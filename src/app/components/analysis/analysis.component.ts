@@ -5,15 +5,15 @@ import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DialogBodyComponent} from '../dialog-body/dialog-body.component';
 
 export class Sentiment {
-  polarity: Text;
-  subjectivity: Text;
+  polarity: number;
+  subjectivity: number;
 }
 
 export class SentimentLog {
   lib: number;
   message: Text;
-  polarity: Text;
-  subjectivity: Text;
+  polarity: number;
+  subjectivity: number;
 }
 
 @Component({
