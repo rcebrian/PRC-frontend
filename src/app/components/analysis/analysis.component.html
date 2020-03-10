@@ -1,28 +1,28 @@
 <div class="row">
-  <!-- Analysis form   -->
+  <!-- Analysis form -->
   <div class="col-6">
     <div class="card">
       <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-file-alt"></i>Analysis</div>
       <div class="card-body">
-        <form>
+        <form novalidate (ngSubmit)="getAnalysis()" #analysisForm="ngForm">
           <div class="form-group">
-            <label>Library</label>
-            <select [(ngModel)]="lib" name="lib" class="form-control">
+            <label for="library">Library</label>
+            <select id="library" class="form-control" name="library" [(ngModel)]="lib" ngModel required>
               <option value=1>TextBlob</option>
               <option value=2>Vader</option>
             </select>
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-between">
-              <label>Message</label>
+              <label for="message">Message</label>
               <div *ngIf="(connection && msg)">
                 <button mat-icon-button (click)="openDialog()"><i class="fas fa-globe-europe"></i></button>
               </div>
             </div>
-            <textarea [(ngModel)]="msg" rows="4" style="resize: none" type="text" name="message" class="form-control" placeholder="Some text"></textarea>
+            <textarea id="message" name="message" class="form-control" [(ngModel)]="msg" ngModel required></textarea>
           </div>
           <div class="form-group">
-            <input type="submit" value="Analyse" class="form-control btn btn-dark" (click)="getAnalysis()">
+            <button id="submit" title="Analyse" class="form-control btn btn-dark" type="submit" [disabled]="analysisForm.invalid">Analyse</button>
           </div>
         </form>
       </div>
