@@ -1,105 +1,95 @@
-<!-- Analysis input -->
 <div class="row">
-  <div class="col-md-3 col-1"></div>
-
-  <div class="col-md-6 col-10">
-    <form class="form-horizontal">
-      <div class="form-group row">
-        <label class="control-label col-md-2 col-2">Library</label>
-        <div class="col-md-8 col-9">
-          <select [(ngModel)]="lib" name="lib" class="form-control">
-            <option value=1>TextBlob</option>
-            <option value=2>Vader</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group row has-success">
-        <label class="control-label col-md-2 col-2">Message</label>
-        <div class="col-md-8 col-9">
-          <textarea [(ngModel)]="msg" type="text" name="message" class="form-control"
-                    placeholder="Some text"></textarea>
-        </div>
-        <div class="col-md-2 col-1" *ngIf="connection">
-          <div *ngIf="msg">
-            <button mat-raised-button (click)="openDialog()" class="translate" type="submit"><i
-              class="fas fa-globe-europe fa-3x"></i></button>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group submit">
-        <div *ngIf="msg; else elseBlock">
-          <input type="submit" value="Analyse" class="form-control form-btn" (click)="getAnalysis()">
-        </div>
-        <ng-template #elseBlock>
-          <input type="submit" value="Analyse" class="form-control form-btn" (click)="getError()">
-        </ng-template>
-      </div>
-    </form>
-  </div>
-
-  <div class="col-md-3 col-1"></div>
-</div>
-
-<!-- Last result-->
-<div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
+  <!-- Analysis form   -->
+  <div class="col-6">
     <div class="card">
-      <div class="card-header">
-        <div class="row">
-          <div class="col-1"><i class="fas fa-percentage"></i></div>
-          <div class="col-11">Sentiment Analysis result</div>
-        </div>
-      </div>
+      <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-file-alt"></i>Analysis</div>
       <div class="card-body">
-        <div *ngIf="resultAnalysisData">
-          <p class="card-text">
-            <b>Message: </b><span> {{ msgSave }}</span><br>
-            <b>Polarity: </b><span> {{ resultAnalysisData.polarity }}</span>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
-            <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
-            <br>
-            <b *ngIf="!!resultAnalysisData.subjectivity">Subjectivity: </b><span *ngIf="!!resultAnalysisData.subjectivity">{{ resultAnalysisData.subjectivity }}</span>
-          </p>
-        </div>
+        <form>
+          <div class="form-group">
+            <label>Library</label>
+            <select [(ngModel)]="lib" name="lib" class="form-control">
+              <option value=1>TextBlob</option>
+              <option value=2>Vader</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-between">
+              <label>Message</label>
+              <div *ngIf="(connection && msg)">
+                <button mat-icon-button (click)="openDialog()"><i class="fas fa-globe-europe"></i></button>
+              </div>
+            </div>
+            <textarea [(ngModel)]="msg" rows="4" style="resize: none" type="text" name="message" class="form-control" placeholder="Some text"></textarea>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Analyse" class="form-control btn btn-dark" (click)="getAnalysis()">
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="col-md-2"></div>
+
+  <!-- Last result-->
+  <div class="col-6">
+    <div class="card">
+      <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-percentage"></i>Results</div>
+      <div class="card-body">
+        <table class="table table-header">
+          <tbody>
+          <tr>
+            <th>Message</th>
+            <td>{{ msgSave }}</td>
+          </tr>
+          <tr>
+            <th>Polarity</th>
+            <td>{{ resultAnalysisData.polarity }}</td>
+          </tr>
+          <tr *ngIf="!!resultAnalysisData.subjectivity">
+            <th>Subjectivity</th>
+            <td>{{ resultAnalysisData.subjectivity }}</td>
+          </tr>
+          <tr>
+            <th>Results</th>
+            <td>
+              <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
+              <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
+              <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Previous results cards-->
-<div class="row">
-  <div class="col-md-2"></div>
-
-  <div class="col-md-8">
-    <div class="card">
-      <div class="card-header listResult">
-        <div class="row">
-          <div class="col-1"><i class="fas fa-list"></i></div>
-          <div class="col-11">Previous results</div>
-        </div>
-      </div>
-      <div class="card-body">
-        <div *ngIf="listResult">
-          <div class="resultList" *ngFor="let result of listResult">
-            <label class="card-text">
-              <b>Tool: </b><span>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</span><br>
-              <b>Message: </b><span>{{ result.message }}</span><br>
-              <b>Polarity: </b><span>{{ result.polarity }}</span>
-              <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam positive"></i>
-              <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh neutral"></i>
-              <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown negative"></i>
-              <br>
-              <b *ngIf="!!result.subjectivity">Subjectivity:</b><span *ngIf="!!result.subjectivity"> {{ result.subjectivity }}</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="card">
+  <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-list"></i>Previous results</div>
+  <div class="card-body">
+    <table class="table table-header">
+      <thead>
+      <tr>
+        <th scope="col">Tool</th>
+        <th scope="col">Message</th>
+        <th scope="col">Polarity</th>
+        <th scope="col">Subjectivity</th>
+        <th scope="col">Results</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="listResult">
+      <tr *ngFor="let result of listResult">
+        <td>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</td>
+        <td>{{ result.message }}</td>
+        <td>{{ result.polarity }}</td>
+        <td>{{ result.subjectivity }}</td>
+        <td>
+          <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam positive"></i>
+          <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh neutral"></i>
+          <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown negative"></i>
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
-
-  <div class="col-md-2"></div>
 </div>
