@@ -1,95 +1,97 @@
-<div class="row">
-  <!-- Analysis form -->
-  <div class="col-6">
-    <div class="card last-result">
-      <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-file-alt"></i>Analysis</div>
-      <div class="card-body">
-        <form novalidate (ngSubmit)="getAnalysis()" #analysisForm="ngForm">
-          <div class="form-group">
-            <label for="library">Library</label>
-            <select id="library" class="form-control" name="library" [(ngModel)]="lib" ngModel required>
-              <option value=1>TextBlob</option>
-              <option value=2>Vader</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <div class="d-flex justify-content-between">
-              <label for="message">Message</label>
-              <div *ngIf="(connection && msg)">
-                <button mat-icon-button (click)="openDialog()"><i class="fas fa-globe-europe"></i></button>
-              </div>
+<div class="container" role="main">
+  <div class="row">
+    <!-- Analysis form -->
+    <div class="col-6">
+      <div class="card last-result">
+        <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-file-alt"></i>Analysis</div>
+        <div class="card-body">
+          <form novalidate (ngSubmit)="getAnalysis()" #analysisForm="ngForm">
+            <div class="form-group">
+              <label for="library">Library</label>
+              <select id="library" class="form-control" name="library" [(ngModel)]="lib" ngModel required>
+                <option value=1>TextBlob</option>
+                <option value=2>Vader</option>
+              </select>
             </div>
-            <textarea id="message" name="message" class="form-control" [(ngModel)]="msg" ngModel required></textarea>
-          </div>
-          <div class="form-group">
-            <button id="submit" title="Analyse" class="form-control btn btn-dark" type="submit" [disabled]="analysisForm.invalid">Analyse</button>
-          </div>
-        </form>
+            <div class="form-group">
+              <div class="d-flex justify-content-between">
+                <label for="message">Message</label>
+                <div *ngIf="(connection && msg)">
+                  <button mat-icon-button (click)="openDialog()"><i class="fas fa-globe-europe"></i></button>
+                </div>
+              </div>
+              <textarea id="message" name="message" class="form-control" [(ngModel)]="msg" ngModel required></textarea>
+            </div>
+            <div class="form-group">
+              <button id="submit" title="Analyse" class="form-control btn btn-dark" type="submit" [disabled]="analysisForm.invalid">Analyse</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Last result-->
+    <div class="col-6">
+      <div class="card last-result">
+        <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-percentage"></i>Results</div>
+        <div class="card-body">
+          <table class="table table-header">
+            <tbody>
+            <tr>
+              <th>Message</th>
+              <td>{{ msgSave }}</td>
+            </tr>
+            <tr>
+              <th>Polarity</th>
+              <td>{{ resultAnalysisData.polarity }}</td>
+            </tr>
+            <tr *ngIf="!!resultAnalysisData.subjectivity">
+              <th>Subjectivity</th>
+              <td>{{ resultAnalysisData.subjectivity }}</td>
+            </tr>
+            <tr>
+              <th>Results</th>
+              <td>
+                <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
+                <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
+                <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Last result-->
-  <div class="col-6">
-    <div class="card last-result">
-      <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-percentage"></i>Results</div>
-      <div class="card-body">
-        <table class="table table-header">
-          <tbody>
-          <tr>
-            <th>Message</th>
-            <td>{{ msgSave }}</td>
-          </tr>
-          <tr>
-            <th>Polarity</th>
-            <td>{{ resultAnalysisData.polarity }}</td>
-          </tr>
-          <tr *ngIf="!!resultAnalysisData.subjectivity">
-            <th>Subjectivity</th>
-            <td>{{ resultAnalysisData.subjectivity }}</td>
-          </tr>
-          <tr>
-            <th>Results</th>
-            <td>
-              <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
-              <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
-              <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+  <!-- Previous results cards-->
+  <div class="card">
+    <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-list"></i>Previous results</div>
+    <div class="card-body">
+      <table class="table table-header">
+        <thead>
+        <tr>
+          <th scope="col">Tool</th>
+          <th scope="col">Message</th>
+          <th scope="col">Polarity</th>
+          <th scope="col">Subjectivity</th>
+          <th scope="col">Results</th>
+        </tr>
+        </thead>
+        <tbody *ngIf="listResult">
+        <tr *ngFor="let result of listResult">
+          <td>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</td>
+          <td>{{ result.message }}</td>
+          <td>{{ result.polarity }}</td>
+          <td>{{ result.subjectivity }}</td>
+          <td>
+            <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam positive"></i>
+            <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh neutral"></i>
+            <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown negative"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
-</div>
-
-<!-- Previous results cards-->
-<div class="card">
-  <div class="card-header text-white bg-dark"><i class="fas fa-fw fa-list"></i>Previous results</div>
-  <div class="card-body">
-    <table class="table table-header">
-      <thead>
-      <tr>
-        <th scope="col">Tool</th>
-        <th scope="col">Message</th>
-        <th scope="col">Polarity</th>
-        <th scope="col">Subjectivity</th>
-        <th scope="col">Results</th>
-      </tr>
-      </thead>
-      <tbody *ngIf="listResult">
-      <tr *ngFor="let result of listResult">
-        <td>{{ result.lib == 1 ? 'TextBlob' : 'Vader' }}</td>
-        <td>{{ result.message }}</td>
-        <td>{{ result.polarity }}</td>
-        <td>{{ result.subjectivity }}</td>
-        <td>
-          <i *ngIf="generateIcon(result.polarity) === 1" class="far fa-smile-beam positive"></i>
-          <i *ngIf="generateIcon(result.polarity) === 0" class="far fa-meh neutral"></i>
-          <i *ngIf="generateIcon(result.polarity) === -1" class="far fa-frown negative"></i>
-        </td>
-      </tr>
-      </tbody>
-    </table>
   </div>
 </div>

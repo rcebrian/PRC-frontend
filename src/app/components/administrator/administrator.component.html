@@ -1,0 +1,165 @@
+<!-- .offset-md-3-->
+<div class="cont">
+  <div class="card-columns">
+    <div class="card left">
+      <div class="card-header text-white" id="trainModelCard">Create a new training model</div>
+      <div class="card-body">
+        <select class="selectModel form-control">
+          <option selected>Select a training model</option>
+          <option>Naive Bayes</option>
+          <option>...</option>
+          <option>Cargar de la base de datos</option>
+        </select>
+
+        <textarea class="textBox" readonly="readonly">Aqui hacemos una explicacion de lo que hace el modelo bla bla bla bla</textarea>
+        <p><b>Select the characteristics for the training</b></p>
+        <div class="row" style="margin-left: 0px; margin-bottom: 2%">
+          <div class="col-md-4">
+            <div class="form-check">
+              <label><input text="jaj" class="form-check-input position-static" type="checkbox" value="date"> Date</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="time"> Time</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="id"> Flight identifier</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="airline"> Airline</label>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="destination"> Destination</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="delay"> Delay</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="temperature"> Temperature</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="humidity"> Humidity</label>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="wind"> Wind speed</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="wind_direction"> Wind direction</label>
+            </div>
+            <div class="form-check">
+              <label><input class="form-check-input position-static" type="checkbox" value="pressure"> Pressure</label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button class="submit" id="trainModelBtn" title="Create" class="form-control btn btn-dark" type="submit">Create</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card left">
+      <div class="card-header text-white"  id="selectModelCard">Change selected training model</div>
+      <div class="card-body">
+        <select class="selectModel form-control">
+          <option selected>Selected model</option>
+          <option>Naive Bayes</option>
+          <option>...</option>
+          <option>Cargar de la base de datos</option>
+        </select>
+
+        <select class="selectModel form-control">
+          <option selected>Selected date</option>
+          <option>17/01/2019</option>
+          <option>...</option>
+          <option>Cargar de la base de datos</option>
+        </select>
+        <textarea class="textBox" readonly="readonly">INFO DEL REPORT</textarea>
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button class="submit" id="selectModelBtn" title="Apply" class="form-control btn btn-dark" type="submit">Apply</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card left">
+      <div class="card-header text-white"  id="updateDataCard">Update training data</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button class="submit" id="updateDataBtn" title="Update" class="form-control btn btn-dark" type="submit">Update</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card right">
+      <div class="card-header text-white" id="analysisInfoCard">Sentiment analysis information</div>
+      <div class="card-body">
+        Select an airline
+        <select class="selectModel form-control">
+          <option selected>All airlines</option>
+          <option>Iberia</option>
+          <option>...</option>
+          <option>Cargar de la base de datos</option>
+        </select>
+        Select a sentiment library
+        <select class="selectModel form-control">
+          <option selected>Both libraries</option>
+          <option>Text Blob</option>
+          <option>Vader</option>
+        </select>
+        <canvas id="realtime">{{ chart }}</canvas>
+      </div>
+    </div>
+
+
+    <div class="card right">
+      <div class="card-header text-white" id="selectLibraryCard">Change selected analysis library</div>
+      <div class="card-body">
+        Selected sentiment library
+        <select class="selectModel form-control">
+          <option>Text Blob</option>
+          <option>Vader</option>
+        </select>
+        Polarity range
+        <ul>
+          <li>
+            <label style="margin-right: 1%;"><b>Positive sentiment: </b>From</label>
+            <input type="text" style="width: 6%; text-align: center;" [(ngModel)]="minPositive">
+            <label style="margin-left: 1%;">to <b>1</b></label>
+          </li>
+          <li>
+            <label style="margin-right: 1%;"><b>Neutral sentiment: </b>From <b>{{minPositive}}</b> to <b>{{maxNegative}}</b></label>
+          </li>
+          <li>
+            <label style="margin-right: 1%;"><b>Negative sentiment: </b>From</label>
+            <input type="text" style="width: 6%; text-align: center;" [(ngModel)]="maxNegative">
+            <label style="margin-left: 1%;">to <b>-1</b></label>
+          </li>
+        </ul>
+
+        <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button class="submit" id="selectLibraryBtn" title="Apply" class="form-control btn btn-dark" type="submit">Apply</button>
+          </div>
+          <div class="col-md-4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

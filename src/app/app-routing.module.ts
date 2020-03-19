@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { IndexComponent } from './components/index/index.component';
-
+import { AdministratorComponent} from './components/administrator/administrator.component';
 
 const routes: Routes = [
   // home
@@ -14,6 +14,10 @@ const routes: Routes = [
     path: 'home',
     redirectTo: '',
     pathMatch: 'full'
+  },
+  {
+    path: 'administrator',
+    component: AdministratorComponent
   },
   // analysis
   {

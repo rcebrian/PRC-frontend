@@ -14,6 +14,7 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
 
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { MatButtonModule } from '@angular/material/button';
+import { AdministratorComponent} from './components/administrator/administrator.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     NavbarComponent,
     FooterComponent,
     DialogBodyComponent,
+    AdministratorComponent,
   ],
   imports: [
     BrowserModule,
