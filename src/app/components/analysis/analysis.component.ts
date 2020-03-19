@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AnalysisService} from 'src/app/analysis.service';
+import {AnalysisService} from 'src/app/services/analysis.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DialogBodyComponent} from '../dialog-body/dialog-body.component';
 

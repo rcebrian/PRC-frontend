@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject} from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import {  MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {AnalysisService} from 'src/app/analysis.service';
+import {AnalysisService} from 'src/app/services/analysis.service';
 
 @Component({
   selector: 'app-dialog-body',

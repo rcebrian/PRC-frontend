@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../environments/environment';
+import { environment } from '../../environments/environment';
 
 
 @Injectable({
@@ -22,6 +22,7 @@ export class AnalysisService {
   getTranslation(msg: Text) {
     return this.httpClient.post(`${environment.apiurl}/translate`,
       {
+        lang: 'en',
         msg: `${msg}`,
       });
   }
