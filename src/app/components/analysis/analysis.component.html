@@ -15,7 +15,7 @@
             </div>
             <div class="form-group">
               <div class="d-flex justify-content-between">
-                <label for="message">Message</label>
+                <label for="message">Message <p id="warning-error">{{warningEmptyMsg}}</p></label>
                 <div *ngIf="(connection && msg)">
                   <button mat-icon-button (click)="openDialog()"><i class="fas fa-globe-europe"></i></button>
                 </div>
@@ -23,7 +23,8 @@
               <textarea id="message" name="message" class="form-control" [(ngModel)]="msg" ngModel required></textarea>
             </div>
             <div class="form-group">
-              <button id="submit" title="Analyse" class="form-control btn btn-dark" type="submit" [disabled]="analysisForm.invalid">Analyse</button>
+              <button id="submit" title="Analyse" class="form-control btn btn-dark" type="submit"
+                      [attr.disabled]="(buttonDisabled == true ? true : null)">Analyse</button>
             </div>
           </form>
         </div>
@@ -41,17 +42,17 @@
               <th>Message</th>
               <td>{{ msgSave }}</td>
             </tr>
-            <tr>
+            <tr >
               <th>Polarity</th>
-              <td>{{ resultAnalysisData.polarity }}</td>
+              <td *ngIf="resultAnalysisData">{{ resultAnalysisData.polarity }}</td>
             </tr>
-            <tr *ngIf="!!resultAnalysisData.subjectivity">
+            <tr *ngIf="resultAnalysisData && !!resultAnalysisData.subjectivity">
               <th>Subjectivity</th>
-              <td>{{ resultAnalysisData.subjectivity }}</td>
+              <td *ngIf="resultAnalysisData">{{ resultAnalysisData.subjectivity }}</td>
             </tr>
             <tr>
               <th>Results</th>
-              <td>
+              <td *ngIf="resultAnalysisData">
                 <i *ngIf="generateIcon(resultAnalysisData.polarity) === 1" class="far fa-smile-beam positive"></i>
                 <i *ngIf="generateIcon(resultAnalysisData.polarity) === 0" class="far fa-meh neutral"></i>
                 <i *ngIf="generateIcon(resultAnalysisData.polarity) === -1" class="far fa-frown negative"></i>
