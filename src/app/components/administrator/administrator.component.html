@@ -13,7 +13,7 @@
 
         <textarea class="textBox" readonly="readonly">Aqui hacemos una explicacion de lo que hace el modelo bla bla bla bla</textarea>
         <p><b>Select the characteristics for the training</b></p>
-        <div class="row" style="margin-left: 0px; margin-bottom: 2%">
+        <div class="row row_style">
           <div class="col-md-4">
             <div class="form-check">
               <label><input text="jaj" class="form-check-input position-static" type="checkbox" value="date"> Date</label>
@@ -138,16 +138,16 @@
         Polarity range
         <ul>
           <li>
-            <label style="margin-right: 1%;"><b>Positive sentiment: </b>From</label>
-            <input type="text" style="width: 6%; text-align: center;" [(ngModel)]="minPositive">
-            <label style="margin-left: 1%;">to <b>1</b></label>
+            <label class="label_style"><b>Positive sentiment: </b>From</label>
+            <input lass ="input_style" type="text" [(ngModel)]="minPositive">
+            <label class="label_style">to <b>1</b></label>
           </li>
           <li>
-            <label style="margin-right: 1%;"><b>Neutral sentiment: </b>From <b>{{minPositive}}</b> to <b>{{maxNegative}}</b></label>
+            <label class="label_style"><b>Neutral sentiment: </b>From <b>{{minPositive}}</b> to <b>{{maxNegative}}</b></label>
           </li>
           <li>
             <label style="margin-right: 1%;"><b>Negative sentiment: </b>From</label>
-            <input type="text" style="width: 6%; text-align: center;" [(ngModel)]="maxNegative">
+            <input class ="input_style" type="text" [(ngModel)]="maxNegative">
             <label style="margin-left: 1%;">to <b>-1</b></label>
           </li>
         </ul>
