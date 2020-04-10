@@ -61,3 +61,14 @@ button.submit {
   margin-left: 20px;
   font-size: 25px;
 }
+.last-result{
+  height: 310px;
+}
+.last-result td{
+  height: 60px;
+}
+
+#warning-error {
+  display:inline;
+  color: red;
+}

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-import {AnalysisService} from 'src/app/analysis.service';
+import {AnalysisService} from 'src/app/services/analysis.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {DialogBodyComponent} from '../dialog-body/dialog-body.component';
 
@@ -29,6 +29,8 @@ export class AnalysisComponent implements OnInit {
   connection: boolean;
   interval;
 
+  buttonDisabled: boolean;
+  warningEmptyMsg: string;
 
   // Actual sentiment
   resultAnalysisData: Sentiment;
@@ -45,12 +47,14 @@ export class AnalysisComponent implements OnInit {
     this.lib = 1;
     this.connection = true;
     this.messageExist = false;
+    this.buttonDisabled = false;
     // @ts-ignore
     this.interval = setInterval(this.checkConnection.bind(this), 2000);
   }
 
   getAnalysis() {
-    if (this.messageExist) {
+    this.buttonDisabled = true;
+    if (this.messageExist && this.resultAnalysisData != null) {
       const sLog = {
         lib: this.lib,
         message: this.msgSave,
@@ -59,19 +63,28 @@ export class AnalysisComponent implements OnInit {
       } as SentimentLog;
       // Guarda los nuevos elementos al principio del array
       this.listResult.unshift(sLog);
+      this.resultAnalysisData = null;
     }
 
-    // Get result of the sentiment analysis
-    this.analysisService.getAnalysis(this.lib, this.msg).subscribe(
-      data => {
-        this.resultAnalysisData = data as Sentiment;
-      },
-      error => {
-        alert(`An error occurred with the server connection`);
-      }
-    );
-    this.msgSave = this.msg;
-    this.messageExist = true;
+    if (this.msg != null && this.msg.toString() !== '') {
+      this.warningEmptyMsg = null;
+      // Get result of the sentiment analysis
+      this.analysisService.getAnalysis(this.lib, this.msg).subscribe(
+        data => {
+          this.resultAnalysisData = data as Sentiment;
+          this.buttonDisabled = false;
+        },
+        error => {
+          alert(`An error occurred with the server connection`);
+          this.buttonDisabled = false;
+        }
+      );
+      this.msgSave = this.msg;
+      this.messageExist = true;
+    } else {
+      this.warningEmptyMsg = 'Enter a message';
+      this.buttonDisabled = false;
+    }
   }
 
   openDialog() {
@@ -94,10 +107,6 @@ export class AnalysisComponent implements OnInit {
         this.interval = setInterval(this.checkConnection.bind(this), 2000);
       }
     );
-  }
-
-  getError() {
-    alert(`Enter a message please.`);
   }
 
   generateIcon(polarity: number) {
