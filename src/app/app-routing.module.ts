@@ -4,6 +4,8 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { IndexComponent } from './components/index/index.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { FlightsComponent } from './components/flights/flights.component';
+import {LoginComponent} from './components/login/login.component';
+import {RegisterComponent} from './components/register/register.component';
 
 const routes: Routes = [
   // home
@@ -30,6 +32,16 @@ const routes: Routes = [
   {
     path: 'analysis',
     component: AnalysisComponent
+  },
+  // login
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  // register
+  {
+    path: 'register',
+    component: RegisterComponent
   }
 ];
 

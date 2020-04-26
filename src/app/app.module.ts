@@ -16,6 +16,8 @@ import { DialogBodyComponent } from './components/dialog-body/dialog-body.compon
 import { MatButtonModule } from '@angular/material/button';
 import { AdministratorComponent} from './components/administrator/administrator.component';
 import { FlightsComponent } from './components/flights/flights.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { FlightsComponent } from './components/flights/flights.component';
     DialogBodyComponent,
     AdministratorComponent,
     FlightsComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
