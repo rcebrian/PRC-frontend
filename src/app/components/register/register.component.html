@@ -1,1 +1,50 @@
-<p>register works!</p>
+<!--  &lt;!&ndash; Analysis &ndash;&gt;-->
+<!--  <h2>Analyse</h2>-->
+<!--  <p>Connect to Flask REST API to analyse emotions</p>-->
+
+<!--  <div class="card-container">-->
+<!--    <a class="card" rel="noopener" href="/analysis">-->
+<!--      <i class="far fa-chart-bar"></i>-->
+
+<!--      <span> Analyse</span>-->
+
+<!--      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>-->
+<!--  </div>-->
+<div class="container" role="main">
+  <h1 class="home-title">Register</h1>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div class="card border-primary">
+        <div class="card-body">
+          <img src="https://img.pngio.com/user-profile-avatar-login-account-svg-png-icon-free-download-user-profile-png-980_966.png" alt="Avatar" class="profile-img">
+          <form action="action_page.php">
+            <div class="container">
+              <p>Please fill in this form to create an account.</p>
+              <hr>
+
+              <label><b>Email</b></label>
+              <input type="text" placeholder="Enter Email" name="email" required>
+
+              <label><b>Password</b></label>
+              <input type="password" placeholder="Enter Password" name="psw" required>
+
+              <label><b>Repeat Password</b></label>
+              <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+              <hr>
+
+              <p>By creating an account you agree to our <a href="/register">Terms & Privacy</a>.</p>
+              <button type="submit" class="btn">Register</button>
+            </div>
+
+            <div class="container back">
+              <p>Already have an account? <a routerLinkActive="active" routerLink="/login">Sign in</a>.</p>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
