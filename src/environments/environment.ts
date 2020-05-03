@@ -4,8 +4,13 @@
 
 export const environment = {
   production: false,
-  apiurl: 'http://localhost:8000/api'
+  apiUrl: 'http://localhost:8000/api'
 };
+
+export const endpoints = {
+  register: `${environment.apiUrl}/auth/register`,
+  login: `${environment.apiUrl}/auth/login`,
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

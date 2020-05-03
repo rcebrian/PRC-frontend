@@ -12,7 +12,7 @@ export class AnalysisService {
   constructor(private httpClient: HttpClient) { }
 
   getAnalysis(lib: number, msg: Text) {
-    return this.httpClient.post(`${environment.apiurl}/analysis`,
+    return this.httpClient.post(`${environment.apiUrl}/analysis`,
       {
         lib: parseInt(`${lib}`),
         msg: `${msg}`,
@@ -20,7 +20,7 @@ export class AnalysisService {
   }
 
   getTranslation(msg: Text) {
-    return this.httpClient.post(`${environment.apiurl}/translate`,
+    return this.httpClient.post(`${environment.apiUrl}/translate`,
       {
         lang: 'en',
         msg: `${msg}`,

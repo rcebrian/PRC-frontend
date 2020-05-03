@@ -16,8 +16,8 @@ import { DialogBodyComponent } from './components/dialog-body/dialog-body.compon
 import { MatButtonModule } from '@angular/material/button';
 import { AdministratorComponent} from './components/administrator/administrator.component';
 import { FlightsComponent } from './components/flights/flights.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 
 @NgModule({
   declarations: [

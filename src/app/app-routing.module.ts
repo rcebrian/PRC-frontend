@@ -4,8 +4,8 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { IndexComponent } from './components/index/index.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { FlightsComponent } from './components/flights/flights.component';
-import {LoginComponent} from './components/login/login.component';
-import {RegisterComponent} from './components/register/register.component';
+import {LoginComponent} from './components/auth/login/login.component';
+import {RegisterComponent} from './components/auth/register/register.component';
 
 const routes: Routes = [
   // home
