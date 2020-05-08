@@ -19,6 +19,11 @@ import { FlightsComponent } from './components/flights/flights.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import {MatNativeDateModule} from '@angular/material/core';
+import {ReactiveFormsModule} from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +45,10 @@ import { RegisterComponent } from './components/auth/register/register.component
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [
     { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }

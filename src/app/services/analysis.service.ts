@@ -26,4 +26,22 @@ export class AnalysisService {
         msg: `${msg}`,
       });
   }
+
+  getAlgorithms() {
+    return this.httpClient.post(`${environment.apiUrl}/models/algorithms`,{});
+  }
+
+  getModels() {
+    return this.httpClient.post(`${environment.apiUrl}/models/models`,{});
+  }
+
+  createModel(characteristic:  Array<string>, start_date: String, end_date: String, algorithm_id: number) {
+    return this.httpClient.post(`${environment.apiUrl}/models/training`,
+      {
+        algorithm_id: parseInt(`${algorithm_id}`),
+        start_date: `${start_date}`,
+        end_date: `${end_date}`,
+        characteristic: characteristic,
+      });
+  }
 }
