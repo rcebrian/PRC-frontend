@@ -1,43 +1,56 @@
-<!--  &lt;!&ndash; Analysis &ndash;&gt;-->
-<!--  <h2>Analyse</h2>-->
-<!--  <p>Connect to Flask REST API to analyse emotions</p>-->
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+    <div class="card border-secondary">
+      <div class="card-body">
+        <legend class="card-title">Login</legend>
+        <form>
 
-<!--  <div class="card-container">-->
-<!--    <a class="card" rel="noopener" href="/analysis">-->
-<!--      <i class="far fa-chart-bar"></i>-->
-
-<!--      <span> Analyse</span>-->
-
-<!--      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>-->
-<!--  </div>-->
-<div class="container" role="main">
-  <h1 class="home-title">Login</h1>
-  <div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-      <div class="card border-primary">
-        <div class="card-body">
-          <img src="https://img.pngio.com/user-profile-avatar-login-account-svg-png-icon-free-download-user-profile-png-980_966.png" alt="Avatar" class="profile-img">
-          <form action="action_page.php" method="post">
-            <div class="container">
-              <label><b>Username</b></label>
-              <input type="text" placeholder="Enter Username" name="uname" required>
-
-              <label><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-
-              <button type="submit" class="btn">Login</button>
-              <div class="container back">
-                <label>
-                  <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-                <span class="rght">You don't have an account? Create one <a href="/register">here</a>.</span>
+          <div class="form-group">
+            <label class="control-label" for="email">Email address</label>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <i class="input-group-text far fa-envelope"></i>
+                </div>
+                <input type="text" id="email" class="form-control" aria-describedby="emailHelp" aria-label="Email"
+                       placeholder="Enter email">
               </div>
             </div>
-          </form>
-        </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label" for="password">Email address</label>
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <i class="input-group-text fas fa-lock"></i>
+                </div>
+                <input type="password" id="password" class="form-control" placeholder="Password">
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" value="" checked="">Remember me
+              </label>
+            </div>
+          </fieldset>
+          <div class="form-group text-center">
+            <div class="col-xs-12 pb-3">
+              <button type="submit" class="btn btn-secondary btn-block">Log In</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-12 text-center">
+              Don't have an account? <a href="register" class="text-info"><b>Sign Up</b></a>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="col-md-2"></div>
   </div>
+  <div class="col-md-2"></div>
 </div>
