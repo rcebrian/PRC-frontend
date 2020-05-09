@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
-import {AnalysisService} from 'src/app/services/analysis.service';
+import {AdminService} from 'src/app/services/admin/admin.service';
 import {DateAdapter, MAT_DATE_FORMATS} from '@angular/material/core';
 
 import { AppDateAdapter, APP_DATE_FORMATS } from './format-datapicker';
@@ -37,21 +37,35 @@ export class Model {
 })
 
 export class AdministratorComponent implements OnInit {
+  // Chart
   chart: Chart;
   positive: number;
   negative: number;
   neutral: number;
-
   minPositive: number;
   maxNegative: number;
 
+  // Create Model
+  algorithms:  Array<Algorithm>;
+  algorithmDescription: String = "";
+
+
+  // Select Model
+  interval;
   selectedAlgorithm: number;
   selectedAlgorithmModel: number;
   selectedModel: number;
-  algorithms:  Array<Algorithm>;
   models:  Array<Model>;
   dateArrayModels: Array<Model>;
-  algorithmDescription: String = "";
+  selectModel: Model;
+
+  // Btn create model
+  buttonDisabledModel: boolean = false;
+  buttonModelStr: string = 'Create';
+
+  // Btn update model
+  buttonDisabledUpdate: boolean = false;
+  buttonUpdateStr: string = 'Apply';
 
   // Errors
   characteristicsError: String;
@@ -75,7 +89,7 @@ export class AdministratorComponent implements OnInit {
   pressure: boolean = false;
   characteristic: Array<string> = ["id","date", "time","airline_id","city_id","airport_id","temperature",
     "humidity","pressure","wind_direction","wind_speed","delay"];
-  constructor(private analysisService: AnalysisService) { }
+  constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
     // Para cargar de la base de datos
@@ -88,39 +102,20 @@ export class AdministratorComponent implements OnInit {
     this.initialChart();
     this.getAlgorithms();
     this.getModels();
+    // @ts-ignore
+    this.interval = setInterval(this.getLastModels.bind(this), 3000);
   }
 
+  //-------------------------Create new training model-----------------------------
   onChangeAlgorithm(id){
     this.selectedAlgorithm = id.value;
     this.algorithmDescription = this.algorithms[id.value].description;
   }
 
-  onChangeModelType(id){
-    this.selectedAlgorithmModel = id.value;
-    let array: Array<Model> = [];
-    this.models.forEach(x =>{if(x.type==this.selectedAlgorithmModel){array.push(x);}});
-    this.dateArrayModels = array;
-  }
-
-  onChangeModelDate(id){
-    console.log(id.value);
-  }
-
   getAlgorithms(){
-    this.analysisService.getAlgorithms().subscribe(
+    this.adminService.getAlgorithms().subscribe(
       (data:Array<Algorithm>) => {
         this.getAlgorithmData(data);
-      },
-      error => {
-        alert(`An error occurred with the server connection`);
-      }
-    );
-  }
-
-  getModels(){
-    this.analysisService.getModels().subscribe(
-      (data:Array<Model>) => {
-        this.getModelData(data);
       },
       error => {
         alert(`An error occurred with the server connection`);
@@ -131,14 +126,146 @@ export class AdministratorComponent implements OnInit {
   getAlgorithmData(data){
     this.algorithms = data;
     this.selectedAlgorithm = 0;
+    this.algorithmDescription = this.algorithms[0].description;
+  }
+
+  createModel(){
+    let selected_characteristic = [this.id, this.date, this.time, this.airline_id, this.city_id, this.airport_id,
+      this.temperature, this.humidity, this.pressure, this.wind_direction, this.wind_speed, true];
+    let array_characteristic: Array<string> = [];
+    for (let i = 0; i<this.characteristic.length; i++){
+      if (selected_characteristic[i]){
+        array_characteristic.push(this.characteristic[i]);
+      }
+    }
+
+    if (array_characteristic.length == 1) {
+      this.characteristicsError = 'You must select at least one characteristic.';
+    } else {
+      this.characteristicsError = null;
+    }
+
+    if (this.startDateStr != null && this.endDateStr != null) {
+      let startDate = this.convertDate(this.startDateStr);
+      let endDate = this.convertDate(this.endDateStr);
+
+      this.buttonDisabledModel = true;
+      this.buttonModelStr = 'Creating...'
+      clearInterval(this.interval);
+      this.adminService.createModel(array_characteristic, startDate, endDate, this.selectedAlgorithm).subscribe(
+          (data:any) => {
+            this.buttonDisabledModel = false;
+            this.buttonModelStr = 'Create'
+            this.interval = setInterval(this.getLastModels.bind(this), 2000);
+          },
+          error => {
+            alert(`An error occurred with the server connection`);
+            console.log(error);
+            this.buttonDisabledModel = false;
+            this.buttonModelStr = 'Created'
+          }
+        );
+
+      }
+  }
+
+  convertDate(str) {
+    let date = new Date(str),
+      month = ("0" + (date.getMonth() + 1)).slice(-2),
+      day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), month, day].join("-");
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------Change selected training model---------------------------
+  onChangeModelType(id){
+    this.selectedAlgorithmModel = id;
+    let array: Array<Model> = [];
+    this.models.forEach(x =>{if(x.type==this.selectedAlgorithmModel){array.push(x);}});
+    this.dateArrayModels = array;
+    if (this.dateArrayModels.length != 0){
+      this.onChangeModelDate(this.dateArrayModels[0].id);
+    } else {
+      this.selectModel = null;
+      console.log(1);
+    }
+  }
+
+  onChangeModelDate(id){
+    this.selectModel = this.dateArrayModels.find(element => element.id == id);
+  }
+
+  getModels(){
+    this.adminService.getModels().subscribe(
+      (data:Array<Model>) => {
+        this.getModelData(data);
+      },
+      error => {
+        alert(`An error occurred with the server connection`);
+      }
+    );
+  }
+
+  addModel(data){
+    data.forEach(model => this.models.push(model));
+
+    if (this.dateArrayModels.length > 0){
+      let array: Array<Model> = [];
+      this.models.forEach(x =>{if(x.type==this.dateArrayModels[0].type){array.push(x);}});
+      this.dateArrayModels = array;
+    }
   }
 
   getModelData(data){
     this.models = data;
-    this.selectedModel = 0;
-    this.algorithmDescription = this.algorithms[0].description;
+
+    if (this.dateArrayModels == null)
+      this.selectedModel = 0;
+    this.onChangeModelType(0);
   }
 
+  getLastModels(){
+    if (this.models != null){
+      let max:number = 0;
+      this.models.forEach(model => {if(model.id > max){max = model.id}});
+      this.adminService.getLastModels(max).subscribe(
+        (data:Array<Model>) => {
+          if (data.length != 0){
+            this.addModel(data);
+          }
+        },
+        error => {
+          alert(`An error occurred with the server connection`);
+        }
+      );
+    }
+  }
+
+  selectUseModel(){
+    if (this.selectModel != null){
+      this.buttonDisabledUpdate = true;
+      this.buttonUpdateStr = 'Updating...'
+      this.adminService.setModelInUse(this.selectModel.id).subscribe(
+        (data:any) => {
+          this.buttonDisabledUpdate = false;
+          this.buttonUpdateStr = 'Apply'
+        },
+        error => {
+          alert(`An error occurred with the server connection`);
+          console.log(error);
+          this.buttonDisabledUpdate = false;
+          this.buttonUpdateStr = 'Apply'
+        }
+      );
+    } else {
+      console.log('error');
+    }
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------------Sentiment analysis--------------------------------
   initialChart() {
     this.chart = new Chart('realtime', {
       type: 'pie',
@@ -167,47 +294,5 @@ export class AdministratorComponent implements OnInit {
         }
       }
     });
-  }
-
-  createModel(){
-    let selected_characteristic = [this.id, this.date, this.time, this.airline_id, this.city_id, this.airport_id,
-      this.temperature, this.humidity, this.pressure, this.wind_direction, this.wind_speed, true];
-    let array_characteristic: Array<string> = [];
-    for (let i = 0; i<this.characteristic.length; i++){
-      if (selected_characteristic[i]){
-        array_characteristic.push(this.characteristic[i]);
-      }
-    }
-
-    if (array_characteristic.length == 1) {
-      this.characteristicsError = 'You must select at least one characteristic.';
-    } else {
-      this.characteristicsError = null;
-    }
-
-    if (this.startDateStr != null && this.endDateStr != null) {
-      let startDate = this.convertDate(this.startDateStr);
-      let endDate = this.convertDate(this.endDateStr);
-      // Todo ok, lanzar el modelo
-       console.log(JSON.stringify(array_characteristic))
-
-      this.analysisService.createModel(array_characteristic, startDate, endDate, this.selectedAlgorithm).subscribe(
-          (data:any) => {
-            console.log(data);
-          },
-          error => {
-            alert(`An error occurred with the server connection`);
-            console.log(error);
-          }
-        );
-
-      }
-  }
-
-  convertDate(str) {
-    let date = new Date(str),
-      month = ("0" + (date.getMonth() + 1)).slice(-2),
-      day = ("0" + date.getDate()).slice(-2);
-    return [date.getFullYear(), month, day].join("-");
   }
 }

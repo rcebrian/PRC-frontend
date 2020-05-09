@@ -74,6 +74,7 @@ li {
 
 #selectModelBtn {
   background: $select-model-color;
+  margin-top: 20px;
 }
 
 #selectLibraryBtn {
@@ -108,4 +109,15 @@ li {
 
 #textMargin{
   margin-top: 20px;
+}
+
+#tableReport{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#numRows{
+  margin-top: 10px;
+  text-align: center;
 }
