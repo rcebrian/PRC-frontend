@@ -39,4 +39,28 @@ export class AdminService {
       });
   }
 
+  updateHistoricalFlightsData(date: String, airport_id: number) {
+    return this.httpClient.post(`${environment.apiUrl}/scrapers/flights/history`,
+      {
+        airport_id: parseInt(`${airport_id}`),
+        date: `${date}`,
+      });
+  }
+
+  updateHistoricalWeatherData(date: String, airport_id: number) {
+    return this.httpClient.post(`${environment.apiUrl}/scrapers/weathers/history`,
+      {
+        airport_id: parseInt(`${airport_id}`),
+        date: `${date}`,
+      });
+  }
+
+  updateUrlFlights(countryId: number){
+    return this.httpClient.post(`${environment.apiUrl}/scrapers/airportia/url`,
+      {
+        country_id: parseInt(`${countryId}`),
+      });
+  }
+
+
 }

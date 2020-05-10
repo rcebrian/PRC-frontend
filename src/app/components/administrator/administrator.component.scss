@@ -2,7 +2,10 @@ $train-model-color: #616161;
 $select-model-color: #546e7a;
 $analysis-info-color: #4db6ac;
 $select-library-color: #388e3c;
-$update-data-color: #8d6e63;
+$update-data-train-color: #8d6e63;
+$update-data-now-color: #5c6bc0;
+$update-data-comment-color: #ffb74d;
+$update-url-color: #90a4ae;
 
 .cont{
   margin-left: 5%;
@@ -60,12 +63,26 @@ li {
   background: $select-library-color;
 }
 
-#updateDataCard{
-  background-color: $update-data-color;
+.updateDataTrainCard{
+  background-color: $update-data-train-color;
 }
 
-#updateDataBtn{
-  background-color: $update-data-color;
+.updateDataNowCard{
+  background-color: $update-data-now-color;
+}
+
+.updateDataCommentCard{
+  background-color: $update-data-comment-color;
+}
+.updateUrlColor{
+  background-color: $update-url-color;
+}
+
+.updateTrainBtn{
+  background-color: white;
+  border-color: $update-data-train-color;
+  color: $update-data-train-color;
+  border-width: 3px;
 }
 
 #trainModelBtn {
@@ -98,7 +115,7 @@ li {
   width: 100%;
 }
 
-.dateMargin{
+.bottomMargin{
   margin-bottom: 20px;
 }
 
@@ -120,4 +137,23 @@ li {
 #numRows{
   margin-top: 10px;
   text-align: center;
+}
+
+.line {
+  font-size: 4px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  line-height: 0.1em;
+  margin: 10px 0 20px;
+}
+
+.line span {
+  background-color: white;
+  padding: 0 10px;
+  font-size: 15px;
+}
+
+.topMargin{
+  margin-top: 20px;
 }

@@ -72,8 +72,8 @@ export class AdministratorComponent implements OnInit {
 
   //Dates
   todayDate:Date = new Date();
-  startDateStr: String;
-  endDateStr: String;
+  startDateStr: Date;
+  endDateStr: Date;
 
   // Create model train
   date: boolean = false;
@@ -89,6 +89,36 @@ export class AdministratorComponent implements OnInit {
   pressure: boolean = false;
   characteristic: Array<string> = ["id","date", "time","airline_id","city_id","airport_id","temperature",
     "humidity","pressure","wind_direction","wind_speed","delay"];
+
+  //Update train data
+  yesterday: Date = new Date();
+  minDateTrain: Date = new Date();
+  dateStrTrain: Date;
+  airportIdTrain: number;
+  errorAirportId: string;
+  buttonDisabledAllTrainData: boolean = false;
+  buttonUpdateAllTrainStr: string = 'Update all';
+  buttonDisabledFlightTrainData: boolean = false;
+  buttonUpdateFlightTrainStr: string = 'Flights';
+  buttonDisabledWeatherTrainData: boolean = false;
+  buttonUpdateWeatherTrainStr: string = 'Weather';
+  selectButtonTrain: number;
+
+  //Update today data
+  airportIdNow: number;
+  errorAirportNow: string;
+
+  //Update today data
+  cityId: number;
+  errorCityIdError: string;
+
+
+  //Update url data
+  countryId: number;
+  errorUrl: string;
+  buttonDisabledUrlData: boolean = false;
+  buttonUpdateUrlStr: string = 'Update';
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -99,6 +129,8 @@ export class AdministratorComponent implements OnInit {
     this.minPositive = 0.7;
     this.maxNegative = -0.6;
 
+    this.yesterday.setDate(this.yesterday.getDate() - 1);
+    this.minDateTrain.setDate(this.minDateTrain.getDate() - 5);
     this.initialChart();
     this.getAlgorithms();
     this.getModels();
@@ -165,8 +197,7 @@ export class AdministratorComponent implements OnInit {
             this.buttonModelStr = 'Created'
           }
         );
-
-      }
+    }
   }
 
   convertDate(str) {
@@ -188,7 +219,6 @@ export class AdministratorComponent implements OnInit {
       this.onChangeModelDate(this.dateArrayModels[0].id);
     } else {
       this.selectModel = null;
-      console.log(1);
     }
   }
 
@@ -202,7 +232,7 @@ export class AdministratorComponent implements OnInit {
         this.getModelData(data);
       },
       error => {
-        alert(`An error occurred with the server connection`);
+        alert(error.error.errors);
       }
     );
   }
@@ -236,7 +266,7 @@ export class AdministratorComponent implements OnInit {
           }
         },
         error => {
-          alert(`An error occurred with the server connection`);
+          alert(error.error.errors);
         }
       );
     }
@@ -252,7 +282,7 @@ export class AdministratorComponent implements OnInit {
           this.buttonUpdateStr = 'Apply'
         },
         error => {
-          alert(`An error occurred with the server connection`);
+          alert(error.error.errors);
           console.log(error);
           this.buttonDisabledUpdate = false;
           this.buttonUpdateStr = 'Apply'
@@ -260,6 +290,127 @@ export class AdministratorComponent implements OnInit {
       );
     } else {
       console.log('error');
+    }
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------------Update train data---------------------------------
+  updateTrainData(){
+    if (this.airportIdTrain != null ){
+      this.errorAirportId = null;
+      if (this.dateStrTrain != null) {
+        let date = this.convertDate(this.dateStrTrain);
+        if (this.selectButtonTrain == 0){ // Flights
+          this.buttonDisabledFlightTrainData = true;
+          this.buttonUpdateFlightTrainStr = 'Updating...';
+          this.updateFlightsHistorical(date);
+        } else if (this.selectButtonTrain == 1){ //Weather
+          this.buttonDisabledWeatherTrainData= true;
+          this.buttonUpdateWeatherTrainStr = 'Updating...';
+          this.updateWeathersHistorical(date);
+          this.buttonDisabledWeatherTrainData = false;
+          this.buttonUpdateWeatherTrainStr = 'Weather';
+        } else { //Both
+          this.buttonDisabledAllTrainData = true;
+          this.buttonUpdateAllTrainStr = 'Updating...';
+          this.updateFlightsHistorical(date);
+        }
+      }
+    } else {
+      this.errorAirportId = "Please, enter an Airport ID"
+    }
+  }
+
+  updateFlightsHistorical(date){
+    this.adminService.updateHistoricalFlightsData(date, this.airportIdTrain).subscribe(
+      (data:any) => {
+        if (this.selectButtonTrain == 0){ // Flights
+          this.buttonDisabledFlightTrainData = false;
+          this.buttonUpdateFlightTrainStr = 'Flights';
+        } else {
+            this.updateWeathersHistorical(date);
+        }
+      },
+      error => {
+        alert(error.error.errors);
+        if (this.selectButtonTrain == 0){ // Flights
+          this.buttonDisabledFlightTrainData = false;
+          this.buttonUpdateFlightTrainStr = 'Flights';
+        } else { //Both
+          this.buttonDisabledAllTrainData = false;
+          this.buttonUpdateAllTrainStr = 'Update All';
+        }
+      }
+    );
+  }
+
+  updateWeathersHistorical(date){
+    this.adminService.updateHistoricalWeatherData(date, this.airportIdTrain).subscribe(
+      (data:any) => {
+        if (this.selectButtonTrain == 1){ //Weather
+          this.buttonDisabledWeatherTrainData = false;
+          this.buttonUpdateWeatherTrainStr = 'Weather';
+        } else { //Both
+          this.buttonDisabledAllTrainData = false;
+          this.buttonUpdateAllTrainStr = 'Update All';
+        }
+      },
+      error => {
+        alert(error.error.errors);
+        if (this.selectButtonTrain == 1){ //Weather
+          this.buttonDisabledWeatherTrainData = false;
+          this.buttonUpdateWeatherTrainStr = 'Weather';
+        } else { //Both
+          this.buttonDisabledAllTrainData = false;
+          this.buttonUpdateAllTrainStr = 'Update All';
+        }
+      }
+    );
+
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------------Update today data---------------------------------
+  updateNowData(){
+    if (this.airportIdNow != null ){
+    } else {
+      this.errorAirportNow = "Please, enter an Airport ID"
+    }
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------------Update comment data---------------------------------
+  updateCommentData(){
+    if (this.cityId != null ){
+    } else {
+      this.errorCityIdError = "Please, enter an City ID"
+    }
+  }
+  //-------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------
+
+  //-----------------------------Update URL data-----------------------------------
+  updateUrlData(){
+    if (this.countryId != null ){
+      this.errorUrl = '';
+      this.buttonDisabledUrlData = true;
+      this.buttonUpdateUrlStr = 'Updating...'
+      this.adminService.updateUrlFlights(this.countryId).subscribe(
+        (data:any) => {
+          this.buttonDisabledUrlData = false;
+          this.buttonUpdateUrlStr = 'Update'
+        },
+        error => {
+          alert(error.error.errors);
+          this.buttonDisabledUrlData = false;
+          this.buttonUpdateUrlStr = 'Update'
+        }
+      );
+    } else {
+      this.errorUrl = "Please, enter an Country ID"
     }
   }
   //-------------------------------------------------------------------------------

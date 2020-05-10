@@ -1,4 +1,5 @@
 <!-- .offset-md-3-->
+<script src="administrator.component.ts"></script>
 <div class="cont">
   <div class="card-columns">
     <div class="card left">
@@ -9,7 +10,7 @@
             <option *ngFor="let a of algorithms" [value]="a.id">{{a.name}}</option>
           </select>
 
-          <mat-form-field class="date dateMargin">
+          <mat-form-field class="date bottomMargin">
             <input matInput type="date" placeholder="Start date" [max]="todayDate" [matDatepicker]="datepickerStart"
                    name="datepicker" ngModel #dateCtrl="ngModel" [(ngModel)]="startDateStr" required readonly/>
             <mat-datepicker-toggle [for]="datepickerStart" matSuffix></mat-datepicker-toggle>
@@ -85,7 +86,7 @@
           <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-              <button class="submit" id="trainModelBtn" title="Create" class="form-control btn btn-dark"
+              <button class="submit form-control btn text-white" id="trainModelBtn" title="Create"
                       [attr.disabled]="(buttonDisabledModel == true ? true : null)" type="submit">{{buttonModelStr}}</button>
             </div>
             <div class="col-md-4"></div>
@@ -140,7 +141,7 @@
           <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-              <button class="submit" id="selectModelBtn" title="Apply" class="form-control btn btn-dark"
+              <button class="submit form-control btn text-white" id="selectModelBtn" title="Apply"
                       type="submit" [attr.disabled]="(buttonDisabledUpdate == true ? true : null)">{{buttonUpdateStr}}</button>
             </div>
             <div class="col-md-4"></div>
@@ -150,15 +151,95 @@
     </div>
 
     <div class="card left">
-      <div class="card-header text-white"  id="updateDataCard">Update training data</div>
+      <div class="card-header text-white updateDataTrainCard">Run update training data</div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-4"></div>
-          <div class="col-md-4">
-            <button class="submit" id="updateDataBtn" title="Update" class="form-control btn btn-dark" type="submit">Update</button>
+        <form (ngSubmit)="updateTrainData()" #selectTrainDataForm="ngForm">
+          <mat-form-field class="date dateMargin bottomMargin">
+            <input matInput type="date" placeholder="Start date" [min]="minDateTrain" [max]="yesterday"
+                   [matDatepicker]="datepickerStartTraining"
+                   name="datepicker" ngModel #dateCtrl="ngModel" [(ngModel)]="dateStrTrain" required readonly/>
+            <mat-datepicker-toggle [for]="datepickerStartTraining" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepickerStartTraining></mat-datepicker>
+            <mat-error *ngIf="dateCtrl.errors?.required ">Choose a Date</mat-error>
+          </mat-form-field>
+
+          <label>Airport ID</label>
+          <input class="form-control" name="airportId" type="number" [(ngModel)]="airportIdTrain">
+          <div *ngIf="errorAirportId" class="error">{{errorAirportId}}</div>
+          <div class="row">
+            <div class="col-md-4">
+              <button class="submit updateTrainBtn topMargin form-control btn" title="Update" (click)="selectButtonTrain = 0"
+                      type="submit" [attr.disabled]="(buttonDisabledFlightTrainData == true ? true : null)">{{buttonUpdateFlightTrainStr}}</button>
+            </div>
+            <div class="col-md-4">
+              <button class="submit updateTrainBtn topMargin form-control btn" title="Update" (click)="selectButtonTrain = 1"
+                      type="submit" [attr.disabled]="(buttonDisabledWeatherTrainData == true ? true : null)">{{buttonUpdateWeatherTrainStr}}</button>
+            </div>
+            <div class="col-md-4">
+              <button class="submit updateDataTrainCard topMargin form-control btn text-white" title="Update" (click)="selectButtonTrain =2"
+                      type="submit" [attr.disabled]="(buttonDisabledAllTrainData == true ? true : null)">{{buttonUpdateAllTrainStr}}</button>
+            </div>
           </div>
-          <div class="col-md-4"></div>
-        </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card right">
+      <div class="card-header text-white updateDataNowCard">Run Update now data</div>
+      <div class="card-body">
+        <form (ngSubmit)="updateNowData()" #selectNowDataForm="ngForm">
+          <label>Airport ID</label>
+          <input class="form-control" name="airportId" type="number" [(ngModel)]="airportIdNow">
+          <div *ngIf="errorAirportNow" class="error">{{errorAirportNow}}</div>
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <button class="submit updateDataNowCard topMargin form-control btn text-white" title="Update" type="submit">Update</button>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card right">
+      <div class="card-header text-white updateDataCommentCard">Run Comments Data</div>
+      <div class="card-body">
+        <form (ngSubmit)="updateCommentData()" #selectCommentDataForm="ngForm">
+          <label>City ID</label>
+          <input class="form-control" name="cityId" type="number" [(ngModel)]="cityId">
+          <div *ngIf="errorCityIdError" class="error">{{errorCityIdError}}</div>
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <button class="submit updateDataCommentCard topMargin form-control btn text-white" title="Update" type="submit">Update</button>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card right">
+      <div class="card-header text-white updateUrlColor">Run Update URL's Airports</div>
+      <div class="card-body">
+        <form (ngSubmit)="updateUrlData()" #selectURLDataForm="ngForm">
+          <label>Country ID</label>
+          <input class="form-control" name="airportId" type="number" [(ngModel)]="countryId">
+          <div *ngIf="errorUrl" class="error">{{errorUrl}}</div>
+
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <button class="submit updateUrlColor topMargin form-control btn text-white"
+                      title="Update" type="submit"
+                      [attr.disabled]="(buttonDisabledUrlData == true ? true : null)">{{buttonUpdateUrlStr}}</button>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+        </form>
       </div>
     </div>
 
