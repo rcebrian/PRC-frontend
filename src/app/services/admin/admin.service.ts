@@ -55,6 +55,20 @@ export class AdminService {
       });
   }
 
+  updateFutureFlightsData(airport_id: number) {
+    return this.httpClient.post(`${environment.apiUrl}/scrapers/flights/forecast`,
+      {
+        airport_id: parseInt(`${airport_id}`),
+      });
+  }
+
+  updateFutureWeatherData(airport_id: number) {
+    return this.httpClient.post(`${environment.apiUrl}/scrapers/weathers/forecast`,
+      {
+        airport_id: parseInt(`${airport_id}`),
+      });
+  }
+
   updateUrlFlights(countryId: number){
     return this.httpClient.post(`${environment.apiUrl}/scrapers/airportia/url`,
       {

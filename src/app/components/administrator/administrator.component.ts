@@ -107,6 +107,13 @@ export class AdministratorComponent implements OnInit {
   //Update today data
   airportIdNow: number;
   errorAirportNow: string;
+  buttonDisabledAllNowData: boolean = false;
+  buttonUpdateAllNowStr: string = 'Update all';
+  buttonDisabledFlightNowData: boolean = false;
+  buttonUpdateFlightNowStr: string = 'Flights';
+  buttonDisabledWeatherNowData: boolean = false;
+  buttonUpdateWeatherNowStr: string = 'Weather';
+  selectButtonNow: number;
 
   //Update today data
   cityId: number;
@@ -309,8 +316,6 @@ export class AdministratorComponent implements OnInit {
           this.buttonDisabledWeatherTrainData= true;
           this.buttonUpdateWeatherTrainStr = 'Updating...';
           this.updateWeathersHistorical(date);
-          this.buttonDisabledWeatherTrainData = false;
-          this.buttonUpdateWeatherTrainStr = 'Weather';
         } else { //Both
           this.buttonDisabledAllTrainData = true;
           this.buttonUpdateAllTrainStr = 'Updating...';
@@ -367,7 +372,6 @@ export class AdministratorComponent implements OnInit {
         }
       }
     );
-
   }
   //-------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------
@@ -375,9 +379,69 @@ export class AdministratorComponent implements OnInit {
   //-----------------------------Update today data---------------------------------
   updateNowData(){
     if (this.airportIdNow != null ){
+      if (this.selectButtonNow == 0){ // Flights
+        this.buttonDisabledFlightNowData = true;
+        this.buttonUpdateFlightNowStr = 'Updating...';
+        this.updateFlightsFuture();
+      } else if (this.selectButtonNow == 1){ //Weather
+        this.buttonDisabledWeatherNowData= true;
+        this.buttonUpdateWeatherNowStr = 'Updating...';
+        this.updateWeathersFuture();
+      } else { //Both
+        this.buttonDisabledAllNowData = true;
+        this.buttonUpdateAllNowStr = 'Updating...';
+        this.updateFlightsFuture();
+      }
     } else {
       this.errorAirportNow = "Please, enter an Airport ID"
     }
+  }
+
+  updateFlightsFuture(){
+    this.adminService.updateFutureFlightsData(this.airportIdNow).subscribe(
+      (data:any) => {
+        if (this.selectButtonNow == 0){ // Flights
+          this.buttonDisabledFlightNowData = false;
+          this.buttonUpdateFlightNowStr = 'Flights';
+        } else {
+          this.updateWeathersFuture();
+        }
+      },
+      error => {
+        alert(error.error.errors);
+        if (this.selectButtonNow == 0){ // Flights
+          this.buttonDisabledFlightNowData = false;
+          this.buttonUpdateFlightNowStr = 'Flights';
+        } else { //Both
+          this.buttonDisabledAllNowData = false;
+          this.buttonUpdateAllNowStr = 'Update All';
+        }
+      }
+    );
+  }
+
+  updateWeathersFuture(){
+    this.adminService.updateFutureWeatherData(this.airportIdNow).subscribe(
+      (data:any) => {
+        if (this.selectButtonNow == 1){ //Weather
+          this.buttonDisabledWeatherNowData = false;
+          this.buttonUpdateWeatherNowStr = 'Weather';
+        } else { //Both
+          this.buttonDisabledAllNowData = false;
+          this.buttonUpdateAllNowStr = 'Update All';
+        }
+      },
+      error => {
+        alert(error.error.errors);
+        if (this.selectButtonNow == 1){ //Weather
+          this.buttonDisabledWeatherNowData = false;
+          this.buttonUpdateWeatherNowStr = 'Weather';
+        } else { //Both
+          this.buttonDisabledAllNowData = false;
+          this.buttonUpdateAllNowStr = 'Update All';
+        }
+      }
+    );
   }
   //-------------------------------------------------------------------------------
   //-------------------------------------------------------------------------------

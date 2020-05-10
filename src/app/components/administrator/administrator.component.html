@@ -193,11 +193,18 @@
           <div *ngIf="errorAirportNow" class="error">{{errorAirportNow}}</div>
 
           <div class="row">
-            <div class="col-md-4"></div>
             <div class="col-md-4">
-              <button class="submit updateDataNowCard topMargin form-control btn text-white" title="Update" type="submit">Update</button>
+              <button class="submit updateNowBtn topMargin form-control btn" title="Update" (click)="selectButtonNow=0"
+                      type="submit" [attr.disabled]="(buttonDisabledFlightNowData == true ? true : null)">{{buttonUpdateFlightNowStr}}</button>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <button class="submit updateNowBtn topMargin form-control btn" title="Update" (click)="selectButtonNow=1"
+                      type="submit" [attr.disabled]="(buttonDisabledWeatherNowData == true ? true : null)">{{buttonUpdateWeatherNowStr}}</button>
+            </div>
+            <div class="col-md-4">
+              <button class="submit updateDataNowCard topMargin form-control btn text-white" title="Update" (click)="selectButtonNow=2"
+                      type="submit" [attr.disabled]="(buttonDisabledAllNowData == true ? true : null)">{{buttonUpdateAllNowStr}}</button>
+            </div>
           </div>
         </form>
       </div>

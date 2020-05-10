@@ -85,6 +85,13 @@ li {
   border-width: 3px;
 }
 
+.updateNowBtn{
+  background-color: white;
+  border-color: $update-data-now-color;
+  color: $update-data-now-color;
+  border-width: 3px;
+}
+
 #trainModelBtn {
   background-color: $train-model-color;
 }
