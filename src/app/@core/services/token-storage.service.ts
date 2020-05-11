@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'auth-token';
+const TOKEN_KEY = 'access_token';
+const TOKEN_TYPE = 'token_type';
 const USER_KEY = 'auth-user';
 
 @Injectable({

@@ -13,7 +13,7 @@
                 <div class="input-group-prepend">
                   <i class="input-group-text far fa-envelope"></i>
                 </div>
-                <input type="text" id="email" class="form-control"
+                <input type="text" id="email" name="email" class="form-control"
                        [(ngModel)]="form.email" required #email="ngModel"
                        placeholder="Enter email">
               </div>
@@ -29,7 +29,7 @@
                 <div class="input-group-prepend">
                   <i class="input-group-text fas fa-lock"></i>
                 </div>
-                <input type="password" id="password" class="form-control"
+                <input type="password" id="password" name="password" class="form-control"
                        [(ngModel)]="form.password" required #password="ngModel" minlength="6"
                        placeholder="Password">
               </div>

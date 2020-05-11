@@ -17,14 +17,14 @@ export class AuthService {
 
   login(credentials): Observable<any> {
     return this.http.post(endpoints.logIn, {
-      username: credentials.username,
+      email: credentials.email,
       password: credentials.password
     }, httpOptions);
   }
 
+  // todo: complete register fields
   register(user): Observable<any> {
     return this.http.post(endpoints.register, {
-      username: user.username,
       email: user.email,
       password: user.password
     }, httpOptions);
