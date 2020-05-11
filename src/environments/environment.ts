@@ -9,7 +9,9 @@ export const environment = {
 
 export const endpoints = {
   register: `${environment.apiUrl}/auth/register`,
-  login: `${environment.apiUrl}/auth/login`,
+  logIn: `${environment.apiUrl}/auth/login`,
+  logOut: `${environment.apiUrl}/auth/logout`,
+  refresh: `${environment.apiUrl}/auth/refresh`,
 }
 
 /*

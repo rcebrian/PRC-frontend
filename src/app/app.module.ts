@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { IndexComponent } from './components/index/index.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,15 +14,16 @@ import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/d
 
 import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
 import { MatButtonModule } from '@angular/material/button';
-import { AdministratorComponent} from './components/administrator/administrator.component';
+import { AdministratorComponent } from './components/administrator/administrator.component';
 import { FlightsComponent } from './components/flights/flights.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import {MatNativeDateModule} from '@angular/material/core';
-import {ReactiveFormsModule} from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptorService } from './@core/services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     MatDatepickerModule
   ],
   providers: [
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } }
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false },},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [
     AppComponent
