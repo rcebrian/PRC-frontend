@@ -3,23 +3,23 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import {Observable, throwError} from 'rxjs';
 import { Router } from "@angular/router";
 import { catchError } from "rxjs/operators";
+import {TokenStorageService} from "./token-storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptorService implements HttpInterceptor {
 
-  constructor(private router: Router) { }
+  constructor(private token: TokenStorageService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const jwtToken: string = localStorage.getItem('token');
-
     let request = req;
+    const jwtToken: string = this.token.getToken();
 
     if (jwtToken) {
       request = req.clone({
         setHeaders: {
-          authorization: `Bearer ${ jwtToken }`
+          authorization: `Bearer ${ jwtToken }`,
         }
       });
     }
