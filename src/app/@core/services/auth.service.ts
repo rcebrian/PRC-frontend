@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {endpoints} from "../../../environments/environment";
+import {endpoints} from '../../../environments/endpoints'
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -22,11 +22,16 @@ export class AuthService {
     }, httpOptions);
   }
 
-  // todo: complete register fields
   register(user): Observable<any> {
     return this.http.post(endpoints.register, {
+      name: user.name,
+      surnames: user.surnames,
+      dni: user.nif,
       email: user.email,
-      password: user.password
+      phoneNumber: user.phoneNumber,
+      role: 2, // client
+      password: user.password,
+      password_confirmation: user.password_confirmation,
     }, httpOptions);
   }
 }

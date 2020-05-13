@@ -7,13 +7,6 @@ export const environment = {
   apiUrl: 'http://localhost:8000/api'
 };
 
-export const endpoints = {
-  register: `${environment.apiUrl}/auth/register`,
-  logIn: `${environment.apiUrl}/auth/login`,
-  logOut: `${environment.apiUrl}/auth/logout`,
-  refresh: `${environment.apiUrl}/auth/refresh`,
-}
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

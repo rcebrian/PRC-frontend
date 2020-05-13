@@ -12,7 +12,6 @@ export class LoginComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(private authService: AuthService, private tokenStorage: TokenStorageService) {
   }
@@ -20,9 +19,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roles = this.tokenStorage.getUser().roles;
     }
   }
+
   // https://bezkoder.com/angular-jwt-authentication/
   onSubmit() {
     this.authService.login(this.form).subscribe(
@@ -32,19 +31,13 @@ export class LoginComponent implements OnInit {
 
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.roles = this.tokenStorage.getUser().roles;
-        // this.reloadPage();
 
-        console.log(data);
+        console.log(JSON.stringify(data));
       },
       err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
       }
     );
-  }
-
-  reloadPage() {
-    window.location.reload();
   }
 }
