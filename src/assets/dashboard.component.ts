@@ -49,7 +49,7 @@ export class DashboardComponent implements OnInit {
     this.markers.getMarkers().subscribe(
       res => {
         for (const c of res) {
-          const marker = L.marker([c.latitude, c.longitude]).addTo(this.map);
+          const marker = L.marker([c.longitude, c.latitude]).addTo(this.map);
         }
       },
       err => {

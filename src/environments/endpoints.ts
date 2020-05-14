@@ -5,4 +5,5 @@ export const endpoints = {
     logIn: `${environment.apiUrl}/auth/login`,
     logOut: `${environment.apiUrl}/auth/logout`,
     refresh: `${environment.apiUrl}/auth/refresh`,
+    coordnates: `${environment.apiUrl}/airports/coordinates`
 }
