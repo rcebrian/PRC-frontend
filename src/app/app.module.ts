@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptorService } from './@core/services/auth-interceptor.service';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AuthInterceptorService } from './@core/services/auth-interceptor.servic
     FlightsComponent,
     LoginComponent,
     RegisterComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

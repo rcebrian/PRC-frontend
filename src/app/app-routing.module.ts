@@ -6,6 +6,7 @@ import { AdministratorComponent } from './components/administrator/administrator
 import { FlightsComponent } from './components/flights/flights.component';
 import {LoginComponent} from './components/auth/login/login.component';
 import {RegisterComponent} from './components/auth/register/register.component';
+import {ContactComponent} from './components/contact/contact.component';
 
 const routes: Routes = [
   // home
@@ -42,6 +43,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent
+  },
+  // contact
+  {
+    path: 'contact',
+    component: ContactComponent
   }
 ];
 
