@@ -1,67 +1,75 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { AnalysisComponent } from './components/analysis/analysis.component';
-import { IndexComponent } from './components/index/index.component';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 
-import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
-import { MatButtonModule } from '@angular/material/button';
-import { AdministratorComponent } from './components/administrator/administrator.component';
-import { FlightsComponent } from './components/flights/flights.component';
-import { LoginComponent } from './components/auth/login/login.component';
-import { RegisterComponent } from './components/auth/register/register.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { ReactiveFormsModule } from '@angular/forms';
-import { AuthInterceptorService } from './@core/services/auth-interceptor.service';
-import { ContactComponent } from './components/contact/contact.component';
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
+
+import { AppComponent } from './app.component';
+
+// Import containers
+import { DefaultLayoutComponent } from './containers';
+
+import { LoginComponent } from './@core/components/auth/login/login.component';
+import { RegisterComponent } from './@core/components/auth/register/register.component';
+
+const APP_CONTAINERS = [
+  DefaultLayoutComponent
+];
+
+import {
+  AppAsideModule,
+  AppBreadcrumbModule,
+  AppHeaderModule,
+  AppFooterModule,
+  AppSidebarModule,
+} from '@coreui/angular';
+
+// Import routing module
+import { AppRoutingModule } from './app.routing';
+
+// Import 3rd party components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
+import { MapComponent } from './@core/components/dashboard-components/map/map.component';
+import { RecommendationsComponent } from './@core/components/dashboard-components/recommendations/recommendations.component';
+import { E404Component } from './@core/components/errors/e404.component';
+import { E500Component } from './@core/components/errors/e500.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AnalysisComponent,
-    IndexComponent,
-    NavbarComponent,
-    FooterComponent,
-    DialogBodyComponent,
-    AdministratorComponent,
-    FlightsComponent,
-    LoginComponent,
-    RegisterComponent,
-    ContactComponent,
-  ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
     BrowserAnimationsModule,
-    MatDialogModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatDatepickerModule
+    AppRoutingModule,
+    AppAsideModule,
+    AppBreadcrumbModule.forRoot(),
+    AppFooterModule,
+    AppHeaderModule,
+    AppSidebarModule,
+    PerfectScrollbarModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule,
+    HttpClientModule
   ],
-  providers: [
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false },},
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    LoginComponent,
+    RegisterComponent,
+    DashboardComponent,
+    MapComponent,
+    RecommendationsComponent,
+    E404Component,
+    E500Component
   ],
-  bootstrap: [
-    AppComponent
-  ],
-  entryComponents: [
-    DialogBodyComponent
-  ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
