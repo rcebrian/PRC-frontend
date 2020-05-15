@@ -16,8 +16,8 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+import { LoginComponent } from './@core/components/auth/login/login.component';
+import { RegisterComponent } from './@core/components/auth/register/register.component';
 
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -38,7 +38,10 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
+import { MapComponent } from './@core/components/dashboard-components/map/map.component';
+import { RecommendationsComponent } from './@core/components/dashboard-components/recommendations/recommendations.component';
 
 @NgModule({
   imports: [
@@ -62,12 +65,11 @@ import {HttpClientModule} from '@angular/common/http';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    MapComponent,
+    RecommendationsComponent
   ],
-  // providers: [{
-  //   provide: LocationStrategy,
-  //   useClass: HashLocationStrategy
-  // }],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
