@@ -12,7 +12,7 @@
               <div class="callout callout-success">
                 <small class="text-muted">In time</small>
                 <br>
-                <strong class="h4">49,123</strong>
+                <strong class="h4">{{ stats[0].daily_count | number }}</strong>
               </div>
             </div>
             <!--/.col-->
@@ -20,7 +20,7 @@
               <div class="callout callout-warning">
                 <small class="text-muted">Delayed</small>
                 <br>
-                <strong class="h4">78,623</strong>
+                <strong class="h4">{{ stats[1].daily_count | number }}</strong>
               </div>
             </div>
             <!--/.col-->
@@ -28,7 +28,7 @@
               <div class="callout callout-danger">
                 <small class="text-muted">Cancelled</small>
                 <br>
-                <strong class="h4">22,643</strong>
+                <strong class="h4">{{ stats[2].daily_count | number }}</strong>
               </div>
             </div>
             <!--/.col-->
