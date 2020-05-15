@@ -11,6 +11,6 @@ export class MarkersService {
   constructor(private http: HttpClient) { }
 
   getMarkers(): Observable<any> {
-    return this.http.get(endpoints.coordnates);
+    return this.http.get(endpoints.coordinates);
   }
 }
