@@ -1,4 +1,9 @@
-<div class="app flex-row align-items-center">
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-e404',
+  template: `
+  <div class="app flex-row align-items-center">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6">
@@ -19,4 +24,13 @@
       </div>
     </div>
   </div>
-</div>
+</div>`
+})
+export class E404Component implements OnInit {
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

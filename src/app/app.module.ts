@@ -14,8 +14,6 @@ import { AppComponent } from './app.component';
 // Import containers
 import { DefaultLayoutComponent } from './containers';
 
-import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './@core/components/auth/login/login.component';
 import { RegisterComponent } from './@core/components/auth/register/register.component';
 
@@ -42,6 +40,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
 import { MapComponent } from './@core/components/dashboard-components/map/map.component';
 import { RecommendationsComponent } from './@core/components/dashboard-components/recommendations/recommendations.component';
+import { E404Component } from './@core/components/errors/e404.component';
+import { E500Component } from './@core/components/errors/e500.component';
 
 @NgModule({
   imports: [
@@ -62,13 +62,13 @@ import { RecommendationsComponent } from './@core/components/dashboard-component
   declarations: [
     AppComponent,
     ...APP_CONTAINERS,
-    P404Component,
-    P500Component,
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
     MapComponent,
-    RecommendationsComponent
+    RecommendationsComponent,
+    E404Component,
+    E500Component
   ],
   bootstrap: [AppComponent]
 })

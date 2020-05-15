@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
 
-import { P404Component } from './views/error/404.component';
-import { P500Component } from './views/error/500.component';
+import { E404Component } from './@core/components/errors/e404.component'; 
+import { E500Component } from './@core/components/errors/e500.component'; 
 import { LoginComponent } from './@core/components/auth/login/login.component';
 import { RegisterComponent } from './@core/components/auth/register/register.component';
 import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
@@ -17,8 +17,8 @@ export const routes: Routes = [
   },
   { path: 'login', component: LoginComponent, data: { title: 'Login Page' } },
   { path: 'register', component: RegisterComponent, data: { title: 'Register Page' } },
-  { path: '404', component: P404Component, data: { title: 'Page 404' } },
-  { path: '500', component: P500Component, data: { title: 'Page 500' } },
+  { path: '404', component: E404Component, data: { title: 'Page 404' } },
+  { path: '500', component: E500Component, data: { title: 'Page 500' } },
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -32,7 +32,7 @@ export const routes: Routes = [
       },
     ]
   },
-  { path: '**', component: P404Component }
+  { path: '**', component: E404Component }
 ];
 
 @NgModule({
