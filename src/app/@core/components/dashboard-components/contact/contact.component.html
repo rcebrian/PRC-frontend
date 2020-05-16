@@ -4,7 +4,7 @@
     <div class="card border-secondary">
       <div class="card-body">
         <legend class="card-title">Contact us!</legend>
-          <section class="section">
+        <section class="section">
           <div class="container">
 
             <!-- form goes here -->
@@ -24,7 +24,7 @@
               <!-- message -->
               <div class="form-group">
                 <label>Message</label>
-                <input name="message" type="text" class="form-control" placeholder="What's on your mind?" [(ngModel)]="message" #messageInput="ngModel" required>
+                <textarea name="message" class="form-control" placeholder="What's on your mind?" [(ngModel)]="message" #messageInput="ngModel" required></textarea>
                 <small class="form-text unfilled" *ngIf="messageInput.invalid && messageInput.dirty && messageInput.touched">A message is required.</small>
               </div>
               <!-- checkbox -->

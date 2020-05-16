@@ -42,6 +42,8 @@ import { MapComponent } from './@core/components/dashboard-components/map/map.co
 import { RecommendationsComponent } from './@core/components/dashboard-components/recommendations/recommendations.component';
 import { E404Component } from './@core/components/errors/e404.component';
 import { E500Component } from './@core/components/errors/e500.component';
+import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -57,7 +59,8 @@ import { E500Component } from './@core/components/errors/e500.component';
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
     ChartsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   declarations: [
     AppComponent,
@@ -68,7 +71,8 @@ import { E500Component } from './@core/components/errors/e500.component';
     MapComponent,
     RecommendationsComponent,
     E404Component,
-    E500Component
+    E500Component,
+    ContactComponent
   ],
   bootstrap: [AppComponent]
 })
