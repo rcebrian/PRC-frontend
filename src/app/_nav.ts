@@ -25,8 +25,8 @@ export const navItems: INavData[] = [
     icon: 'icon-ban',
   },
   {
-    name: 'Train',
-    url: '/admin/train',
+    name: 'Model',
+    url: '/admin/models',
     icon: 'icon-ban',
   },
 ];

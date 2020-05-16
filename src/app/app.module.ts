@@ -38,6 +38,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
+import { ScraperComponent } from './@core/components/dashboard-components/admin/scraper/scraper/scraper.component';
+import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
 import { MapComponent } from './@core/components/dashboard-components/map/map.component';
 import { RecommendationsComponent } from './@core/components/dashboard-components/recommendations/recommendations.component';
 import { E404Component } from './@core/components/errors/e404.component';
@@ -72,7 +74,9 @@ import {FormsModule} from '@angular/forms';
     RecommendationsComponent,
     E404Component,
     E500Component,
-    ContactComponent
+    ContactComponent,
+    ScraperComponent,
+    ModelComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -9,7 +9,8 @@ import { LoginComponent } from './@core/components/auth/login/login.component';
 import { RegisterComponent } from './@core/components/auth/register/register.component';
 import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
 import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
-
+import {ScraperComponent} from './@core/components/dashboard-components/admin/scraper/scraper/scraper.component';
+import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
 export const routes: Routes = [
   {
     path: '',
@@ -34,6 +35,14 @@ export const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent
+      },
+      {
+        path: 'admin/scrapers',
+        component: ScraperComponent
+      },
+      {
+        path: 'admin/models',
+        component: ModelComponent
       },
     ]
   },
