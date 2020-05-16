@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StatsService } from '../../../services/stats.service';
+import { Stat } from '../../../models/stats.model'
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +9,7 @@ import { StatsService } from '../../../services/stats.service';
 
 export class DashboardComponent implements OnInit {
 
-  stats: any = {};
+  stats: Stat[];
 
   constructor(private statsService: StatsService) { }
 
@@ -17,11 +18,6 @@ export class DashboardComponent implements OnInit {
   }
 
   getStats() {
-    this.statsService.dailyFlightsStats().subscribe(
-      res => {
-        this.stats = res.data;
-      }
-    );
+    this.statsService.dailyFlightsStats().subscribe(res => { this.stats = res.data; });
   }
-
 }
