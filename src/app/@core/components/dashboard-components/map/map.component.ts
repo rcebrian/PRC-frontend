@@ -1,5 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
-import { MarkersService } from '../../../services/markers.service';
+import {Component, AfterViewInit, Input} from '@angular/core';
 
 import * as L from 'leaflet';
 
@@ -28,39 +27,13 @@ L.Marker.prototype.options.icon = iconDefault;
 })
 export class MapComponent implements AfterViewInit {
 
-
-  private map;
-
-  constructor(private markers: MarkersService) { }
+  @Input() map;
+  constructor() {}
 
   ngAfterViewInit(): void {
-    this.initMap();
-    this.getMarkers();
-  }
-
-  private initMap(): void {
-    this.map = L.map('map', {
-      center: [40.471926, -3.56264],
-      zoom: 5
-    });
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(this.map);
-
-  }
-
-  getMarkers() {
-    this.markers.getMarkers().subscribe(
-      res => {
-        for (const c of res.data) {
-          const marker = L.marker([c.latitude, c.longitude]).addTo(this.map);
-        }
-      },
-      err => {
-        console.log(err);
-      }
-    );
   }
 }
