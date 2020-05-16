@@ -11,7 +11,7 @@
             <div *ngFor="let stat of stats" class="col-sm-4">
               <!-- callout-success callout-warning callout-danger-->
               <div class="callout"
-                   [ngClass]="{'Landed': 'callout-success', 'Landed Late': 'callout-warning', 'Cancelled': 'callout-danger'}[stat.status]">
+                   [ngClass]="{'In time': 'callout-success', 'Delayed': 'callout-warning', 'Cancelled': 'callout-danger'}[stat.status]">
                 <small class="text-muted">{{ stat.status }}</small>
                 <br>
                 <strong class="h4">{{ stat.daily_count | number }}</strong>
