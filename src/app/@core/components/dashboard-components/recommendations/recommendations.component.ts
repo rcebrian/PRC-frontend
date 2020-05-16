@@ -16,7 +16,7 @@ export class RecommendationsComponent implements OnInit {
   }
 
   getUrl(city: string) {
-    return `url('https://source.unsplash.com/random?${city.toLowerCase()},night')`;
+    return `url('https://source.unsplash.com/random?${city.toLowerCase()}')`;
   }
 
   getRecommendations() {
