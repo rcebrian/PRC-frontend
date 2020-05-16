@@ -8,32 +8,16 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-sm-4">
-              <div class="callout callout-success">
-                <small class="text-muted">In time</small>
+            <div *ngFor="let stat of stats" class="col-sm-4">
+              <!-- callout-success callout-warning callout-danger-->
+              <div class="callout"
+                   [ngClass]="{'Landed': 'callout-success', 'Landed Late': 'callout-warning', 'Cancelled': 'callout-danger'}[stat.status]">
+                <small class="text-muted">{{ stat.status }}</small>
                 <br>
-                <strong class="h4">{{ stats[0].daily_count | number }}</strong>
+                <strong class="h4">{{ stat.daily_count | number }}</strong>
               </div>
             </div>
-            <!--/.col-->
-            <div class="col-sm-4">
-              <div class="callout callout-warning">
-                <small class="text-muted">Delayed</small>
-                <br>
-                <strong class="h4">{{ stats[1].daily_count | number }}</strong>
-              </div>
-            </div>
-            <!--/.col-->
-            <div class="col-sm-4">
-              <div class="callout callout-danger">
-                <small class="text-muted">Cancelled</small>
-                <br>
-                <strong class="h4">{{ stats[2].daily_count | number }}</strong>
-              </div>
-            </div>
-            <!--/.col-->
           </div>
-          <!--/.row-->
           <hr class="mt-0">
           <app-map></app-map>
           <br>
