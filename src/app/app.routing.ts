@@ -20,7 +20,6 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent, data: { title: 'Register Page' } },
   { path: '404', component: E404Component, data: { title: 'Page 404' } },
   { path: '500', component: E500Component, data: { title: 'Page 500' } },
-  { path: 'contact', component: ContactComponent, data: { title: 'Contact Us' } },
   {
     path: '',
     component: DefaultLayoutComponent,
@@ -31,6 +30,10 @@ export const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent
+      },
+      {
+        path: 'contact',
+        component: ContactComponent
       },
     ]
   },
