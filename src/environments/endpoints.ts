@@ -14,4 +14,7 @@ export const endpoints = {
 
   // recommendations
   getTopDestinations: `${environment.apiUrl}/cities/top`,
+
+  // mail
+  contactMail: `${environment.apiUrl}/send-mail`,
 }

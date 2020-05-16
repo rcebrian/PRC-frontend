@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MailService} from '../../../services/contact/mail.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +13,7 @@ export class ContactComponent implements OnInit {
   message: string;
   isActive: boolean;
 
-  constructor() { }
+  constructor(private mailService: MailService) { }
 
   ngOnInit(): void {
   }
@@ -22,10 +23,20 @@ export class ContactComponent implements OnInit {
     const name = this.name;
     const email = this.email;
     const message = this.message;
-    alert(`The email has been sent by: ${name}!`);
+    // alert(`The email has been sent by: ${name}!`);
 
     /*A continuacion hariamos las llamadas a la API, en nuestro caso, enviaremos el correo*/
-
+    this.sendMail(name, email, message);
+  }
+  sendMail(n, e, m) {
+    this.mailService.sendMail(n, e, m).subscribe(
+      data => {
+        alert(data.msg);
+      },
+      error => {
+        alert(error.error.error);
+      }
+    );
   }
 
 }
