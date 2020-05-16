@@ -54,7 +54,7 @@ export class MapComponent implements AfterViewInit {
   getMarkers() {
     this.markers.getMarkers().subscribe(
       res => {
-        for (const c of res) {
+        for (const c of res.data) {
           const marker = L.marker([c.latitude, c.longitude]).addTo(this.map);
         }
       },
