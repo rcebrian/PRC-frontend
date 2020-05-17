@@ -33,4 +33,7 @@ export const endpoints = {
   weatherForecast: `${environment.apiUrl}/scrapers/weathers/forecast`,
   updateUrl: `${environment.apiUrl}/scrapers/airportia/url`,
   updateComments: `${environment.apiUrl}/scrapers/comments`,
+
+  // admin -> graphics
+  groupFlightsData: `${environment.apiUrl}/flights/groupFlights`,
 };

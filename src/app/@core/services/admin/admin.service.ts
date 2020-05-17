@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import {endpoints} from '../../../../environments/endpoints';
 import {endOf} from 'ngx-bootstrap/chronos';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +90,14 @@ export class AdminService {
     return this.httpClient.post(endpoints.updateComments,
       {
         city_id: parseInt(`${cityId}`),
+      });
+  }
+
+  getFlightsGroupData(startDate: string, endDate: string): Observable<any> {
+    return this.httpClient.post(endpoints.groupFlightsData,
+      {
+        start_date: startDate,
+        end_date: endDate,
       });
   }
 }

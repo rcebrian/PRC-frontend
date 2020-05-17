@@ -95,8 +95,7 @@ export class ModelComponent implements OnInit {
   characteristic: Array<string> = ['id', 'date', 'time', 'airline_id', 'city_id', 'airport_id', 'temperature',
     'humidity', 'pressure', 'wind_direction', 'wind_speed', 'delay'];
 
-  constructor(private adminService: AdminService) {
-  }
+  constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.strTodayDate = this.convertDate(this.todayDate);
@@ -177,7 +176,7 @@ export class ModelComponent implements OnInit {
     this.selectedAlgorithmModel = id;
     const array: Array<Model> = [];
     // tslint:disable-next-line:triple-equals
-    this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x);}});
+    this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x); }});
     this.dateArrayModels = array;
     if (this.dateArrayModels.length !== 0) {
       this.onChangeModelDate(this.dateArrayModels[0].id);

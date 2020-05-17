@@ -2,15 +2,47 @@
     <div class="card">
       <div class="card-header">Flights Statistic</div>
       <div class="card-body">
-        <div class="chart-wrapper">
+        <form (ngSubmit)="getFlightsData()" [formGroup]="flightsDataForm" novalidate>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Select a start date</label>
+            <div class="col-md-9">
+              <input class="form-control" id="start-date" name="startDate" placeholder="date" formControlName="startDate"
+                     type="date"
+                     max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                     [ngClass]="{'is-valid':flightsDataForm.controls.startDate.valid}">
+              <div *ngIf="flightsDataForm.controls.startDate.touched && flightsDataForm.controls.startDate.errors?.required"
+                   class="red">Start date is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-md-3 col-form-label">Select a end date</label>
+            <div class="col-md-9">
+              <input class="form-control" id="end-date" name="endDate" formControlName="endDate" placeholder="date" type="date"
+                     min="{{flightsDataForm.controls.startDate.value != undefined ?
+                     flightsDataForm.controls.startDate.value : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                     max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                     [ngClass]="{'is-valid':flightsDataForm.controls.endDate.valid}">
+              <div *ngIf="flightsDataForm.controls.endDate.touched && flightsDataForm.controls.endDate.errors?.required"
+                   class="red">End date is required.
+              </div>
+            </div>
+          </div>
+          <div class="form-actions">
+            <div class="center">
+              <button class="btn btn-primary max" type="submit"
+                      [disabled]="!flightsDataForm.valid">Graphic data</button>
+            </div>
+          </div>
+        </form>
+        
+        <div class="chart-wrapper" *ngIf="barChartLabels && barChartData">
           <canvas baseChart class="chart"
                   [datasets]="barChartData"
                   [labels]="barChartLabels"
                   [options]="barChartOptions"
                   [legend]="barChartLegend"
-                  [chartType]="barChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
+                  [chartType]="barChartType"></canvas>
         </div>
       </div>
     </div>
