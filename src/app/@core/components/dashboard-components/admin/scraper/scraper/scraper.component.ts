@@ -1,12 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../../../../services/admin/admin.service';
+import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-scraper',
   templateUrl: './scraper.component.html',
   styleUrls: ['./scraper.component.css']
 })
+
 export class ScraperComponent implements OnInit {
+  historyForm = new FormGroup({
+    date: new FormControl('', [Validators.required]),
+    airportId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+  });
+
+  urlForm = new FormGroup({
+    countryId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+  });
+
+  forecastForm = new FormGroup({
+    airportId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+  });
+
+  commentForm = new FormGroup({
+    cityId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+  });
+
   // Update train data
   yesterday: Date = new Date();
   yesterdayStr: string;
@@ -255,4 +274,20 @@ export class ScraperComponent implements OnInit {
   }
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
+
+  // ----------------------------Validation functions ------------------------------
+  forbiddenArrayValidator(nameRe: RegExp): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      let strResult = '';
+      if (control.value != null) {
+        const findArray = control.value.replace(/\s/g, '').match(nameRe);
+        if (findArray != null) {
+          strResult = findArray.map(x => x).join('');
+        }
+        return !(strResult === control.value.replace(/\s/g, '')) ? {'forbiddenName': {value: control.value}} : null;
+      } else {
+        return true ? {'forbiddenName': {value: control.value}} : null;
+      }
+    };
+  }
 }
