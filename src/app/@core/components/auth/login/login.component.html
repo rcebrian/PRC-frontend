@@ -5,25 +5,42 @@
         <div class="col-md-8 mx-auto">
           <div class="card p-4">
             <div class="card-body">
-              <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate [ngClass]="{'true': 'was-validated'}[isLoginFailed]">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
                 <h1>Sign In</h1>
                 <p class="text-muted">Sign In to your account</p>
                 <div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <span class="input-group-text"><i class="icon-envelope"></i></span>
                   </div>
-                  <input type="text" name="email" class="form-control" placeholder="Email" autocomplete="email"
-                         [(ngModel)]="form.email" required #email="ngModel">
+                  <input type="email" name="email" class="form-control" formControlName="email" placeholder="Email"
+                         autocomplete="email"
+                         [ngClass]="{'is-valid':loginForm.controls.email.valid, 'is-invalid':loginForm.controls.email.errors?.email }">
+                  <!--                         [ngClass]="{ 'is-valid': loginForm.controls.email.valid === true, 'is-invalid': loginForm.controls.email.valid === false}">-->
+                  <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required"
+                       class="invalid-feedback">Email is required.
+                  </div>
+                  <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email"
+                       class="invalid-feedback">Invalid email format.
+                  </div>
                 </div>
                 <div class="input-group mb-4">
-                  <div class="input-group-prepend"><span class="input-group-text"><i class="icon-lock"></i></span></div>
-                  <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password"
-                         [(ngModel)]="form.password" required #password="ngModel">
-                  <div class="invalid-feedback">Incorrect user or password.</div>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="icon-lock"></i></span></div>
+                  <input type="password" name="password" class="form-control" placeholder="Password"
+                         autocomplete="current-password" formControlName="password"
+                         [ngClass]="{'is-valid':loginForm.controls.password.valid, 'is-invalid':loginForm.controls.password.errors?.invalid }">
+                  <div *ngIf="isLoginFailed" class="invalid-feedback">Incorrect email or password.</div>
+                  <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required"
+                       class="invalid-feedback">Password is required.
+                    <div *ngIf="isLoginFailed" class="alert">Incorrect email or password.</div>
+                  </div>
                 </div>
+
                 <div class="row">
                   <div class="col-6">
-                    <button type="button" class="btn btn-primary px-4" (click)="onSubmit()">Login</button>
+                    <button type="button" class="btn btn-primary px-4" [disabled]="!loginForm.valid"
+                            (click)="onSubmit()">Login
+                    </button>
                   </div>
                   <div class="col-6 text-right">
                     <button type="button" class="btn btn-link px-0" (click)="registerClick()">Forgot password?</button>

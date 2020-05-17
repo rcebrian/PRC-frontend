@@ -45,7 +45,7 @@ import { RecommendationsComponent } from './@core/components/dashboard-component
 import { E404Component } from './@core/components/errors/e404.component';
 import { E500Component } from './@core/components/errors/e500.component';
 import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AvatarModule} from 'ngx-avatar';
 
 @NgModule({
@@ -64,7 +64,8 @@ import {AvatarModule} from 'ngx-avatar';
     ChartsModule,
     HttpClientModule,
     AvatarModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     AppComponent,

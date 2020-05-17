@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from "../../../services/auth/auth.service";
 import {TokenStorageService} from "../../../services/auth/token-storage.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -9,43 +10,43 @@ import {TokenStorageService} from "../../../services/auth/token-storage.service"
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  form: any = {};
-  isLoggedIn = false;
   isLoginFailed = false;
-  email: string;
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.min(6)])
+  });
 
   constructor(private router: Router, private authService: AuthService, private tokenStorage: TokenStorageService) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
       this.redirectToDashboard();
     }
   }
+
+
   onSubmit() {
-    this.authService.login(this.form).subscribe(
-      data => {
-        this.tokenStorage.saveToken(data.accessToken);
-        this.tokenStorage.saveUser(data);
+    if (this.loginForm.valid) {
+      this.authService.login(this.loginForm.value).subscribe(
+        data => {
+          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveUser(data.user);
 
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
+          this.isLoginFailed = false;
 
-        console.log(JSON.stringify(data));
-        this.redirectToDashboard();
-
-        if (data.status === 401) {
+          // console.log(JSON.stringify(data));
+          this.redirectToDashboard();
+        },
+        err => {
           this.isLoginFailed = true;
+          this.loginForm.reset();
         }
-
-      },
-      err => {
-        this.isLoginFailed = true;
-      }
-    );
+      );
+    }
   }
+
   redirectToDashboard(): void {
-    this.router.navigateByUrl('dashboard');
+    this.router.navigateByUrl('/');
 
   }
 
