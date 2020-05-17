@@ -13,7 +13,7 @@ export const navItems: INavData[] = [
   {
     name: 'Airports',
     url: '/airports',
-    icon: 'icon-drop'
+    icon: 'icon-location-pin'
   },
   {
     title: true,
