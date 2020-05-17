@@ -47,6 +47,7 @@ import { E500Component } from './@core/components/errors/e500.component';
 import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AvatarModule} from 'ngx-avatar';
+import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import {AvatarModule} from 'ngx-avatar';
     E500Component,
     ContactComponent,
     ScraperComponent,
-    ModelComponent
+    ModelComponent,
+    StatisticComponent
   ],
   bootstrap: [AppComponent]
 })

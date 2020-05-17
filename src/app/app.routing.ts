@@ -11,6 +11,8 @@ import { DashboardComponent } from './@core/components/dashboard-components/dash
 import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
 import {ScraperComponent} from './@core/components/dashboard-components/admin/scraper/scraper/scraper.component';
 import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
+import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
+
 export const routes: Routes = [
   {
     path: '',
@@ -43,6 +45,10 @@ export const routes: Routes = [
       {
         path: 'admin/models',
         component: ModelComponent
+      },
+      {
+        path: 'admin/statistics',
+        component: StatisticComponent
       },
     ]
   },

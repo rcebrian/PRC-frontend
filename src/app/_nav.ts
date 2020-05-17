@@ -4,7 +4,7 @@ export const navItems: INavData[] = [
   {
     name: 'Dashboard',
     url: '/dashboard',
-    icon: 'icon-speedometer',
+    icon: 'cui-dashboard',
   },
   {
     title: true,
@@ -22,11 +22,16 @@ export const navItems: INavData[] = [
   {
     name: 'Scrapers',
     url: '/admin/scrapers',
-    icon: 'icon-ban',
+    icon: 'icon-globe',
   },
   {
     name: 'Model',
     url: '/admin/models',
-    icon: 'icon-ban',
+    icon: 'icon-pencil',
+  },
+  {
+    name: 'Statistic',
+    url: '/admin/statistics',
+    icon: 'icon-pie-chart',
   },
 ];
