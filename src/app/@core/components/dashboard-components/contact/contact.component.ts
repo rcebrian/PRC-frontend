@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MailService} from '../../../services/contact/mail.service';
+import {MarkersService} from '../../../services/markers.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-contact',
@@ -12,10 +14,13 @@ export class ContactComponent implements OnInit {
   email: string;
   message: string;
   isActive: boolean;
+  uemMap: any;
 
-  constructor(private mailService: MailService) { }
+  constructor(private mailService: MailService, private markers: MarkersService) { }
 
   ngOnInit(): void {
+    this.mapUEM();
+    //this.getMarkers();
   }
 
   submitForm() {
@@ -38,5 +43,11 @@ export class ContactComponent implements OnInit {
       }
     );
   }
-
+  private mapUEM() {
+    this.uemMap = L.map('map', {
+      center: [40.373102, -3.919083], // coord uem
+      zoom: 15
+    });
+    const marker = L.marker([40.373102, -3.919083]).addTo(this.uemMap);
+  }
 }

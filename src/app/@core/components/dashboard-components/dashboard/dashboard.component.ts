@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StatsService } from '../../../services/stats.service';
 import { Stat } from '../../../models/stats.model';
-import {MarkersService} from "../../../services/markers.service";
+import {MarkersService} from '../../../services/markers.service';
 
 import * as L from 'leaflet';
 
@@ -45,5 +45,4 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
-
 }
