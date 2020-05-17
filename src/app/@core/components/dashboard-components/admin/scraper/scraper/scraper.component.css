@@ -1,12 +1,18 @@
-.center-btn{
-  margin-left: 100px;
-  background-color: blue;
+.center{
+  display: flex;
+  justify-content: center;
 }
 
-.max{
-  width: 100%;
+.top-margin{
+  margin-top: 10px;
 }
 
-.error{
-  color:red;
+#tableReport{
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.margin-btn{
+  margin-right: 20px;
 }

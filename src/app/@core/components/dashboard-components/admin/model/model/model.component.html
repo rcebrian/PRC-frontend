@@ -134,7 +134,7 @@
         </div>
       </div>
 
-      <div class="center">
+      <div class="center" *ngIf="selectModel">
         <table id="tableReport">
           <tr>
             <th></th>
@@ -144,27 +144,27 @@
           </tr>
           <tr>
             <th>0</th>
-            <td *ngIf="selectModel">{{selectModel.report_precision_0}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_recall_0}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_f1_score_0}}</td>
+            <td>{{selectModel.report_precision_0}}</td>
+            <td>{{selectModel.report_recall_0}}</td>
+            <td>{{selectModel.report_f1_score_0}}</td>
           </tr>
           <tr>
             <th>1</th>
-            <td *ngIf="selectModel">{{selectModel.report_precision_1}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_recall_1}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_f1_score_1}}</td>
+            <td>{{selectModel.report_precision_1}}</td>
+            <td>{{selectModel.report_recall_1}}</td>
+            <td>{{selectModel.report_f1_score_1}}</td>
           </tr>
           <tr>
             <th>Macro avg</th>
-            <td *ngIf="selectModel">{{selectModel.report_accuracy_precision}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_accuracy_recall}}</td>
-            <td *ngIf="selectModel">{{selectModel.report_accuracy_f1_score}}</td>
+            <td>{{selectModel.report_accuracy_precision}}</td>
+            <td>{{selectModel.report_accuracy_recall}}</td>
+            <td>{{selectModel.report_accuracy_f1_score}}</td>
           </tr>
         </table>
       </div>
 
-      <div class="center top-margin">
-        <label><b>Number of rows: </b><span *ngIf="selectModel">{{selectModel.report_num_rows}}</span></label>
+      <div class="center top-margin" *ngIf="selectModel">
+        <label><b>Number of rows: </b><span>{{selectModel.report_num_rows}}</span></label>
       </div>
 
 

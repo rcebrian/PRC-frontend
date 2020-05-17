@@ -48,7 +48,7 @@ export class AdminService {
       });
   }
 
-  updateHistoricalFlightsData(date: String, airport_id: number) {
+  updateHistoricalFlightsData(date: String, airport_id: string) {
     return this.httpClient.post(endpoints.flightsHistory,
       {
         airport_id: parseInt(`${airport_id}`),
@@ -56,7 +56,7 @@ export class AdminService {
       });
   }
 
-  updateHistoricalWeatherData(date: String, airport_id: number) {
+  updateHistoricalWeatherData(date: String, airport_id: string) {
     return this.httpClient.post(endpoints.weatherHistory,
       {
         airport_id: parseInt(`${airport_id}`),
@@ -64,14 +64,14 @@ export class AdminService {
       });
   }
 
-  updateFutureFlightsData(airport_id: number) {
+  updateFutureFlightsData(airport_id: string) {
     return this.httpClient.post(endpoints.flightsForecast,
       {
         airport_id: parseInt(`${airport_id}`),
       });
   }
 
-  updateFutureWeatherData(airport_id: number) {
+  updateFutureWeatherData(airport_id: string) {
     return this.httpClient.post(endpoints.weatherForecast,
       {
         airport_id: parseInt(`${airport_id}`),
