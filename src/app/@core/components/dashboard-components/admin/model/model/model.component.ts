@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService} from '../../../../../services/admin/admin.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class Algorithm {
   id: number;
@@ -29,6 +30,22 @@ export class Model {
   styleUrls: ['./model.component.css']
 })
 export class ModelComponent implements OnInit {
+  createTrainModelForm = new FormGroup({
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    date: new FormControl(),
+    time: new FormControl(),
+    id: new FormControl(),
+    airline_id: new FormControl(),
+    city_id: new FormControl(),
+    airport_id: new FormControl(),
+    temperature: new FormControl(),
+    humidity: new FormControl(),
+    wind_speed: new FormControl(),
+    wind_direction: new FormControl(),
+    pressure: new FormControl(),
+  });
+
   // Dates
   todayDate: Date = new Date();
   strTodayDate: string;
@@ -126,9 +143,6 @@ export class ModelComponent implements OnInit {
       this.characteristicsError = 'You must select at least one characteristic.';
     } else {
       this.characteristicsError = null;
-    }
-
-    if (this.startDateStr != null && this.endDateStr != null && array_characteristic.length !== 1) {
       this.buttonDisabledModel = true;
       this.buttonModelStr = 'Creating...';
       clearInterval(this.interval);
@@ -163,7 +177,7 @@ export class ModelComponent implements OnInit {
     this.selectedAlgorithmModel = id;
     const array: Array<Model> = [];
     // tslint:disable-next-line:triple-equals
-    this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x); console.log(array); }});
+    this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x);}});
     this.dateArrayModels = array;
     if (this.dateArrayModels.length !== 0) {
       this.onChangeModelDate(this.dateArrayModels[0].id);

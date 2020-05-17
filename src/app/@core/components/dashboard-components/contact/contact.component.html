@@ -16,21 +16,21 @@
                 <label class="col-form-label">Name</label>
                 <input name = "name" type="text" id="text-input" class="form-control" placeholder="Your name" [(ngModel)]="name" #nameInput="ngModel" required>
                 <small class="form-text filled" *ngIf="nameInput.valid">Valid name.</small>
-                <small class="form-text unfilled" *ngIf="nameInput.invalid && nameInput.dirty && nameInput.touched">Your name is required.</small>
+                <small class="form-text unfilled" *ngIf="nameInput.invalid && nameInput.touched || nameInput.dirty">Your name is required.</small>
               </div>
               <!-- email -->
               <div class="form-group">
                 <label class="col-form-label">Email address</label>
                 <input name = "email" type="email" class="form-control" placeholder="Enter email" [(ngModel)]="email" #emailInput="ngModel" email required>
                 <small class="form-text filled" *ngIf="emailInput.valid">Valid mail.</small>
-                <small class="form-text unfilled" *ngIf="emailInput.invalid && emailInput.dirty && emailInput.touched">Your email is required and needs to be a valid direction. We'll never share your email with anyone else.</small>
+                <small class="form-text unfilled" *ngIf="emailInput.invalid && emailInput.touched || emailInput.dirty">Your email is required and needs to be a valid direction. We'll never share your email with anyone else.</small>
               </div>
               <!-- message -->
               <div class="form-group">
                 <label class="col-form-label">Message</label>
                 <textarea name="message" class="form-control" placeholder="What's on your mind?" [(ngModel)]="message" #messageInput="ngModel" required></textarea>
                 <small class="form-text filled" *ngIf="messageInput.valid">Valid message.</small>
-                <small class="form-text unfilled" *ngIf="messageInput.invalid && messageInput.dirty && messageInput.touched">A message is required.</small>
+                <small class="form-text unfilled" *ngIf="messageInput.invalid && messageInput.touched || messageInput.dirty">A message is required.</small>
               </div>
               <!-- checkbox -->
               <div class="form-check">
