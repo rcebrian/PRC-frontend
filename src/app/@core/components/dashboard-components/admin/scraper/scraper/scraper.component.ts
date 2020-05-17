@@ -39,6 +39,10 @@ export class ScraperComponent implements OnInit {
   buttonDisabledUrlData: boolean = false;
   buttonUpdateUrlStr: string = 'Update';
 
+  // Update comment data
+  cityId: string;
+  errorCityIdError: string;
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -207,7 +211,6 @@ export class ScraperComponent implements OnInit {
   updateUrlData() {
     if (this.countryId != null ) {
       const countries = this.countryId.replace(/\s/g, '').split(',');
-      this.errorAirportId = null;
       this.errorUrl = '';
       countries.forEach(id => {
         this.buttonDisabledUrlData = true;
@@ -226,6 +229,28 @@ export class ScraperComponent implements OnInit {
       });
     } else {
       this.errorUrl = 'Please, enter an Country ID';
+    }
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
+
+  // -----------------------------Update comment data---------------------------------
+  updateCommentData() {
+    if (this.cityId != null || this.cityId !== '') {
+      this.errorCityIdError = '';
+      const cities = this.cityId.replace(/\s/g, '').split(',');
+      cities.forEach(id => {
+        this.adminService.updateComments(id).subscribe(
+          (data: any) => {},
+          error => {
+            alert(error.error.errors);
+            this.buttonDisabledUrlData = false;
+            this.buttonUpdateUrlStr = 'Update';
+          }
+        );
+      });
+    } else {
+      this.errorCityIdError = 'Please, enter an City ID';
     }
   }
   // -------------------------------------------------------------------------------

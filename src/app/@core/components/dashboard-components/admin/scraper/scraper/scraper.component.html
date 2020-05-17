@@ -49,7 +49,7 @@
       </div>
     </div>
 
-    <div class="card right">
+    <div class="card">
       <div class="card-header">
         <i class="fa fa-edit"></i>Run URLs airports
       </div>
@@ -59,7 +59,7 @@
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="countryId">Country ID</label>
-                <input class="form-control" id="countryId" placeholder="Enter an country id" type="text"
+                <input class="form-control" id="countryId" placeholder="Enter a country id" type="text"
                        name="airportId" [(ngModel)]="countryId">
                 <div *ngIf="errorUrl" class="error">{{errorUrl}}</div>
               </div>
@@ -75,7 +75,6 @@
         </form>
       </div>
     </div>
-
   </div>
 
   <!-- TODAY SCRAPER -->
@@ -107,6 +106,32 @@
               <button class="btn btn-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledAllNowData == true ? true : null)"
                       (click)="selectButtonNow =2">{{buttonUpdateAllNowStr}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>Run comments data
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="updateCommentData()" #selectCommentDataForm="ngForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="cityID">City ID</label>
+                <input class="form-control" id="cityID" placeholder="Enter a city id" type="text"
+                       name="airportId" [(ngModel)]="cityId">
+                <div *ngIf="errorCityIdError" class="error">{{errorCityIdError}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="center top-margin">
+              <button class="btn btn-primary margin-btn" type="submit">Update</button>
             </div>
           </div>
         </form>

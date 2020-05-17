@@ -84,4 +84,11 @@ export class AdminService {
         country_id: parseInt(`${countryId}`),
       });
   }
+
+  updateComments(cityId: string) {
+    return this.httpClient.post(endpoints.updateComments,
+      {
+        city_id: parseInt(`${cityId}`),
+      });
+  }
 }
