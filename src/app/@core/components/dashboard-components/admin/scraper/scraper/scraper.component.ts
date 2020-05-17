@@ -32,7 +32,6 @@ export class ScraperComponent implements OnInit {
   minDateStr: string;
   dateStrTrain: string;
   airportIdTrain: string;
-  errorAirportId: string;
   buttonDisabledAllTrainData: boolean = false;
   buttonUpdateAllTrainStr: string = 'Update all';
   buttonDisabledFlightTrainData: boolean = false;
@@ -43,7 +42,6 @@ export class ScraperComponent implements OnInit {
 
   // Update today data
   airportIdNow: string;
-  errorAirportNow: string;
   buttonDisabledAllNowData: boolean = false;
   buttonUpdateAllNowStr: string = 'Update all';
   buttonDisabledFlightNowData: boolean = false;
@@ -54,13 +52,11 @@ export class ScraperComponent implements OnInit {
 
   // Update url data
   countryId: string;
-  errorUrl: string;
   buttonDisabledUrlData: boolean = false;
   buttonUpdateUrlStr: string = 'Update';
 
   // Update comment data
   cityId: string;
-  errorCityIdError: string;
 
   constructor(private adminService: AdminService) { }
 
@@ -74,27 +70,22 @@ export class ScraperComponent implements OnInit {
 
   // -----------------------------Update train data---------------------------------
   updateTrainData() {
-    if (this.airportIdTrain != null) {
-      const airports = this.airportIdTrain.replace(/\s/g, '').split(',');
-      this.errorAirportId = null;
-      airports.forEach(id => {
-        if (this.selectButtonTrain === 0) { // Flights
-          this.buttonDisabledFlightTrainData = true;
-          this.buttonUpdateFlightTrainStr = 'Updating...';
-          this.updateFlightsHistorical(id);
-        } else if (this.selectButtonTrain === 1) { // Weather
-          this.buttonDisabledWeatherTrainData = true;
-          this.buttonUpdateWeatherTrainStr = 'Updating...';
-          this.updateWeathersHistorical(id);
-        } else { // Both
-          this.buttonDisabledAllTrainData = true;
-          this.buttonUpdateAllTrainStr = 'Updating...';
-          this.updateFlightsHistorical(id);
-        }
-      });
-    } else {
-      this.errorAirportId = 'Please, enter an Airport ID';
-    }
+    const airports = this.airportIdTrain.replace(/\s/g, '').split(',');
+    airports.forEach(id => {
+      if (this.selectButtonTrain === 0) { // Flights
+        this.buttonDisabledFlightTrainData = true;
+        this.buttonUpdateFlightTrainStr = 'Updating...';
+        this.updateFlightsHistorical(id);
+      } else if (this.selectButtonTrain === 1) { // Weather
+        this.buttonDisabledWeatherTrainData = true;
+        this.buttonUpdateWeatherTrainStr = 'Updating...';
+        this.updateWeathersHistorical(id);
+      } else { // Both
+        this.buttonDisabledAllTrainData = true;
+        this.buttonUpdateAllTrainStr = 'Updating...';
+        this.updateFlightsHistorical(id);
+      }
+    });
   }
 
   updateFlightsHistorical(id) {
@@ -148,26 +139,23 @@ export class ScraperComponent implements OnInit {
 
   // -----------------------------Update today data---------------------------------
   updateNowData() {
-    if (this.airportIdNow != null) {
-      const airports = this.airportIdNow.replace(/\s/g, '').split(',');
-
-      airports.forEach(id => {
-        console.log(id);
-        if (this.selectButtonNow === 0) { // Flights
-          this.buttonDisabledFlightNowData = true;
-          this.buttonUpdateFlightNowStr = 'Updating...';
-          this.updateFlightsFuture(id);
-        } else if (this.selectButtonNow === 1) { // Weather
-          this.buttonDisabledWeatherNowData = true;
-          this.buttonUpdateWeatherNowStr = 'Updating...';
-          this.updateWeathersFuture(id);
-        } else { // Both
-          this.buttonDisabledAllNowData = true;
-          this.buttonUpdateAllNowStr = 'Updating...';
-          this.updateFlightsFuture(id);
-        }
-      });
-    }
+    const airports = this.airportIdNow.replace(/\s/g, '').split(',');
+    airports.forEach(id => {
+      console.log(id);
+      if (this.selectButtonNow === 0) { // Flights
+        this.buttonDisabledFlightNowData = true;
+        this.buttonUpdateFlightNowStr = 'Updating...';
+        this.updateFlightsFuture(id);
+      } else if (this.selectButtonNow === 1) { // Weather
+        this.buttonDisabledWeatherNowData = true;
+        this.buttonUpdateWeatherNowStr = 'Updating...';
+        this.updateWeathersFuture(id);
+      } else { // Both
+        this.buttonDisabledAllNowData = true;
+        this.buttonUpdateAllNowStr = 'Updating...';
+        this.updateFlightsFuture(id);
+      }
+    });
   }
 
   updateFlightsFuture(id) {
@@ -228,49 +216,39 @@ export class ScraperComponent implements OnInit {
 
   // -----------------------------Update URL data-----------------------------------
   updateUrlData() {
-    if (this.countryId != null ) {
-      const countries = this.countryId.replace(/\s/g, '').split(',');
-      this.errorUrl = '';
-      countries.forEach(id => {
-        this.buttonDisabledUrlData = true;
-        this.buttonUpdateUrlStr = 'Updating...';
-        this.adminService.updateUrlFlights(id).subscribe(
-          (data: any) => {
-            this.buttonDisabledUrlData = false;
-            this.buttonUpdateUrlStr = 'Update';
-          },
-          error => {
-            alert(error.error.errors);
-            this.buttonDisabledUrlData = false;
-            this.buttonUpdateUrlStr = 'Update';
-          }
-        );
-      });
-    } else {
-      this.errorUrl = 'Please, enter an Country ID';
-    }
+    const countries = this.countryId.replace(/\s/g, '').split(',');
+    countries.forEach(id => {
+      this.buttonDisabledUrlData = true;
+      this.buttonUpdateUrlStr = 'Updating...';
+      this.adminService.updateUrlFlights(id).subscribe(
+        (data: any) => {
+          this.buttonDisabledUrlData = false;
+          this.buttonUpdateUrlStr = 'Update';
+        },
+        error => {
+          alert(error.error.errors);
+          this.buttonDisabledUrlData = false;
+          this.buttonUpdateUrlStr = 'Update';
+        }
+      );
+    });
   }
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
 
   // -----------------------------Update comment data---------------------------------
   updateCommentData() {
-    if (this.cityId != null || this.cityId !== '') {
-      this.errorCityIdError = '';
-      const cities = this.cityId.replace(/\s/g, '').split(',');
-      cities.forEach(id => {
-        this.adminService.updateComments(id).subscribe(
-          (data: any) => {},
-          error => {
-            alert(error.error.errors);
-            this.buttonDisabledUrlData = false;
-            this.buttonUpdateUrlStr = 'Update';
-          }
-        );
-      });
-    } else {
-      this.errorCityIdError = 'Please, enter an City ID';
-    }
+    const cities = this.cityId.replace(/\s/g, '').split(',');
+    cities.forEach(id => {
+      this.adminService.updateComments(id).subscribe(
+        (data: any) => {},
+        error => {
+          alert(error.error.errors);
+          this.buttonDisabledUrlData = false;
+          this.buttonUpdateUrlStr = 'Update';
+        }
+      );
+    });
   }
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
@@ -286,7 +264,7 @@ export class ScraperComponent implements OnInit {
         }
         return !(strResult === control.value.replace(/\s/g, '')) ? {'forbiddenName': {value: control.value}} : null;
       } else {
-        return true ? {'forbiddenName': {value: control.value}} : null;
+        return {'forbiddenName': {value: control.value}};
       }
     };
   }
