@@ -17,4 +17,19 @@ export const endpoints = {
 
   // mail
   contactMail: `${environment.apiUrl}/send-mail`,
-}
+
+  // admin -> models
+  getAlgorithm: `${environment.apiUrl}/models/algorithms`,
+  getModel: `${environment.apiUrl}/models/models`,
+  lastModels: `${environment.apiUrl}/models/lastModels`,
+  updateModel: `${environment.apiUrl}/models/updateModel`,
+  createTrainModel: `${environment.apiUrl}/models/training`,
+  deleteModel: `${environment.apiUrl}/models/deleteModel`,
+
+  // admin -> scrapers
+  flightsHistory: `${environment.apiUrl}/scrapers/flights/history`,
+  flightsForecast: `${environment.apiUrl}/scrapers/flights/forecast`,
+  weatherHistory: `${environment.apiUrl}/scrapers/weathers/history`,
+  weatherForecast: `${environment.apiUrl}/scrapers/weathers/forecast`,
+  updateUrl: `${environment.apiUrl}/scrapers/airportia/url`,
+};

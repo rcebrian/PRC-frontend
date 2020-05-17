@@ -3,17 +3,6 @@
     <div class="card">
       <div class="card-header">
         <i class="fa fa-edit"></i>Generate train model
-        <div class="card-header-actions">
-          <button class="card-header-action btn btn-link btn-setting" type="button">
-            <i class="icon-settings"></i>
-          </button>
-          <button class="card-header-action btn btn-link btn-minimize" type="button">
-            <i class="icon-arrow-up"></i>
-          </button>
-          <button class="card-header-action btn btn-link btn-close" type="button">
-            <i class="icon-close"></i>
-          </button>
-        </div>
       </div>
       <div class="card-body">
         <form class="was-validated ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="createModel()" #modelForm="ngForm">
@@ -110,18 +99,84 @@
             <code *ngIf="characteristicsError">{{characteristicsError}}</code>
           </div>
           <div class="form-actions">
-            <div class="row">
-              <div class="col-md-5"></div>
-              <div class="col-md-2">
-                <button class="btn btn-primary max" type="submit"
-                        [attr.disabled]="(buttonDisabledModel == true ? true : null)" >{{buttonModelStr}}</button>
-              </div>
-              <div class="col-md-5"></div>
+            <div class="center">
+              <button class="btn btn-primary max" type="submit"
+                      [attr.disabled]="(buttonDisabledModel == true ? true : null)" >{{buttonModelStr}}</button>
             </div>
-
           </div>
         </form>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="card left">
+  <div class="card-header">
+    <i class="fa fa-edit"></i>Select or delete model
+  </div>
+  <div class="card-body">
+    <form (ngSubmit)="selectUseModel()" #selectModelForm="ngForm">
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Algorithms</label>
+        <div class="col-md-9">
+          <select class="form-control" name="select1" (change)="onChangeModelType($event.target.value)">
+            <option *ngFor="let a of algorithms" [value]="a.id">{{a.name}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Dates</label>
+        <div class="col-md-9">
+          <select class="form-control" name="select1" (change)="onChangeModelDate($event.target.value)">
+            <option *ngFor="let m of dateArrayModels" [value]="m.id">{{m.date}}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="center">
+        <table id="tableReport">
+          <tr>
+            <th></th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-score</th>
+          </tr>
+          <tr>
+            <th>0</th>
+            <td *ngIf="selectModel">{{selectModel.report_precision_0}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_recall_0}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_f1_score_0}}</td>
+          </tr>
+          <tr>
+            <th>1</th>
+            <td *ngIf="selectModel">{{selectModel.report_precision_1}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_recall_1}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_f1_score_1}}</td>
+          </tr>
+          <tr>
+            <th>Macro avg</th>
+            <td *ngIf="selectModel">{{selectModel.report_accuracy_precision}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_accuracy_recall}}</td>
+            <td *ngIf="selectModel">{{selectModel.report_accuracy_f1_score}}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="center top-margin">
+        <label><b>Number of rows: </b><span *ngIf="selectModel">{{selectModel.report_num_rows}}</span></label>
+      </div>
+
+
+      <div class="form-actions">
+        <div class="center top-margin">
+          <button class="btn btn-sm btn-danger margin-btn" type="button"
+                  [attr.disabled]="(buttonDeleteModel == true ? true : null)"
+                  (click)="deleteModel()">{{buttonDeleteStr}}</button>
+          <button class="btn btn-primary max" type="submit"
+                  [attr.disabled]="(buttonDisabledUpdate == true ? true : null)">{{buttonUpdateStr}}</button>
+        </div>
+      </div>
+    </form>
   </div>
 </div>

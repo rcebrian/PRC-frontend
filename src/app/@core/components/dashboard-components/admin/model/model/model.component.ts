@@ -59,6 +59,10 @@ export class ModelComponent implements OnInit {
   buttonDisabledUpdate: boolean = false;
   buttonUpdateStr: string = 'Apply';
 
+  // Btn delete model
+  buttonDeleteModel: boolean = false;
+  buttonDeleteStr: string = 'Delete';
+
   // Create model train
   date: boolean = false;
   time: boolean = false;
@@ -79,8 +83,10 @@ export class ModelComponent implements OnInit {
 
   ngOnInit(): void {
     this.strTodayDate = this.convertDate(this.todayDate);
-    console.log(this.strTodayDate);
     this.getAlgorithms();
+    this.getModels();
+    // @ts-ignore
+    this.interval = setInterval(this.getLastModels.bind(this), 3000);
   }
 
   // -------------------------Create new training model-----------------------------
@@ -122,7 +128,7 @@ export class ModelComponent implements OnInit {
       this.characteristicsError = null;
     }
 
-    if (this.startDateStr != null && this.endDateStr != null) {
+    if (this.startDateStr != null && this.endDateStr != null && array_characteristic.length !== 1) {
       this.buttonDisabledModel = true;
       this.buttonModelStr = 'Creating...';
       clearInterval(this.interval);
@@ -152,25 +158,41 @@ export class ModelComponent implements OnInit {
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
 
-  getLastModels() {
-    if (this.models != null) {
-      let max = 0;
-      this.models.forEach(model => {
-        if (model.id > max) {
-          max = model.id;
-        }
-      });
-      this.adminService.getLastModels(max).subscribe(
-        (data: Array<Model>) => {
-          if (data.length !== 0) {
-            this.addModel(data);
-          }
-        },
-        error => {
-          alert(error.error.errors);
-        }
-      );
+  // -----------------------Change selected training model---------------------------
+  onChangeModelType(id) {
+    this.selectedAlgorithmModel = id;
+    const array: Array<Model> = [];
+    // tslint:disable-next-line:triple-equals
+    this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x); console.log(array); }});
+    this.dateArrayModels = array;
+    if (this.dateArrayModels.length !== 0) {
+      this.onChangeModelDate(this.dateArrayModels[0].id);
+    } else {
+      this.selectModel = null;
     }
+  }
+
+  onChangeModelDate(id) {
+    this.selectModel = this.dateArrayModels.find(element => element.id === id);
+  }
+
+  getModels() {
+    this.adminService.getModels().subscribe(
+      (data: Array<Model>) => {
+        this.getModelData(data);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+  }
+
+  getModelData(data) {
+    this.models = data;
+    if (this.dateArrayModels == null) {
+      this.selectedModel = 0;
+    }
+    this.onChangeModelType(0);
   }
 
   addModel(data) {
@@ -187,4 +209,59 @@ export class ModelComponent implements OnInit {
     }
   }
 
+  getLastModels() {
+    if (this.models != null) {
+      let max = 0;
+      this.models.forEach(model => {if (model.id > max) {max = model.id; }});
+      this.adminService.getLastModels(max).subscribe(
+        (data: Array<Model>) => {
+          if (data.length !== 0) {
+            this.addModel(data);
+          }
+        },
+        error => {
+          alert(error.error.errors);
+        }
+      );
+    }
+  }
+
+  selectUseModel() {
+    if (this.selectModel != null) {
+      this.buttonDisabledUpdate = true;
+      this.buttonUpdateStr = 'Updating...';
+      this.adminService.setModelInUse(this.selectModel.id).subscribe(
+        (data: any) => {
+          this.buttonDisabledUpdate = false;
+          this.buttonUpdateStr = 'Apply';
+        },
+        error => {
+          alert(error.error.errors);
+          console.log(error);
+          this.buttonDisabledUpdate = false;
+          this.buttonUpdateStr = 'Apply';
+        }
+      );
+    } else {
+      console.log('error');
+    }
+  }
+
+  deleteModel() {
+    if (this.selectModel != null) {
+      this.buttonDeleteModel = true;
+      this.buttonDeleteStr = 'Deleting...';
+      this.adminService.deleteModel(this.selectModel.id).subscribe(
+        (data: any) => {
+          this.buttonDeleteModel = false;
+          this.buttonDeleteStr = 'Delete';
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
 }
