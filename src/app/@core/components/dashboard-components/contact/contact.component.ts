@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MailService} from '../../../services/contact/mail.service';
 import {MarkersService} from '../../../services/markers.service';
 import * as L from 'leaflet';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -15,20 +16,24 @@ export class ContactComponent implements OnInit {
   message: string;
   isActive: boolean;
   uemMap: any;
+  contactForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    message: new FormControl('', [Validators.required]),
+    isActive: new FormControl('', [Validators.required])
+  });
 
   constructor(private mailService: MailService, private markers: MarkersService) { }
 
   ngOnInit(): void {
     this.mapUEM();
-    //this.getMarkers();
   }
 
   submitForm() {
     /*obtener los datos de los campos de texto del formulario*/
-    const name = this.name;
-    const email = this.email;
-    const message = this.message;
-    // alert(`The email has been sent by: ${name}!`);
+    const name = this.contactForm.value.name;
+    const email = this.contactForm.value.email;
+    const message = this.contactForm.value.message;
 
     /*A continuacion hariamos las llamadas a la API, en nuestro caso, enviaremos el correo*/
     this.sendMail(name, email, message);

@@ -10,33 +10,39 @@
           <div class="container">
 
             <!-- form goes here -->
-            <form action="" method="post" enctype="multipart/form-data" class="form-horizontal" (ngSubmit)="submitForm()" #contactForm="ngForm">
+            <form [formGroup]="contactForm" (ngSubmit)="submitForm()" action="" method="post" enctype="multipart/form-data" class="form-horizontal">
               <!-- name -->
               <div class="form-group">
                 <label class="col-form-label">Name</label>
-                <input name = "name" type="text" id="text-input" class="form-control" placeholder="Your name" [(ngModel)]="name" #nameInput="ngModel" required>
-                <small class="form-text filled" *ngIf="nameInput.valid">Valid name.</small>
-                <small class="form-text unfilled" *ngIf="nameInput.invalid && nameInput.touched || nameInput.dirty">Your name is required.</small>
+                <input name = "name" formControlName="name" type="text" id="text-input" class="form-control"
+                       placeholder="Your name"  required
+                       [ngClass]="{'is-valid ng-valid[required] ng-valid required':contactForm.controls.name.valid, 'is-invalid':contactForm.controls.name.errors?.invalid }">
+                <small class="form-text filled" *ngIf="contactForm.controls.name.valid">Valid name.</small>
+                <small class="form-text unfilled" *ngIf="contactForm.controls.name.invalid &&
+                contactForm.controls.name.touched && contactForm.controls.name.dirty">Your name is required.</small>
               </div>
               <!-- email -->
               <div class="form-group">
                 <label class="col-form-label">Email address</label>
-                <input name = "email" type="email" class="form-control" placeholder="Enter email" [(ngModel)]="email" #emailInput="ngModel" email required>
-                <small class="form-text filled" *ngIf="emailInput.valid">Valid mail.</small>
-                <small class="form-text unfilled" *ngIf="emailInput.invalid && emailInput.touched || emailInput.dirty">Your email is required and needs to be a valid direction. We'll never share your email with anyone else.</small>
+                <input name = "email" formControlName="email" type="email" class="form-control" placeholder="Enter email" required
+                       [ngClass]="{'is-valid':contactForm.controls.email.valid, 'is-invalid':contactForm.controls.email.errors?.email }">
+                <small class="form-text filled" *ngIf="contactForm.controls.email.valid">Valid mail.</small>
+                <small class="form-text unfilled" *ngIf="contactForm.controls.email.invalid &&
+                contactForm.controls.email.touched && contactForm.controls.email.dirty">Your email is required and needs to be a valid direction. We'll never share your email with anyone else.</small>
               </div>
               <!-- message -->
               <div class="form-group">
                 <label class="col-form-label">Message</label>
-                <textarea name="message" class="form-control" placeholder="What's on your mind?" [(ngModel)]="message" #messageInput="ngModel" required></textarea>
-                <small class="form-text filled" *ngIf="messageInput.valid">Valid message.</small>
-                <small class="form-text unfilled" *ngIf="messageInput.invalid && messageInput.touched || messageInput.dirty">A message is required.</small>
+                <textarea name="message" formControlName="message" class="form-control" placeholder="What's on your mind?" required></textarea>
+                <small class="form-text filled" *ngIf="contactForm.controls.message.valid">Valid message.</small>
+                <small class="form-text unfilled" *ngIf="contactForm.controls.message.invalid &&
+                contactForm.controls.message.touched && contactForm.controls.message.dirty">A message is required.</small>
               </div>
               <!-- checkbox -->
               <div class="form-check">
-                <input name="isActive" id="checkboxAccept" type="checkbox" class="form-check-input" [(ngModel)]="isActive" #isActiveInput="ngModel" required>
+                <input name="isActive" formControlName="isActive" id="checkboxAccept" type="checkbox" class="form-check-input" required>
                 <label class="form-check-label" for="checkboxAccept">I have read and accept the Terms and Conditions of this web.</label>
-                <small class="form-text text-muted" *ngIf="isActiveInput.invalid">You must accept this to continue.</small>
+                <small class="form-text text-muted" *ngIf="contactForm.controls.isActive.invalid">You must accept this to continue.</small>
               </div>
               <button type="submit" class="btn btn-secondary btn-block" [disabled]="contactForm.invalid">Submit</button>
             </form>
