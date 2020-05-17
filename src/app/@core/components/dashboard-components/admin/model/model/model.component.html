@@ -5,7 +5,7 @@
         <i class="fa fa-edit"></i>Generate train model
       </div>
       <div class="card-body">
-        <form class="was-validated ng-untouched ng-pristine ng-valid" novalidate="" (ngSubmit)="createModel()" #modelForm="ngForm">
+        <form (ngSubmit)="createModel()" [formGroup]="createTrainModelForm" novalidate>
           <div class="form-group row">
             <label class="col-md-3 col-form-label" for="select1">Select an Algorithm</label>
             <div class="col-md-9">
@@ -18,19 +18,26 @@
           <div class="form-group row">
             <label class="col-md-3 col-form-label">Select a start date</label>
             <div class="col-md-9">
-              <input class="form-control" id="start-date" name="date-input" placeholder="date"
+              <input class="form-control" id="start-date" name="startDate" placeholder="date" formControlName="startDate"
                      type="date"
                      max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                     [(ngModel)]="startDateStr" required>
+                     [(ngModel)]="startDateStr" [ngClass]="{'is-valid':createTrainModelForm.controls.startDate.valid}">
+              <div *ngIf="createTrainModelForm.controls.startDate.touched && createTrainModelForm.controls.startDate.errors?.required"
+                   class="red">Start date is required.
+              </div>
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-md-3 col-form-label">Select a end date</label>
             <div class="col-md-9">
-              <input class="form-control" id="end-date" name="date-input" placeholder="date" type="date"
+              <input class="form-control" id="end-date" name="endDate" formControlName="endDate" placeholder="date" type="date"
                      min="{{startDateStr != undefined ? startDateStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                     [(ngModel)]="endDateStr" required>
+                     max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                     [(ngModel)]="endDateStr" [ngClass]="{'is-valid':createTrainModelForm.controls.endDate.valid}">
+              <div *ngIf="createTrainModelForm.controls.endDate.touched && createTrainModelForm.controls.endDate.errors?.required"
+                     class="red">End date is required.
+              </div>
             </div>
           </div>
 
@@ -47,61 +54,62 @@
             <div class="col-md-4">
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="date" ngModel required [(ngModel)]="date"> Date</label>
+                              name="date" formControlName="date" ngModel [(ngModel)]="date"> Date</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="time" ngModel [(ngModel)]="time" > Time</label>
+                              name="time" formControlName="time" ngModel [(ngModel)]="time" > Time</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="id" ngModel [(ngModel)]="id"> Flight identifier</label>
+                              name="id" formControlName="id" ngModel [(ngModel)]="id"> Flight identifier</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="airline_id" ngModel [(ngModel)]="airline_id"> Airline</label>
+                              name="airline_id" formControlName="airline_id" ngModel [(ngModel)]="airline_id"> Airline</label>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="city_id" ngModel [(ngModel)]="city_id"> Destination</label>
+                              name="city_id" formControlName="city_id" ngModel [(ngModel)]="city_id"> Destination</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="airport_id" ngModel [(ngModel)]="airport_id"> Airport ID</label>
+                              name="airport_id" formControlName="airport_id" ngModel [(ngModel)]="airport_id"> Airport ID</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="temperature" ngModel [(ngModel)]="temperature"> Temperature</label>
+                              name="temperature" formControlName="temperature" ngModel [(ngModel)]="temperature"> Temperature</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="humidity" ngModel [(ngModel)]="humidity"> Humidity</label>
+                              name="humidity" formControlName="humidity" ngModel [(ngModel)]="humidity"> Humidity</label>
               </div>
             </div>
 
             <div class="col-md-4">
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="wind_speed" ngModel [(ngModel)]="wind_speed"> Wind speed</label>
+                              name="wind_speed" formControlName="wind_speed" ngModel [(ngModel)]="wind_speed"> Wind speed</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="wind_direction" ngModel [(ngModel)]="wind_direction"> Wind direction</label>
+                              name="wind_direction" formControlName="wind_direction" ngModel [(ngModel)]="wind_direction"> Wind direction</label>
               </div>
               <div class="form-check">
                 <label><input class="form-check-input position-static" type="checkbox"
-                              name="pressure" ngModel [(ngModel)]="pressure"> Pressure</label>
+                              name="pressure" formControlName="pressure" ngModel [(ngModel)]="pressure"> Pressure</label>
               </div>
             </div>
-            <code *ngIf="characteristicsError">{{characteristicsError}}</code>
+            <div class="red form-check" *ngIf="characteristicsError">{{characteristicsError}}</div>
           </div>
           <div class="form-actions">
             <div class="center">
               <button class="btn btn-primary max" type="submit"
-                      [attr.disabled]="(buttonDisabledModel == true ? true : null)" >{{buttonModelStr}}</button>
+                      [attr.disabled]="(buttonDisabledModel == true ? true : null)"
+                      [disabled]="!createTrainModelForm.valid">{{buttonModelStr}}</button>
             </div>
           </div>
         </form>
