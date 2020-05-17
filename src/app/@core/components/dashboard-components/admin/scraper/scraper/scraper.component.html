@@ -6,17 +6,18 @@
         <i class="fa fa-edit"></i>Run history data
       </div>
       <div class="card-body">
-        <form (ngSubmit)="updateTrainData()" #selectTrainDataForm="ngForm">
-
+        <form (ngSubmit)="updateTrainData()" [formGroup]="historyForm" novalidate>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="select-date">Select a date</label>
                 <input class="form-control" id="select-date" name="date-input" placeholder="date"
+                       formControlName="date"
                        type="date"
                        min="{{minDateStr != undefined ? minDateStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
                        max="{{yesterdayStr != undefined ? yesterdayStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                       [(ngModel)]="dateStrTrain" required>
+                       [(ngModel)]="dateStrTrain"
+                       [ngClass]="{'is-valid':historyForm.controls.date.valid}">
               </div>
             </div>
           </div>
@@ -26,8 +27,11 @@
               <div class="form-group">
                 <label for="name">Airport ID</label>
                 <input class="form-control" id="name" placeholder="Enter an airport id" type="text"
-                       name="airportId" [(ngModel)]="airportIdTrain">
-                <div *ngIf="errorAirportId" class="error">{{errorAirportId}}</div>
+                       formControlName="airportId"
+                       name="airportId" [(ngModel)]="airportIdTrain"
+                       [ngClass]="{'is-valid':historyForm.controls.airportId.valid}">
+                <div *ngIf="historyForm.controls.airportId.errors?.forbiddenName
+                          && !historyForm.controls.airportId.errors?.required" class="is-invalid red">Incorrect format.</div>
               </div>
             </div>
           </div>
@@ -36,13 +40,13 @@
             <div class="center top-margin">
               <button class="btn btn-outline-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledFlightTrainData == true ? true : null)"
-                      (click)="selectButtonTrain = 0">{{buttonUpdateFlightTrainStr}}</button>
+                      (click)="selectButtonTrain = 0" [disabled]="!historyForm.valid">{{buttonUpdateFlightTrainStr}}</button>
               <button class="btn btn-outline-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledWeatherTrainData == true ? true : null)"
-                      (click)="selectButtonTrain = 1">{{buttonUpdateWeatherTrainStr}}</button>
+                      (click)="selectButtonTrain = 1" [disabled]="!historyForm.valid">{{buttonUpdateWeatherTrainStr}}</button>
               <button class="btn btn-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledAllTrainData == true ? true : null)"
-                      (click)="selectButtonTrain =2">{{buttonUpdateAllTrainStr}}</button>
+                      (click)="selectButtonTrain =2" [disabled]="!historyForm.valid">{{buttonUpdateAllTrainStr}}</button>
             </div>
           </div>
         </form>
@@ -54,14 +58,16 @@
         <i class="fa fa-edit"></i>Run URLs airports
       </div>
       <div class="card-body">
-        <form (ngSubmit)="updateUrlData()" #selectURLDataForm="ngForm">
+        <form (ngSubmit)="updateUrlData()" [formGroup]="urlForm" novalidate>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="countryId">Country ID</label>
                 <input class="form-control" id="countryId" placeholder="Enter a country id" type="text"
-                       name="airportId" [(ngModel)]="countryId">
-                <div *ngIf="errorUrl" class="error">{{errorUrl}}</div>
+                       name="airportId" formControlName="countryId" [(ngModel)]="countryId"
+                       [ngClass]="{'is-valid':urlForm.controls.countryId.valid}">
+                <div *ngIf="urlForm.controls.countryId.errors?.forbiddenName
+                          && !urlForm.controls.countryId.errors?.required" class="is-invalid red">Incorrect format.</div>
               </div>
             </div>
           </div>
@@ -69,7 +75,8 @@
           <div class="form-actions">
             <div class="center top-margin">
               <button class="btn btn-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledUrlData == true ? true : null)">{{buttonUpdateUrlStr}}</button>
+                      [attr.disabled]="(buttonDisabledUrlData == true ? true : null)"
+                      [disabled]="!urlForm.valid">{{buttonUpdateUrlStr}}</button>
             </div>
           </div>
         </form>
@@ -84,13 +91,16 @@
         <i class="fa fa-edit"></i>Run today data
       </div>
       <div class="card-body">
-        <form (ngSubmit)="updateNowData()" #selectNowDataForm="ngForm">
+        <form (ngSubmit)="updateNowData()" [formGroup]="forecastForm" novalidate>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="name">Airport ID</label>
-                <input class="form-control" name="airportId" type="text" [(ngModel)]="airportIdNow">
-                <div *ngIf="errorAirportNow" class="error">{{errorAirportNow}}</div>
+                <input class="form-control" name="airportId" type="text" [(ngModel)]="airportIdNow"
+                       formControlName="airportId"
+                       [ngClass]="{'is-valid':forecastForm.controls.airportId.valid}">
+                <div *ngIf="forecastForm.controls.airportId.errors?.forbiddenName
+                          && !forecastForm.controls.airportId.errors?.required" class="is-invalid red">Incorrect format.</div>
               </div>
             </div>
           </div>
@@ -99,13 +109,16 @@
             <div class="center top-margin">
               <button class="btn btn-outline-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledFlightNowData == true ? true : null)"
-                      (click)="selectButtonNow = 0">{{buttonUpdateFlightNowStr}}</button>
+                      (click)="selectButtonNow = 0"
+                      [disabled]="!forecastForm.valid">{{buttonUpdateFlightNowStr}}</button>
               <button class="btn btn-outline-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledWeatherNowData == true ? true : null)"
-                      (click)="selectButtonNow = 1">{{buttonUpdateWeatherNowStr}}</button>
+                      (click)="selectButtonNow = 1"
+                      [disabled]="!forecastForm.valid">{{buttonUpdateWeatherNowStr}}</button>
               <button class="btn btn-primary margin-btn" type="submit"
                       [attr.disabled]="(buttonDisabledAllNowData == true ? true : null)"
-                      (click)="selectButtonNow =2">{{buttonUpdateAllNowStr}}</button>
+                      (click)="selectButtonNow =2"
+                      [disabled]="!forecastForm.valid">{{buttonUpdateAllNowStr}}</button>
             </div>
           </div>
         </form>
@@ -117,21 +130,25 @@
         <i class="fa fa-edit"></i>Run comments data
       </div>
       <div class="card-body">
-        <form (ngSubmit)="updateCommentData()" #selectCommentDataForm="ngForm">
+        <form (ngSubmit)="updateCommentData()" [formGroup]="commentForm" novalidate>
           <div class="row">
             <div class="col-sm-12">
               <div class="form-group">
                 <label for="cityID">City ID</label>
                 <input class="form-control" id="cityID" placeholder="Enter a city id" type="text"
-                       name="airportId" [(ngModel)]="cityId">
-                <div *ngIf="errorCityIdError" class="error">{{errorCityIdError}}</div>
+                       name="cityId" [(ngModel)]="cityId"
+                       formControlName="cityId"
+                       [ngClass]="{'is-valid':commentForm.controls.cityId.valid}">
+                <div *ngIf="commentForm.controls.cityId.errors?.forbiddenName
+                          && !commentForm.controls.cityId.errors?.required" class="is-invalid red">Incorrect format.</div>
               </div>
             </div>
           </div>
 
           <div class="form-actions">
             <div class="center top-margin">
-              <button class="btn btn-primary margin-btn" type="submit">Update</button>
+              <button class="btn btn-primary margin-btn" type="submit"
+                      [disabled]="!commentForm.valid">Update</button>
             </div>
           </div>
         </form>
