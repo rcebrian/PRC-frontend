@@ -46,6 +46,7 @@ import { E404Component } from './@core/components/errors/e404.component';
 import { E500Component } from './@core/components/errors/e500.component';
 import {ContactComponent} from './@core/components/dashboard-components/contact/contact.component';
 import {FormsModule} from '@angular/forms';
+import {AvatarModule} from "ngx-avatar";
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import {FormsModule} from '@angular/forms';
     TabsModule.forRoot(),
     ChartsModule,
     HttpClientModule,
+    AvatarModule,
     FormsModule
   ],
   declarations: [
