@@ -48,6 +48,34 @@
         </form>
       </div>
     </div>
+
+    <div class="card right">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>Run URLs airports
+      </div>
+      <div class="card-body">
+        <form (ngSubmit)="updateUrlData()" #selectURLDataForm="ngForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label for="countryId">Country ID</label>
+                <input class="form-control" id="countryId" placeholder="Enter an country id" type="text"
+                       name="airportId" [(ngModel)]="countryId">
+                <div *ngIf="errorUrl" class="error">{{errorUrl}}</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="center top-margin">
+              <button class="btn btn-primary margin-btn" type="submit"
+                      [attr.disabled]="(buttonDisabledUrlData == true ? true : null)">{{buttonUpdateUrlStr}}</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </div>
 
   <!-- TODAY SCRAPER -->

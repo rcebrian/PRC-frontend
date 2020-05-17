@@ -33,6 +33,12 @@ export class ScraperComponent implements OnInit {
   buttonUpdateWeatherNowStr: string = 'Weather';
   selectButtonNow: number;
 
+  // Update url data
+  countryId: string;
+  errorUrl: string;
+  buttonDisabledUrlData: boolean = false;
+  buttonUpdateUrlStr: string = 'Update';
+
   constructor(private adminService: AdminService) { }
 
   ngOnInit(): void {
@@ -196,4 +202,32 @@ export class ScraperComponent implements OnInit {
       day = ('0' + date.getDate()).slice(-2);
     return [date.getFullYear(), month, day].join('-');
   }
+
+  // -----------------------------Update URL data-----------------------------------
+  updateUrlData() {
+    if (this.countryId != null ) {
+      const countries = this.countryId.replace(/\s/g, '').split(',');
+      this.errorAirportId = null;
+      this.errorUrl = '';
+      countries.forEach(id => {
+        this.buttonDisabledUrlData = true;
+        this.buttonUpdateUrlStr = 'Updating...';
+        this.adminService.updateUrlFlights(id).subscribe(
+          (data: any) => {
+            this.buttonDisabledUrlData = false;
+            this.buttonUpdateUrlStr = 'Update';
+          },
+          error => {
+            alert(error.error.errors);
+            this.buttonDisabledUrlData = false;
+            this.buttonUpdateUrlStr = 'Update';
+          }
+        );
+      });
+    } else {
+      this.errorUrl = 'Please, enter an Country ID';
+    }
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
 }

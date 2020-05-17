@@ -78,7 +78,7 @@ export class AdminService {
       });
   }
 
-  updateUrlFlights(countryId: number) {
+  updateUrlFlights(countryId: string) {
     return this.httpClient.post(endpoints.updateUrl,
       {
         country_id: parseInt(`${countryId}`),
