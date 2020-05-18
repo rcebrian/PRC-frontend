@@ -1,63 +1,122 @@
-<div class="animated fadeIn">
-    <div class="card">
-      <div class="card-header">Flights Statistic</div>
-      <div class="card-body">
-        <form (ngSubmit)="getFlightsData()" [formGroup]="flightsDataForm" novalidate>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Select a start date</label>
-            <div class="col-md-9">
-              <input class="form-control" id="start-date" name="startDate" placeholder="date" formControlName="startDate"
-                     type="date"
-                     max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                     [ngClass]="{'is-valid':flightsDataForm.controls.startDate.valid}">
-              <div *ngIf="flightsDataForm.controls.startDate.touched && flightsDataForm.controls.startDate.errors?.required"
-                   class="red">Start date is required.
+<div class="row">
+  <div class="col-sm-6">
+    <div class="animated fadeIn">
+      <div class="card">
+        <div class="card-header">Flights Statistic</div>
+        <div class="card-body">
+          <form (ngSubmit)="getFlightsData()" [formGroup]="flightsDataForm" novalidate>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Select a start date</label>
+              <div class="col-md-9">
+                <input class="form-control" id="start-date" name="startDate" placeholder="date" formControlName="startDate"
+                       type="date"
+                       max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                       [ngClass]="{'is-valid':flightsDataForm.controls.startDate.valid}">
+                <div *ngIf="flightsDataForm.controls.startDate.touched && flightsDataForm.controls.startDate.errors?.required"
+                     class="red">Start date is required.
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label">Select a end date</label>
-            <div class="col-md-9">
-              <input class="form-control" id="end-date" name="endDate" formControlName="endDate" placeholder="date" type="date"
-                     min="{{flightsDataForm.controls.startDate.value != undefined ?
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Select a end date</label>
+              <div class="col-md-9">
+                <input class="form-control" id="end-date" name="endDate" formControlName="endDate" placeholder="date" type="date"
+                       min="{{flightsDataForm.controls.startDate.value != undefined ?
                      flightsDataForm.controls.startDate.value : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                     max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                     [ngClass]="{'is-valid':flightsDataForm.controls.endDate.valid}">
-              <div *ngIf="flightsDataForm.controls.endDate.touched && flightsDataForm.controls.endDate.errors?.required"
-                   class="red">End date is required.
+                       max="{{strTodayDate != undefined ? strTodayDate : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                       [ngClass]="{'is-valid':flightsDataForm.controls.endDate.valid}">
+                <div *ngIf="flightsDataForm.controls.endDate.touched && flightsDataForm.controls.endDate.errors?.required"
+                     class="red">End date is required.
+                </div>
               </div>
             </div>
+            <div class="form-actions">
+              <div class="center">
+                <button class="btn btn-primary max" type="submit"
+                        [disabled]="!flightsDataForm.valid">Graphic data</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="chart-wrapper margin-top" *ngIf="barChartLabels && barChartData">
+            <canvas baseChart class="chart" height="200"
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"></canvas>
           </div>
-          <div class="form-actions">
-            <div class="center">
-              <button class="btn btn-primary max" type="submit"
-                      [disabled]="!flightsDataForm.valid">Graphic data</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="animated fadeIn">
+      <div class="card">
+        <div class="card-header">Comments Statistic</div>
+        <div class="card-body">
+          <form (ngSubmit)="getCommentsData()" [formGroup]="commentsDataForm" novalidate>
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Select a city</label>
+              <div class="col-md-9">
+                <ng-select class="form-control input-sm"
+                           bindLabel="name"
+                           bindValue="id"
+                           formControlName="cityId">
+                  <ng-option *ngFor="let city of cities" [value]="city.city_id">{{city.city}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="center">
+                <button class="btn btn-primary max" type="submit"
+                        [disabled]="!commentsDataForm.valid">Graphic data</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="chart-wrapper margin-top">
+            <canvas baseChart class="chart"
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+          </div>
+
+          <div class="form-group center">
+            <div class="form-check form-check-inline margin-right" id="inline-radios">
+              <input class="form-check-input" id="inlineRadio1" name="inline-radios" type="radio" value="option1">
+              <label class="form-check-label" for="inlineRadio1">Sentiment</label>
+            </div>
+            <div class="form-check form-check-inline margin-right">
+              <input class="form-check-input" id="inlineRadio2" name="inline-radios" type="radio" value="option2">
+              <label class="form-check-label" for="inlineRadio2">Polarity</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" id="inlineRadio3" name="inline-radios" type="radio" value="option3">
+              <label class="form-check-label" for="inlineRadio3">Grade</label>
             </div>
           </div>
-        </form>
-        
-        <div class="chart-wrapper" *ngIf="barChartLabels && barChartData">
-          <canvas baseChart class="chart"
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [chartType]="barChartType"></canvas>
-        </div>
-      </div>
-    </div>
 
-    <div class="card">
-      <div class="card-header">Comments Statistic</div>
-      <div class="card-body">
-        <div class="chart-wrapper">
-          <canvas baseChart class="chart"
-                  [data]="pieChartData"
-                  [labels]="pieChartLabels"
-                  [chartType]="pieChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
+          <div class="row">
+            <div class="col-sm-6">
+              <label class="max">Positive
+                <input class="form-control" name="startDate" formControlName="startDate"
+                       type="number" min="-1" max="1">
+              </label>
+            </div>
+            <div class="col-sm-6">
+              <label class="max">Negative
+                <input class="form-control" name="startDate" formControlName="startDate"
+                       type="number" min="-1" max="1">
+              </label>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

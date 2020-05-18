@@ -100,4 +100,14 @@ export class AdminService {
         end_date: endDate,
       });
   }
+
+  getCitiesComments() {
+    return this.httpClient.get(endpoints.getCitiesComments, {});
+  }
+
+  getCitiesData(cityId: string) {
+    return this.httpClient.post(endpoints.getDataComments, {
+      city_id: cityId
+    });
+  }
 }
