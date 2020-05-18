@@ -53,7 +53,17 @@ export class StatisticComponent implements OnInit {
 
   // Cities
   cities: Array<City>;
-  commentData: Array<CommentData>;
+  dataComments: Array<CommentData>;
+
+  radioBtn: string = 'sentiment';
+
+  // Ranges
+  positiveSentiment: number = 0.7;
+  negativeSentiment: number = 0.3;
+  positivePolarity: number = 0.7;
+  negativePolarity: number = 0;
+  positiveGrade: number = 4;
+  negativeGrade: number = 1.5;
 
   // Dates
   todayDate: Date = new Date();
@@ -75,15 +85,9 @@ export class StatisticComponent implements OnInit {
   public pieChartLabels: string[] = ['Positive comments', 'Neutral comments', 'Negative comments'];
   public pieChartData: number[] = [300, 500, 100];
   public pieChartType = 'pie';
-
-  // events
-  public chartClicked(e: any): void {
-    // console.log(e);
-  }
-
-  public chartHovered(e: any): void {
-    // console.log(e);
-  }  // events
+  public doughnutColors: any[] = [
+    { backgroundColor: ['#a5d6a7', '#fff59d', '#e57373']},
+    { borderColor: ['#FEFFC9', '#FEFFC9', '#FEFFC9'] }];
 
   constructor(private adminService: AdminService) {}
 
@@ -187,6 +191,7 @@ export class StatisticComponent implements OnInit {
   }
 
   setValuesPieChart(data: Array<CommentData>) {
+    this.dataComments = data;
     const positive = 0.5;
     const negative = 0;
 
@@ -204,6 +209,51 @@ export class StatisticComponent implements OnInit {
       }
     });
     this.pieChartData = [positiveValues, neutralValues, negativeValues];
+  }
+
+  changeLineChart() {
+    if (this.dataComments != null) {
+      let positiveValues = 0;
+      let negativeValues = 0;
+      let neutralValues = 0;
+
+      if (this.radioBtn === 'sentiment') {
+        this.dataComments.forEach(dat => {
+          if (dat.sentiment > this.positiveSentiment) {
+            positiveValues += 1;
+          } else if (dat.sentiment < this.negativeSentiment) {
+            negativeValues += 1;
+          } else {
+            neutralValues += 1;
+          }
+        });
+      } else if (this.radioBtn === 'polarity') {
+        this.dataComments.forEach(dat => {
+          if (dat.polarity > this.positivePolarity) {
+            positiveValues += 1;
+          } else if (dat.polarity < this.negativePolarity) {
+            negativeValues += 1;
+          } else {
+            neutralValues += 1;
+          }
+        });
+      } else {
+        this.dataComments.forEach(dat => {
+          if (dat.grade > this.positiveGrade) {
+            positiveValues += 1;
+          } else if (dat.grade < this.negativeGrade) {
+            negativeValues += 1;
+          } else {
+            neutralValues += 1;
+          }
+        });
+      }
+      this.pieChartData = [positiveValues, neutralValues, negativeValues];
+    }
+
+  }
+  radioBtnChanged() {
+    this.changeLineChart();
   }
 }
 
