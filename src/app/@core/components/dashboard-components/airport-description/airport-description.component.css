@@ -1,0 +1,10 @@
+.h{
+  justify-content: center;
+  text-align: center;
+}
+.comment-date{
+  text-align: right;
+  justify-content: right;
+  right: 0;
+  margin-left: 5px;
+}

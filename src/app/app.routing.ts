@@ -14,6 +14,7 @@ import { ModelComponent } from './@core/components/dashboard-components/admin/mo
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
 import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
 import {AdminGuard} from "./@core/guards/admin.guard";
+import {AirportDescriptionComponent} from './@core/components/dashboard-components/airport-description/airport-description.component';
 
 
 export const routes: Routes = [
@@ -62,6 +63,10 @@ export const routes: Routes = [
       {
         path: 'airports',
         component: AirportComponent
+      },
+      {
+        path: 'airports/description',
+        component: AirportDescriptionComponent
       },
     ]
   },

@@ -15,3 +15,7 @@ button{
   text-align: center;
   margin-right: 10px;
 }
+.airport-name{
+  color: black;
+  text-decoration: none;
+}

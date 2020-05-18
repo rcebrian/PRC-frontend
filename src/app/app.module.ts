@@ -54,6 +54,7 @@ import {AuthInterceptorService} from './@core/services/auth/auth-interceptor.ser
 import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AirportDescriptionComponent } from './@core/components/dashboard-components/airport-description/airport-description.component';
 
 @NgModule({
   imports: [
@@ -91,7 +92,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ScraperComponent,
     ModelComponent,
     StatisticComponent,
-    AirportComponent
+    AirportComponent,
+    AirportDescriptionComponent
   ],
   providers: [
     {
