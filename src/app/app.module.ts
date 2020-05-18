@@ -49,8 +49,10 @@ import {ContactComponent} from './@core/components/dashboard-components/contact/
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AvatarModule} from 'ngx-avatar';
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
-import {providerDef} from "@angular/compiler/src/view_compiler/provider_compiler";
-import {AuthInterceptorService} from "./@core/services/auth/auth-interceptor.service";
+import {providerDef} from '@angular/compiler/src/view_compiler/provider_compiler';
+import {AuthInterceptorService} from './@core/services/auth/auth-interceptor.service';
+import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
+import {CollapseModule} from 'ngx-bootstrap/collapse';
 
 @NgModule({
   imports: [
@@ -70,7 +72,8 @@ import {AuthInterceptorService} from "./@core/services/auth/auth-interceptor.ser
     AvatarModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    CollapseModule
   ],
   declarations: [
     AppComponent,
@@ -85,7 +88,8 @@ import {AuthInterceptorService} from "./@core/services/auth/auth-interceptor.ser
     ContactComponent,
     ScraperComponent,
     ModelComponent,
-    StatisticComponent
+    StatisticComponent,
+    AirportComponent
   ],
   providers: [
     {

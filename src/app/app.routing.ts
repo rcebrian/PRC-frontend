@@ -12,6 +12,8 @@ import {ContactComponent} from './@core/components/dashboard-components/contact/
 import {ScraperComponent} from './@core/components/dashboard-components/admin/scraper/scraper/scraper.component';
 import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
+import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
+
 
 export const routes: Routes = [
   {
@@ -49,6 +51,10 @@ export const routes: Routes = [
       {
         path: 'admin/statistics',
         component: StatisticComponent
+      },
+      {
+        path: 'airports',
+        component: AirportComponent
       },
     ]
   },
