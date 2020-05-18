@@ -13,6 +13,7 @@ import {ScraperComponent} from './@core/components/dashboard-components/admin/sc
 import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
 import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
+import {AdminGuard} from "./@core/guards/admin.guard";
 
 
 export const routes: Routes = [
@@ -38,23 +39,29 @@ export const routes: Routes = [
       },
       {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        canActivate: [AdminGuard]
       },
       {
         path: 'admin/scrapers',
-        component: ScraperComponent
+        component: ScraperComponent,
+        // canActivate: [AdminGuard]
+
       },
       {
         path: 'admin/models',
-        component: ModelComponent
+        component: ModelComponent,
+        // canActivate: [AdminGuard]
+
       },
       {
         path: 'admin/statistics',
-        component: StatisticComponent
+        component: StatisticComponent,
+        // canActivate: [AdminGuard]
       },
       {
         path: 'airports',
-        component: AirportComponent
+        // component: AirportComponent
       },
     ]
   },
