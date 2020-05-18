@@ -1,6 +1,9 @@
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-header">
+      <button type="button" class="btn btn-primary btn-pill" (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">+
+      </button>
       Aeropuerto de Madrid - Barajas
       <div class="card-header-actions"></div>
     </div>
@@ -66,16 +69,14 @@
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed"
-              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Toggle collapse
-      </button>
-    </div>
   </div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-header">
+      <button type="button" class="btn btn-primary btn-pill" (click)="isCollapsed1 = !isCollapsed1"
+              [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic">+
+      </button>
       Aeropuerto de Barcelona
       <div class="card-header-actions"></div>
     </div>
@@ -139,16 +140,14 @@
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary" (click)="isCollapsed1 = !isCollapsed1"
-              [attr.aria-expanded]="!isCollapsed1" aria-controls="collapseBasic">Toggle collapse
-      </button>
-    </div>
   </div>
 </div>
 <div class="animated fadeIn">
   <div class="card">
     <div class="card-header">
+      <button type="button" class="btn btn-primary btn-pill" (click)="isCollapsed2 = !isCollapsed2"
+              [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic">+
+      </button>
       Aeropuerto de Sevilla
       <div class="card-header-actions"></div>
     </div>
@@ -211,11 +210,6 @@
           </table>
         </div>
       </div>
-    </div>
-    <div class="card-footer">
-      <button type="button" class="btn btn-primary" (click)="isCollapsed2 = !isCollapsed2"
-              [attr.aria-expanded]="!isCollapsed2" aria-controls="collapseBasic">Toggle collapse
-      </button>
     </div>
   </div>
 </div>

@@ -10,3 +10,8 @@
   margin-right: 30px;
   width: 97%;
 }
+button{
+  border-radius: 60%;
+  text-align: center;
+  margin-right: 10px;
+}
