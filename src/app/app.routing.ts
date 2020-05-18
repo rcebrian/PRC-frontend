@@ -41,7 +41,7 @@ export const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent,
-        canActivate: [AdminGuard]
+        // canActivate: [AdminGuard]
       },
       {
         path: 'admin/scrapers',
