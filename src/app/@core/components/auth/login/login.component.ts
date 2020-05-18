@@ -29,12 +29,11 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         data => {
-          this.tokenStorage.saveToken(data.accessToken);
+          this.tokenStorage.saveToken(data.access_token);
           this.tokenStorage.saveUser(data.user);
 
           this.isLoginFailed = false;
 
-          // console.log(JSON.stringify(data));
           this.redirectToDashboard();
         },
         err => {
