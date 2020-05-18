@@ -13,8 +13,6 @@ export class TokenStorageService {
 
   signOut() {
     window.sessionStorage.clear();
-    window.sessionStorage.removeItem(TOKEN_KEY);
-    window.sessionStorage.removeItem(USER_KEY);
 
   }
 
