@@ -1,8 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../../../services/admin/admin.service';
-import {Model} from '../../model/model/model.component';
+import { Observable } from 'rxjs';
+
+export interface Person {
+  id: string;
+  isActive: boolean;
+  age: number;
+  name: string;
+  gender: string;
+  company: string;
+  email: string;
+  phone: string;
+  disabled?: boolean;
+}
+
 
 export class GroupFlightData {
   groupDate: string;
@@ -10,6 +22,17 @@ export class GroupFlightData {
   countDelay: number;
   prediction: number;
   countPrediction: number;
+}
+
+export class City {
+  city: string;
+  city_id: number;
+}
+
+export class CommentData {
+  polarity: number;
+  sentiment: number;
+  grade: number;
 }
 
 @Component({
@@ -24,6 +47,14 @@ export class StatisticComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
   });
 
+  commentsDataForm = new FormGroup({
+    cityId: new FormControl('', [Validators.required]),
+  });
+
+  // Cities
+  cities: Array<City>;
+  commentData: Array<CommentData>;
+
   // Dates
   todayDate: Date = new Date();
   weekAgo: Date = new Date();
@@ -32,7 +63,8 @@ export class StatisticComponent implements OnInit {
   // barChart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: false
   };
   public barChartLabels: string[];
   public barChartType = 'bar';
@@ -51,19 +83,20 @@ export class StatisticComponent implements OnInit {
 
   public chartHovered(e: any): void {
     // console.log(e);
-  }
+  }  // events
 
   constructor(private adminService: AdminService) {}
 
   ngOnInit(): void {
     this.strTodayDate = this.convertDate(this.todayDate);
     this.getFlightsInitData();
+    this.getCities();
   }
 
   getFlightsData() {
     this.adminService.getFlightsGroupData(this.flightsDataForm.value.startDate, this.flightsDataForm.value.endDate).subscribe(
       (data: Array<GroupFlightData>) => {
-        this.setValuesbarChart(data);
+        this.setValuesBarChart(data);
       },
       error => {
         alert(error.error.errors);
@@ -77,10 +110,9 @@ export class StatisticComponent implements OnInit {
 
     this.weekAgo.setDate(this.weekAgo.getDate() - 6);
     const initData = this.convertDate(this.weekAgo);
-    console.log(this.strTodayDate);
     this.adminService.getFlightsGroupData(initData, yesterday).subscribe(
       (data: Array<GroupFlightData>) => {
-        this.setValuesbarChart(data);
+        this.setValuesBarChart(data);
       },
       error => {
         alert(error.error.errors);
@@ -95,7 +127,7 @@ export class StatisticComponent implements OnInit {
     return [date.getFullYear(), month, day].join('-');
   }
 
-  setValuesbarChart(data: Array<GroupFlightData>) {
+  setValuesBarChart(data: Array<GroupFlightData>) {
     const dataLabels = [];
     const dataInTime = [];
     const dataInTimePrediction = [];
@@ -126,6 +158,52 @@ export class StatisticComponent implements OnInit {
       {data: dataDelayed, label: 'Delayed Flights'},
       {data: dataDelayedPrediction, label: 'Predict Delayed Flights'}
     ];
+  }
+
+  getCities() {
+    this.adminService.getCitiesComments().subscribe(
+      (data: Array<City>) => {
+        this.setCityValue(data);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+  }
+
+  setCityValue(data: Array<City>) {
+    this.cities = data;
+  }
+
+  getCommentsData() {
+    this.adminService.getCitiesData(this.commentsDataForm.value.cityId).subscribe(
+      (data: Array<CommentData>) => {
+        this.setValuesPieChart(data);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+  }
+
+  setValuesPieChart(data: Array<CommentData>) {
+    const positive = 0.5;
+    const negative = 0;
+
+    let positiveValues = 0;
+    let negativeValues = 0;
+    let neutralValues = 0;
+
+    data.forEach(dat => {
+      if (dat.polarity > positive) {
+        positiveValues += 1;
+      } else if (dat.polarity < negative) {
+        negativeValues += 1;
+      } else {
+        neutralValues += 1;
+      }
+    });
+    this.pieChartData = [positiveValues, neutralValues, negativeValues];
   }
 }
 

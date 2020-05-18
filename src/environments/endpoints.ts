@@ -36,4 +36,6 @@ export const endpoints = {
 
   // admin -> graphics
   groupFlightsData: `${environment.apiUrl}/flights/groupFlights`,
+  getCitiesComments: `${environment.apiUrl}/comments/cities`,
+  getDataComments: `${environment.apiUrl}/comments/data`,
 };
