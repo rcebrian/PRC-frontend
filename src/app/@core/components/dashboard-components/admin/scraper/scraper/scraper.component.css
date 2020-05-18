@@ -19,3 +19,12 @@
 .red{
   color:red;
 }
+.form-control.ng-select {
+  border: none;
+  padding: 0;
+}
+
+.ng-select.state-error .ng-control {
+  background-color: #ffcccc;
+  border-color: #ff0000;
+}

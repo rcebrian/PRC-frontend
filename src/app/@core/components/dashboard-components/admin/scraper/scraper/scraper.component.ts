@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../../../../services/admin/admin.service';
 import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 
+export class Model {
+  name: string;
+  id: number;
+}
+
 @Component({
   selector: 'app-scraper',
   templateUrl: './scraper.component.html',
@@ -11,19 +16,19 @@ import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '
 export class ScraperComponent implements OnInit {
   historyForm = new FormGroup({
     date: new FormControl('', [Validators.required]),
-    airportId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+    airportId: new FormControl('', [Validators.required])
   });
 
   urlForm = new FormGroup({
-    countryId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+    countryId: new FormControl('', [Validators.required])
   });
 
   forecastForm = new FormGroup({
-    airportId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+    airportId: new FormControl('', [Validators.required])
   });
 
   commentForm = new FormGroup({
-    cityId: new FormControl('', [Validators.required, this.forbiddenArrayValidator(/([0-9]+[,]?)/g)])
+    cityId: new FormControl('', [Validators.required])
   });
 
   // Update train data
@@ -31,7 +36,6 @@ export class ScraperComponent implements OnInit {
   yesterdayStr: string;
   minDateStr: string;
   dateStrTrain: string;
-  airportIdTrain: string;
   buttonDisabledAllTrainData: boolean = false;
   buttonUpdateAllTrainStr: string = 'Update all';
   buttonDisabledFlightTrainData: boolean = false;
@@ -41,7 +45,6 @@ export class ScraperComponent implements OnInit {
   selectButtonTrain: number;
 
   // Update today data
-  airportIdNow: string;
   buttonDisabledAllNowData: boolean = false;
   buttonUpdateAllNowStr: string = 'Update all';
   buttonDisabledFlightNowData: boolean = false;
@@ -49,6 +52,10 @@ export class ScraperComponent implements OnInit {
   buttonDisabledWeatherNowData: boolean = false;
   buttonUpdateWeatherNowStr: string = 'Weather';
   selectButtonNow: number;
+
+  airports: Array<Model>;
+  countries: Array<Model>;
+  cities: Array<Model>;
 
   // Update url data
   countryId: string;
@@ -66,26 +73,41 @@ export class ScraperComponent implements OnInit {
 
     this.yesterday.setDate(this.yesterday.getDate() - 4);
     this.minDateStr = this.convertDate(this.yesterday);
+    this.getAirports();
+    this.getCountries();
+    this.getCities();
   }
 
   // -----------------------------Update train data---------------------------------
-  updateTrainData() {
-    const airports = this.airportIdTrain.replace(/\s/g, '').split(',');
-    airports.forEach(id => {
-      if (this.selectButtonTrain === 0) { // Flights
-        this.buttonDisabledFlightTrainData = true;
-        this.buttonUpdateFlightTrainStr = 'Updating...';
-        this.updateFlightsHistorical(id);
-      } else if (this.selectButtonTrain === 1) { // Weather
-        this.buttonDisabledWeatherTrainData = true;
-        this.buttonUpdateWeatherTrainStr = 'Updating...';
-        this.updateWeathersHistorical(id);
-      } else { // Both
-        this.buttonDisabledAllTrainData = true;
-        this.buttonUpdateAllTrainStr = 'Updating...';
-        this.updateFlightsHistorical(id);
+  getAirports() {
+    this.adminService.getAirports().subscribe(
+      (data: Array<Model>) => {
+        this.setAirportValue(data);
+      },
+      error => {
+        alert(error.error.errors);
       }
-    });
+    );
+  }
+
+  setAirportValue(data: Array<Model>) {
+    this.airports = data;
+  }
+
+  updateTrainData() {
+    if (this.selectButtonTrain === 0) { // Flights
+      this.buttonDisabledFlightTrainData = true;
+      this.buttonUpdateFlightTrainStr = 'Updating...';
+      this.updateFlightsHistorical(this.historyForm.value.airportId);
+    } else if (this.selectButtonTrain === 1) { // Weather
+      this.buttonDisabledWeatherTrainData = true;
+      this.buttonUpdateWeatherTrainStr = 'Updating...';
+      this.updateWeathersHistorical(this.historyForm.value.airportId);
+    } else { // Both
+      this.buttonDisabledAllTrainData = true;
+      this.buttonUpdateAllTrainStr = 'Updating...';
+      this.updateFlightsHistorical(this.historyForm.value.airportId);
+    }
   }
 
   updateFlightsHistorical(id) {
@@ -139,23 +161,19 @@ export class ScraperComponent implements OnInit {
 
   // -----------------------------Update today data---------------------------------
   updateNowData() {
-    const airports = this.airportIdNow.replace(/\s/g, '').split(',');
-    airports.forEach(id => {
-      console.log(id);
-      if (this.selectButtonNow === 0) { // Flights
-        this.buttonDisabledFlightNowData = true;
-        this.buttonUpdateFlightNowStr = 'Updating...';
-        this.updateFlightsFuture(id);
-      } else if (this.selectButtonNow === 1) { // Weather
-        this.buttonDisabledWeatherNowData = true;
-        this.buttonUpdateWeatherNowStr = 'Updating...';
-        this.updateWeathersFuture(id);
-      } else { // Both
-        this.buttonDisabledAllNowData = true;
-        this.buttonUpdateAllNowStr = 'Updating...';
-        this.updateFlightsFuture(id);
-      }
-    });
+    if (this.selectButtonNow === 0) { // Flights
+      this.buttonDisabledFlightNowData = true;
+      this.buttonUpdateFlightNowStr = 'Updating...';
+      this.updateFlightsFuture(this.forecastForm.value.airportId);
+    } else if (this.selectButtonNow === 1) { // Weather
+      this.buttonDisabledWeatherNowData = true;
+      this.buttonUpdateWeatherNowStr = 'Updating...';
+      this.updateWeathersFuture(this.forecastForm.value.airportId);
+    } else { // Both
+      this.buttonDisabledAllNowData = true;
+      this.buttonUpdateAllNowStr = 'Updating...';
+      this.updateFlightsFuture(this.forecastForm.value.airportId);
+    }
   }
 
   updateFlightsFuture(id) {
@@ -215,57 +233,65 @@ export class ScraperComponent implements OnInit {
   }
 
   // -----------------------------Update URL data-----------------------------------
+  getCountries() {
+    this.adminService.getCountries().subscribe(
+      (data: Array<Model>) => {
+        this.setCountriesValue(data);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+  }
+
+  setCountriesValue(data: Array<Model>) {
+    this.countries = data;
+  }
+
   updateUrlData() {
-    const countries = this.countryId.replace(/\s/g, '').split(',');
-    countries.forEach(id => {
-      this.buttonDisabledUrlData = true;
-      this.buttonUpdateUrlStr = 'Updating...';
-      this.adminService.updateUrlFlights(id).subscribe(
-        (data: any) => {
-          this.buttonDisabledUrlData = false;
-          this.buttonUpdateUrlStr = 'Update';
-        },
-        error => {
-          alert(error.error.errors);
-          this.buttonDisabledUrlData = false;
-          this.buttonUpdateUrlStr = 'Update';
-        }
-      );
-    });
+    this.buttonDisabledUrlData = true;
+    this.buttonUpdateUrlStr = 'Updating...';
+    this.adminService.updateUrlFlights(this.urlForm.value.countryId).subscribe(
+      (data: any) => {
+        this.buttonDisabledUrlData = false;
+        this.buttonUpdateUrlStr = 'Update';
+      },
+      error => {
+        alert(error.error.errors);
+        this.buttonDisabledUrlData = false;
+        this.buttonUpdateUrlStr = 'Update';
+      }
+    );
   }
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
 
   // -----------------------------Update comment data---------------------------------
-  updateCommentData() {
-    const cities = this.cityId.replace(/\s/g, '').split(',');
-    cities.forEach(id => {
-      this.adminService.updateComments(id).subscribe(
-        (data: any) => {},
-        error => {
-          alert(error.error.errors);
-          this.buttonDisabledUrlData = false;
-          this.buttonUpdateUrlStr = 'Update';
-        }
-      );
-    });
-  }
-  // -------------------------------------------------------------------------------
-  // -------------------------------------------------------------------------------
-
-  // ----------------------------Validation functions ------------------------------
-  forbiddenArrayValidator(nameRe: RegExp): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      let strResult = '';
-      if (control.value != null) {
-        const findArray = control.value.replace(/\s/g, '').match(nameRe);
-        if (findArray != null) {
-          strResult = findArray.map(x => x).join('');
-        }
-        return !(strResult === control.value.replace(/\s/g, '')) ? {'forbiddenName': {value: control.value}} : null;
-      } else {
-        return {'forbiddenName': {value: control.value}};
+  getCities() {
+    this.adminService.getCities().subscribe(
+      (data: Array<Model>) => {
+        this.setCitiesValue(data);
+      },
+      error => {
+        alert(error.error.errors);
       }
-    };
+    );
   }
+
+  setCitiesValue(data: Array<Model>) {
+    this.cities = data;
+  }
+
+  updateCommentData() {
+    this.adminService.updateComments(this.commentForm.value.cityId).subscribe(
+      (data: any) => {},
+      error => {
+        alert(error.error.errors);
+        this.buttonDisabledUrlData = false;
+        this.buttonUpdateUrlStr = 'Update';
+      }
+    );
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
 }

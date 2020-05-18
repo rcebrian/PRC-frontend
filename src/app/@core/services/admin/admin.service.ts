@@ -110,4 +110,17 @@ export class AdminService {
       city_id: cityId
     });
   }
+
+  getAirports() {
+    return this.httpClient.get(endpoints.getAirports, {});
+  }
+
+  getCities() {
+    return this.httpClient.get(endpoints.getCities, {});
+  }
+
+  getCountries() {
+    return this.httpClient.get(endpoints.getCountries, {});
+  }
+
 }
