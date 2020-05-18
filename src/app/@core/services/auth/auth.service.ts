@@ -36,6 +36,10 @@ export class AuthService {
   }
 
   logOut(): Observable<any> {
-    return this.http.post(endpoints.logOut, httpOptions);
+    return this.http.post(endpoints.logOut, null);
+  }
+
+  refreshToken(): Observable<any> {
+    return this.http.post(endpoints.refresh, null);
   }
 }

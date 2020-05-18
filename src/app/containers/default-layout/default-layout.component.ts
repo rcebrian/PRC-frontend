@@ -25,8 +25,6 @@ export class DefaultLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();
-    console.log(this.isLoggedIn)
-    console.log(this.user);
     if (this.user) {
       this.isLoggedIn = true;
     }
@@ -34,13 +32,11 @@ export class DefaultLayoutComponent implements OnInit {
 
   submitLogOut() {
     this.authService.logOut().subscribe(res => {
-      if (res.status === 200) {
-        console.log(res);
-        this.isLoggedIn = false;
-        this.tokenStorage.signOut();
-      }
+      this.isLoggedIn = false;
+      this.tokenStorage.signOut();
     }, err => {
       console.log(err);
     });
   }
+
 }
