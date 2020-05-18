@@ -39,14 +39,17 @@
           <div class="form-actions">
             <div class="center top-margin">
               <button class="btn btn-outline-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledFlightTrainData == true ? true : null)"
-                      (click)="selectButtonTrain = 0" [disabled]="!historyForm.valid">{{buttonUpdateFlightTrainStr}}</button>
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
+                      (click)="selectButtonTrain = 0" [disabled]="!historyForm.valid">Flights</button>
               <button class="btn btn-outline-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledWeatherTrainData == true ? true : null)"
-                      (click)="selectButtonTrain = 1" [disabled]="!historyForm.valid">{{buttonUpdateWeatherTrainStr}}</button>
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
+                      (click)="selectButtonTrain = 1" [disabled]="!historyForm.valid">Weather</button>
               <button class="btn btn-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledAllTrainData == true ? true : null)"
-                      (click)="selectButtonTrain =2" [disabled]="!historyForm.valid">{{buttonUpdateAllTrainStr}}</button>
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
+                      (click)="selectButtonTrain =2" [disabled]="!historyForm.valid">Update All</button>
             </div>
           </div>
         </form>
@@ -76,8 +79,9 @@
           <div class="form-actions">
             <div class="center top-margin">
               <button class="btn btn-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledUrlData == true ? true : null)"
-                      [disabled]="!urlForm.valid">{{buttonUpdateUrlStr}}</button>
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
+                      [disabled]="!urlForm.valid">Update</button>
             </div>
           </div>
         </form>
@@ -110,17 +114,20 @@
           <div class="form-actions">
             <div class="center top-margin">
               <button class="btn btn-outline-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledFlightNowData == true ? true : null)"
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
                       (click)="selectButtonNow = 0"
-                      [disabled]="!forecastForm.valid">{{buttonUpdateFlightNowStr}}</button>
+                      [disabled]="!forecastForm.valid">Flights</button>
               <button class="btn btn-outline-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledWeatherNowData == true ? true : null)"
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
                       (click)="selectButtonNow = 1"
-                      [disabled]="!forecastForm.valid">{{buttonUpdateWeatherNowStr}}</button>
+                      [disabled]="!forecastForm.valid">Weather</button>
               <button class="btn btn-primary margin-btn" type="submit"
-                      [attr.disabled]="(buttonDisabledAllNowData == true ? true : null)"
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
                       (click)="selectButtonNow =2"
-                      [disabled]="!forecastForm.valid">{{buttonUpdateAllNowStr}}</button>
+                      [disabled]="!forecastForm.valid">Update All</button>
             </div>
           </div>
         </form>
@@ -150,10 +157,13 @@
           <div class="form-actions">
             <div class="center top-margin">
               <button class="btn btn-primary margin-btn" type="submit"
+                      ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                      triggers="click:blur"
                       [disabled]="!commentForm.valid">Update</button>
             </div>
           </div>
         </form>
+
       </div>
     </div>
   </div>

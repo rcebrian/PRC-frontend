@@ -68,18 +68,6 @@ export class ModelComponent implements OnInit {
   algorithms: Array<Algorithm>;
   algorithmDescription: String = '';
 
-  // Btn create model
-  buttonDisabledModel: boolean = false;
-  buttonModelStr: string = 'Create';
-
-  // Btn update model
-  buttonDisabledUpdate: boolean = false;
-  buttonUpdateStr: string = 'Apply';
-
-  // Btn delete model
-  buttonDeleteModel: boolean = false;
-  buttonDeleteStr: string = 'Delete';
-
   // Create model train
   date: boolean = false;
   time: boolean = false;
@@ -142,20 +130,14 @@ export class ModelComponent implements OnInit {
       this.characteristicsError = 'You must select at least one characteristic.';
     } else {
       this.characteristicsError = null;
-      this.buttonDisabledModel = true;
-      this.buttonModelStr = 'Creating...';
       clearInterval(this.interval);
       this.adminService.createModel(array_characteristic, this.startDateStr, this.endDateStr, this.selectedAlgorithm).subscribe(
         (data: any) => {
-          this.buttonDisabledModel = false;
-          this.buttonModelStr = 'Create';
           this.interval = setInterval(this.getLastModels.bind(this), 2000);
         },
         error => {
           alert(error.error.erros);
           console.log(error);
-          this.buttonDisabledModel = false;
-          this.buttonModelStr = 'Created';
         }
       );
     }
@@ -241,18 +223,12 @@ export class ModelComponent implements OnInit {
 
   selectUseModel() {
     if (this.selectModel != null) {
-      this.buttonDisabledUpdate = true;
-      this.buttonUpdateStr = 'Updating...';
       this.adminService.setModelInUse(this.selectModel.id).subscribe(
         (data: any) => {
-          this.buttonDisabledUpdate = false;
-          this.buttonUpdateStr = 'Apply';
         },
         error => {
           alert(error.error.errors);
           console.log(error);
-          this.buttonDisabledUpdate = false;
-          this.buttonUpdateStr = 'Apply';
         }
       );
     } else {
@@ -262,12 +238,8 @@ export class ModelComponent implements OnInit {
 
   deleteModel() {
     if (this.selectModel != null) {
-      this.buttonDeleteModel = true;
-      this.buttonDeleteStr = 'Deleting...';
       this.adminService.deleteModel(this.selectModel.id).subscribe(
         (data: any) => {
-          this.buttonDeleteModel = false;
-          this.buttonDeleteStr = 'Delete';
         },
         error => {
           console.log(error);

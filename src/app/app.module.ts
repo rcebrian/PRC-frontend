@@ -53,6 +53,7 @@ import {providerDef} from '@angular/compiler/src/view_compiler/provider_compiler
 import {AuthInterceptorService} from './@core/services/auth/auth-interceptor.service';
 import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -73,7 +74,8 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
-    CollapseModule
+    CollapseModule,
+    NgbModule
   ],
   declarations: [
     AppComponent,

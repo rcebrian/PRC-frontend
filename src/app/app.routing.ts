@@ -61,7 +61,7 @@ export const routes: Routes = [
       },
       {
         path: 'airports',
-        // component: AirportComponent
+        component: AirportComponent
       },
     ]
   },
