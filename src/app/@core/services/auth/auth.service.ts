@@ -34,4 +34,8 @@ export class AuthService {
       password_confirmation: user.password_confirmation,
     }, httpOptions);
   }
+
+  logOut(): Observable<any> {
+    return this.http.post(endpoints.logOut, httpOptions);
+  }
 }
