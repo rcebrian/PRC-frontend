@@ -34,4 +34,13 @@ export const navItems: INavData[] = [
     url: '/admin/statistics',
     icon: 'icon-pie-chart',
   },
+  {
+    title: true,
+    name: 'User',
+  },
+  {
+    name: 'Contact',
+    url: '/contact',
+    icon: 'icon-speech',
+  },
 ];
