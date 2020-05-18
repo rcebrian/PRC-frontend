@@ -36,7 +36,7 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './@core/components/dashboard-components/dashboard/dashboard.component';
 import { ScraperComponent } from './@core/components/dashboard-components/admin/scraper/scraper/scraper.component';
 import { ModelComponent } from './@core/components/dashboard-components/admin/model/model/model.component';
@@ -48,6 +48,8 @@ import {ContactComponent} from './@core/components/dashboard-components/contact/
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AvatarModule} from 'ngx-avatar';
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
+import {providerDef} from "@angular/compiler/src/view_compiler/provider_compiler";
+import {AuthInterceptorService} from "./@core/services/auth/auth-interceptor.service";
 
 @NgModule({
   imports: [
@@ -82,6 +84,13 @@ import { StatisticComponent } from './@core/components/dashboard-components/admi
     ScraperComponent,
     ModelComponent,
     StatisticComponent
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

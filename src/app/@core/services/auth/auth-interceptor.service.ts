@@ -20,8 +20,10 @@ export class AuthInterceptorService implements HttpInterceptor {
       request = req.clone({
         setHeaders: {
           authorization: `Bearer ${ jwtToken }`,
+          // 'Content-Type': 'application/json'
         }
       });
+      // console.log(`tokencito: ${ jwtToken }`)
     }
 
     return next.handle(request).pipe(
@@ -29,7 +31,6 @@ export class AuthInterceptorService implements HttpInterceptor {
         if (err.status === 401) {
           this.router.navigateByUrl('/login');
         }
-
         return throwError( err );
       })
     );
