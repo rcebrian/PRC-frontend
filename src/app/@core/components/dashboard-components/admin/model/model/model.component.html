@@ -108,8 +108,7 @@
           <div class="form-actions">
             <div class="center">
               <button class="btn btn-primary max" type="submit"
-                      [attr.disabled]="(buttonDisabledModel == true ? true : null)"
-                      [disabled]="!createTrainModelForm.valid">{{buttonModelStr}}</button>
+                      [disabled]="!createTrainModelForm.valid">Create</button>
             </div>
           </div>
         </form>
@@ -179,10 +178,8 @@
       <div class="form-actions">
         <div class="center top-margin">
           <button class="btn btn-sm btn-danger margin-btn" type="button"
-                  [attr.disabled]="(buttonDeleteModel == true ? true : null)"
-                  (click)="deleteModel()">{{buttonDeleteStr}}</button>
-          <button class="btn btn-primary max" type="submit"
-                  [attr.disabled]="(buttonDisabledUpdate == true ? true : null)">{{buttonUpdateStr}}</button>
+                  (click)="deleteModel()">Delete</button>
+          <button class="btn btn-primary max" type="submit">Select</button>
         </div>
       </div>
     </form>
