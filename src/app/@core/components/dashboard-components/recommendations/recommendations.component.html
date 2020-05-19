@@ -6,12 +6,12 @@
       </div>
       <div class="brand-card-body">
         <div>
-          <div class="text-value">{{ recommendation.grade | number }}</div>
-          <div class="text-uppercase text-muted small">grade</div>
+          <div class="text-uppercase text-muted small">users grades</div>
+          <div class="text-value">{{ recommendation.grade | number: '.1-2' }}</div>
         </div>
         <div>
-          <div class="text-value">{{ recommendation.sentiment | number }}</div>
-          <div class="text-uppercase text-muted small">avg</div>
+          <div class="text-uppercase text-muted small">users opinions</div>
+          <div class="text-value">{{ recommendation.sentiment*10 | number: '.1-2' }}</div>
         </div>
       </div>
     </div>
