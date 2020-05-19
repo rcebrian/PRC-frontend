@@ -41,24 +41,23 @@ export const routes: Routes = [
       {
         path: 'contact',
         component: ContactComponent,
-        // canActivate: [AdminGuard]
       },
       {
         path: 'admin/scrapers',
         component: ScraperComponent,
-        // canActivate: [AdminGuard]
+        canActivate: [AdminGuard]
 
       },
       {
         path: 'admin/models',
         component: ModelComponent,
-        // canActivate: [AdminGuard]
+        canActivate: [AdminGuard]
 
       },
       {
         path: 'admin/statistics',
         component: StatisticComponent,
-        // canActivate: [AdminGuard]
+        canActivate: [AdminGuard]
       },
       {
         path: 'airports',

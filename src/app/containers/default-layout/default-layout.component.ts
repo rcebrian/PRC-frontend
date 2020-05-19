@@ -11,6 +11,8 @@ import {User} from "../../@core/models/user";
 export class DefaultLayoutComponent implements OnInit {
   public sidebarMinimized = false;
   public navItems = navItems;
+  admin = false;
+  sidebarToggleValue: any = false;
 
   isLoggedIn = false;
   user: User;
@@ -27,6 +29,10 @@ export class DefaultLayoutComponent implements OnInit {
     this.user = this.tokenStorage.getUser();
     if (this.user) {
       this.isLoggedIn = true;
+      if (this.user.role == 1) {
+        this.admin = true
+        this.sidebarToggleValue = 'lg';
+      }
     }
   }
 
