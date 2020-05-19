@@ -44,7 +44,14 @@
                 <label class="form-check-label" for="checkboxAccept">I have read and accept the Terms and Conditions of this web.</label>
                 <small class="form-text text-muted" *ngIf="contactForm.controls.isActive.invalid">You must accept this to continue.</small>
               </div>
-              <button type="submit" class="btn btn-secondary btn-block" [disabled]="contactForm.invalid">Submit</button>
+              <button type="submit" class="btn btn-secondary btn-block" [disabled]="contactForm.invalid" (click)="toggleLoading()">
+                <div class="row">
+                  <div class="col-md-5"></div>
+                  <div class="col-md-1" *ngIf="showText">Submit</div>
+                  <app-loading-spinner *ngIf="showSpinner" class="col-md-1"></app-loading-spinner>
+                  <div class="col-md-5"></div>
+                </div>
+              </button>
             </form>
           </div>
         </section>

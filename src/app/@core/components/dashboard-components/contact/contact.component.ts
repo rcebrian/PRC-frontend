@@ -22,11 +22,24 @@ export class ContactComponent implements OnInit {
     message: new FormControl('', [Validators.required]),
     isActive: new FormControl('', [Validators.required])
   });
+  showSpinner: boolean = false;
+  showText: boolean = true;
 
   constructor(private mailService: MailService, private markers: MarkersService) { }
 
   ngOnInit(): void {
     this.mapUEM();
+  }
+
+  toggleLoading = () => {
+    this.showSpinner = true;
+    this.showText = false;
+
+    // Faking an API call
+    setTimeout(() => {
+      this.showSpinner = false;
+      this.showText = true;
+    }, 2000);
   }
 
   submitForm() {

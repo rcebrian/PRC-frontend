@@ -55,6 +55,7 @@ import {AirportComponent} from './@core/components/dashboard-components/airport/
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AirportDescriptionComponent } from './@core/components/dashboard-components/airport-description/airport-description.component';
+import { LoadingSpinnerComponent } from './@core/components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   imports: [
@@ -93,7 +94,8 @@ import { AirportDescriptionComponent } from './@core/components/dashboard-compon
     ModelComponent,
     StatisticComponent,
     AirportComponent,
-    AirportDescriptionComponent
+    AirportDescriptionComponent,
+    LoadingSpinnerComponent
   ],
   providers: [
     {
