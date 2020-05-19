@@ -4,6 +4,7 @@ import { Stat } from '../../../models/stats.model';
 import {MarkersService} from '../../../services/markers.service';
 
 import * as L from 'leaflet';
+import {Airport} from "../../../models/airport";
 
 @Component({
   selector: 'app-dashboard',
@@ -14,6 +15,8 @@ export class DashboardComponent implements OnInit {
 
   stats: Stat[];
   dashboardMap: any;
+  airportsRight: Airport[] = [];
+  airportsLeft: Airport[] = [];
 
   constructor(private statsService: StatsService, private markers: MarkersService) { }
 
@@ -36,9 +39,16 @@ export class DashboardComponent implements OnInit {
   getMarkers() {
     this.markers.getMarkers().subscribe(
       res => {
-        for (const c of res.data) {
-          const marker = L.marker([c.latitude, c.longitude]).addTo(this.dashboardMap);
+        for (let i = 0; i < res.data.length; i++) {
+          let a = res.data[i]
+          if (i%2 === 0) {
+              this.airportsLeft.push(a)
+          } else {
+            this.airportsRight.push(a)
+          }
+          const marker = L.marker([a.airport_lat, a.airport_lon]).addTo(this.dashboardMap);
         }
+        console.log(this.airportsRight)
       },
       err => {
         console.log(err);

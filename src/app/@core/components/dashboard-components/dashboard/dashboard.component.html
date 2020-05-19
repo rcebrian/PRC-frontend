@@ -21,6 +21,40 @@
           <hr class="mt-0">
           <app-map [map]="dashboardMap"></app-map>
           <br>
+          <div class="row">
+            <div class="col-md-6">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Airport Name</th>
+                  <th>Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let airport of airportsLeft">
+                  <td> <a routerLink="/airportrs/{{ airport.airport_id }}">{{ airport.airport_name }}</a> </td>
+                  <td>{{ airport.airport_country + ' / ' + airport.airport_city }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="col-md-6">
+              <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Airport Name</th>
+                  <th>Location</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let airport of airportsRight">
+                  <td> <a routerLink="/airportrs/{{ airport.airport_id }}">{{ airport.airport_name }}</a> </td>
+                  <td>{{ airport.airport_country + ' / ' + airport.airport_city }}</td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </div>
     </div>

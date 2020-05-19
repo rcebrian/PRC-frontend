@@ -8,15 +8,6 @@ export const navItems: INavData[] = [
   },
   {
     title: true,
-    name: 'Destinations',
-  },
-  {
-    name: 'Airports',
-    url: '/airports',
-    icon: 'icon-location-pin'
-  },
-  {
-    title: true,
     name: 'Administrator',
   },
   {
@@ -33,14 +24,5 @@ export const navItems: INavData[] = [
     name: 'Statistic',
     url: '/admin/statistics',
     icon: 'icon-pie-chart',
-  },
-  {
-    title: true,
-    name: 'User',
-  },
-  {
-    name: 'Contact',
-    url: '/contact',
-    icon: 'icon-speech',
   },
 ];
