@@ -47,7 +47,7 @@
               <button type="submit" class="btn btn-secondary btn-block" [disabled]="contactForm.invalid" (click)="toggleLoading()">
                 <div class="row">
                   <div class="col-md-5"></div>
-                  <div class="col-md-1">Submit</div>
+                  <div class="col-md-1" *ngIf="showText">Submit</div>
                   <app-loading-spinner *ngIf="showSpinner" class="col-md-1"></app-loading-spinner>
                   <div class="col-md-5"></div>
                 </div>

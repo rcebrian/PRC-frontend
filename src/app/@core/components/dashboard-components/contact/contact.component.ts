@@ -23,6 +23,7 @@ export class ContactComponent implements OnInit {
     isActive: new FormControl('', [Validators.required])
   });
   showSpinner: boolean = false;
+  showText: boolean = true;
 
   constructor(private mailService: MailService, private markers: MarkersService) { }
 
@@ -32,10 +33,12 @@ export class ContactComponent implements OnInit {
 
   toggleLoading = () => {
     this.showSpinner = true;
+    this.showText = false;
 
     // Faking an API call
     setTimeout(() => {
       this.showSpinner = false;
+      this.showText = true;
     }, 2000);
   }
 
