@@ -39,6 +39,8 @@ export class DefaultLayoutComponent implements OnInit {
   submitLogOut() {
     this.authService.logOut().subscribe(res => {
       this.isLoggedIn = false;
+      this.admin = false;
+      this.sidebarToggleValue = false;
       this.tokenStorage.signOut();
     }, err => {
       console.log(err);
