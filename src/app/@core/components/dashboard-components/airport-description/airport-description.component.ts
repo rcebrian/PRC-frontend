@@ -11,6 +11,7 @@ export class AirportDescriptionComponent implements OnInit {
 
   constructor() { }
   madridMap: any;
+  isCollapsed = true;
 
   ngOnInit(): void {
     this.mapMadrid();
