@@ -2,8 +2,7 @@
   margin: -20px auto -30px -30px;
   position: relative;
   display: inline-block;
-  width: 100vw;
-  height: 80vh;
+  width: 100%;
 }
 
 #searchAirport{
@@ -31,4 +30,8 @@
 
 .max{
   width: 100%;
+}
+
+.margin-top{
+  margin-top: -500px;
 }
