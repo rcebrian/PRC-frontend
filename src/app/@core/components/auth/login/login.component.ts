@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from "../../../services/auth/auth.service";
-import {TokenStorageService} from "../../../services/auth/token-storage.service";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from '../../../services/auth/auth.service';
+import {TokenStorageService} from '../../../services/auth/token-storage.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -29,8 +29,10 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe(
         data => {
+          const now = new Date();
           this.tokenStorage.saveToken(data.access_token);
           this.tokenStorage.saveUser(data.user);
+          this.tokenStorage.tokenTimeOut(new Date(now.getTime() + 55 * 60000));
 
           this.isLoginFailed = false;
 
@@ -51,6 +53,6 @@ export class LoginComponent implements OnInit {
 
   registerClick(): void {
     this.router.navigateByUrl('register');
-  };
+  }
 
 }

@@ -33,8 +33,10 @@ export class RegisterComponent implements OnInit {
   registrer() {
     this.authService.register(this.userForm.value).subscribe(
       data => {
+        const now = new Date();
         this.tokenStorage.saveToken(data.access_token);
         this.tokenStorage.saveUser(data.user);
+        this.tokenStorage.tokenTimeOut(new Date(now.getTime() + 55 * 60000));
         this.redirectToDashboard();
       },
       err => {
