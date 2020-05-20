@@ -236,7 +236,12 @@ export class StatisticComponent implements OnInit {
   }
 
   setBarGraphic(airportId) {
-    this.airportId = airportId;
+    if (airportId == null) {
+      this.airportId = -1;
+    } else {
+      this.airportId = airportId;
+    }
+
     this.setValuesBarChart();
   }
   // -------------------------------------------------------------------------------
