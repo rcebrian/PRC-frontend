@@ -13,4 +13,8 @@ export class StatsService {
   dailyFlightsStats(): Observable<any> {
     return this.http.get(endpoints.dailyStats);
   }
+
+  getAirports(): Observable<any> {
+    return this.http.get(endpoints.getAirports, {});
+  }
 }

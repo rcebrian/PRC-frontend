@@ -1,0 +1,34 @@
+#container-img{
+  margin: -20px auto -30px -30px;
+  position: relative;
+  display: inline-block;
+  width: 100vw;
+  height: 80vh;
+}
+
+#searchAirport{
+  margin: 100px auto 100px auto;
+}
+
+.form-control.ng-select {
+  border: none;
+  padding: 0;
+}
+
+.ng-select.state-error .ng-control {
+  background-color: #ffcccc;
+  border-color: #ff0000;
+}
+
+.center{
+  margin-top: 20px;
+  text-align: center;
+}
+
+#submit {
+  width: 100px;
+}
+
+.max{
+  width: 100%;
+}
