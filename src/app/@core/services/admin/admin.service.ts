@@ -26,6 +26,10 @@ export class AdminService {
     });
   }
 
+  getModelInUse() {
+    return this.httpClient.get(endpoints.getModelInUse, {});
+  }
+
   setModelInUse(model: number) {
     return this.httpClient.post(endpoints.updateModel, {
       model: parseInt(`${model}`),
@@ -39,6 +43,14 @@ export class AdminService {
         start_date: `${start_date}`,
         end_date: `${end_date}`,
         characteristic: characteristic,
+      });
+  }
+
+  predictFlights(start_date, end_date) {
+    return this.httpClient.post(endpoints.predict,
+      {
+        start_date: `${start_date}`,
+        end_date: `${end_date}`
       });
   }
 
@@ -122,5 +134,4 @@ export class AdminService {
   getCountries() {
     return this.httpClient.get(endpoints.getCountries, {});
   }
-
 }

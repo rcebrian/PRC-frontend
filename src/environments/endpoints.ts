@@ -25,6 +25,8 @@ export const endpoints = {
   updateModel: `${environment.apiUrl}/models/updateModel`,
   createTrainModel: `${environment.apiUrl}/models/training`,
   deleteModel: `${environment.apiUrl}/models/deleteModel`,
+  predict: `${environment.apiUrl}/models/predict`,
+  getModelInUse: `${environment.apiUrl}/models/getModelInUse`,
 
   // admin -> scrapers
   flightsHistory: `${environment.apiUrl}/scrapers/flights/history`,

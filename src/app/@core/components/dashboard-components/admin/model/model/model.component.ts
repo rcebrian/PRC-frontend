@@ -46,10 +46,16 @@ export class ModelComponent implements OnInit {
     pressure: new FormControl(),
   });
 
+  predictDataForm = new FormGroup({
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+  });
+
   // Dates
   todayDate: Date = new Date();
   strTodayDate: string;
   startDateStr: string;
+  startDatePredict: string;
   endDateStr: string;
 
   // Select Model
@@ -65,6 +71,7 @@ export class ModelComponent implements OnInit {
   characteristicsError: String;
 
   // Create Model
+  modelInUse: string = 'Loading...';
   algorithms: Array<Algorithm>;
   algorithmDescription: String = '';
 
@@ -94,6 +101,29 @@ export class ModelComponent implements OnInit {
   }
 
   // -------------------------Create new training model-----------------------------
+  getModelInUse() {
+    this.adminService.getModelInUse().subscribe(
+      (data: any) => {
+        if (data.length === 0) {
+          this.modelInUse = 'There is no model is use';
+        } else {
+          let notFound = true;
+          let i = 0;
+          while (notFound ) {
+            if (this.algorithms[i].id === data[0].type) {
+              this.modelInUse = this.algorithms[i].name + ' ' + data[0].date;
+              notFound = false;
+            }
+            i += 1;
+          }
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   onChangeAlgorithm(id) {
     this.selectedAlgorithm = id.value;
     this.algorithmDescription = this.algorithms[id.value].description;
@@ -114,6 +144,7 @@ export class ModelComponent implements OnInit {
     this.algorithms = data;
     this.selectedAlgorithm = 0;
     this.algorithmDescription = this.algorithms[0].description;
+    this.getModelInUse();
   }
 
   createModel() {
@@ -222,6 +253,7 @@ export class ModelComponent implements OnInit {
   }
 
   selectUseModel() {
+    clearInterval(this.interval);
     if (this.selectModel != null) {
       this.adminService.setModelInUse(this.selectModel.id).subscribe(
         (data: any) => {
@@ -234,9 +266,32 @@ export class ModelComponent implements OnInit {
     } else {
       console.log('error');
     }
+
+    let date = '';
+    let notFound = true;
+    let i = 0;
+    while (notFound) {
+      if (this.selectModel.id === this.dateArrayModels[i].id) {
+        date = this.dateArrayModels[i].date;
+        notFound = false;
+      }
+      i += 1;
+    }
+
+    notFound = true;
+    i = 0;
+    while (notFound ) {
+      if (this.algorithms[i].id === this.selectModel.id) {
+        this.modelInUse = this.algorithms[i].name + ' ' + date;
+        notFound = false;
+      }
+      i += 1;
+    }
+    this.interval = setInterval(this.getLastModels.bind(this), 2000);
   }
 
   deleteModel() {
+    clearInterval(this.interval);
     if (this.selectModel != null) {
       this.adminService.deleteModel(this.selectModel.id).subscribe(
         (data: any) => {
@@ -246,6 +301,22 @@ export class ModelComponent implements OnInit {
         }
       );
     }
+    this.interval = setInterval(this.getLastModels.bind(this), 2000);
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
+
+  // -----------------------Predict model---------------------------
+  predict() {
+    clearInterval(this.interval);
+    this.adminService.predictFlights(this.predictDataForm.value.startDate,
+      this.predictDataForm.value.endDate).subscribe(
+      (data: any) => { },
+      error => {
+        console.log(error);
+      }
+    );
+    this.interval = setInterval(this.getLastModels.bind(this), 2000);
   }
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
