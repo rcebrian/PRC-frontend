@@ -113,6 +113,14 @@ export class AdminService {
       });
   }
 
+  getFlightsAirports(startDate: string, endDate: string): Observable<any> {
+    return this.httpClient.post(endpoints.getAirportsFlights,
+      {
+        start_date: startDate,
+        end_date: endDate,
+      });
+  }
+
   getCitiesComments() {
     return this.httpClient.get(endpoints.getCitiesComments, {});
   }

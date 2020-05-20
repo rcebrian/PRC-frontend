@@ -6,7 +6,7 @@
         <div class="card-body">
           <form (ngSubmit)="getFlightsData()" [formGroup]="flightsDataForm" novalidate>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label">Select a start date</label>
+              <label class="col-md-3 col-form-label">Start date</label>
               <div class="col-md-9">
                 <input class="form-control" id="start-date" name="startDate" placeholder="date" formControlName="startDate"
                        type="date"
@@ -18,7 +18,7 @@
               </div>
             </div>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label">Select a end date</label>
+              <label class="col-md-3 col-form-label">End date</label>
               <div class="col-md-9">
                 <input class="form-control" id="end-date" name="endDate" formControlName="endDate" placeholder="date" type="date"
                        min="{{flightsDataForm.controls.startDate.value != undefined ?
@@ -44,9 +44,20 @@
                     [labels]="barChartLabels"
                     [options]="barChartOptions"
                     [legend]="barChartLegend"
+                    [colors]="barCharColors"
                     [chartType]="barChartType"></canvas>
           </div>
 
+          <div class="form-group row" *ngIf="barChartLabels && barChartData">
+            <label class="col-md-3 col-form-label">Airport</label>
+            <div class="col-md-9">
+              <ng-select class="form-control input-sm"
+                         bindLabel="name"
+                         bindValue="id" (change)="setBarGraphic($event)">
+                <ng-option *ngFor="let airport of airports" [value]="airport.airport_id">{{airport.name}}</ng-option>
+              </ng-select>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -58,7 +69,7 @@
         <div class="card-body">
           <form (ngSubmit)="getCommentsData()" [formGroup]="commentsDataForm" novalidate>
             <div class="form-group row">
-              <label class="col-md-3 col-form-label">Select a city</label>
+              <label class="col-md-3 col-form-label">City</label>
               <div class="col-md-9">
                 <ng-select class="form-control input-sm"
                            bindLabel="name"

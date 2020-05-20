@@ -43,4 +43,5 @@ export const endpoints = {
   groupFlightsData: `${environment.apiUrl}/flights/groupFlights`,
   getCitiesComments: `${environment.apiUrl}/comments/cities`,
   getDataComments: `${environment.apiUrl}/comments/data`,
+  getAirportsFlights: `${environment.apiUrl}/flights/getGroupAirports`,
 };

@@ -180,7 +180,6 @@ export class ModelComponent implements OnInit {
       day = ('0' + date.getDate()).slice(-2);
     return [date.getFullYear(), month, day].join('-');
   }
-
   // -------------------------------------------------------------------------------
   // -------------------------------------------------------------------------------
 

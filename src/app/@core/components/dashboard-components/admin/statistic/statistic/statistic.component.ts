@@ -18,6 +18,7 @@ export interface Person {
 
 export class GroupFlightData {
   groupDate: string;
+  airport_id: number;
   delay: number;
   countDelay: number;
   prediction: number;
@@ -27,6 +28,11 @@ export class GroupFlightData {
 export class City {
   city: string;
   city_id: number;
+}
+
+export class Airport {
+  airport_id: number;
+  name: number;
 }
 
 export class CommentData {
@@ -55,6 +61,13 @@ export class StatisticComponent implements OnInit {
   cities: Array<City>;
   dataComments: Array<CommentData>;
 
+  // Group airports
+  airports: Array<Airport>;
+  airportId = -1; // Todos los aeropuertos
+
+  // Flights
+  flights: Array<GroupFlightData>;
+
   radioBtn: string = 'sentiment';
 
   // Ranges
@@ -80,6 +93,11 @@ export class StatisticComponent implements OnInit {
   public barChartType = 'bar';
   public barChartLegend = true;
   public barChartData: any[];
+  inTimeColor: string = '#1b5e20';
+  predictInTimeColor: string = '#9ccc65';
+  delayedColor: string = '#b71c1c';
+  predictDelayedColor: string = '#e57373';
+  public barCharColors: any[];
 
   // Pie
   public pieChartLabels: string[] = ['Positive comments', 'Neutral comments', 'Negative comments'];
@@ -97,10 +115,11 @@ export class StatisticComponent implements OnInit {
     this.getCities();
   }
 
+  // -----------------------Bar Char -> statistic flights---------------------------
   getFlightsData() {
     this.adminService.getFlightsGroupData(this.flightsDataForm.value.startDate, this.flightsDataForm.value.endDate).subscribe(
       (data: Array<GroupFlightData>) => {
-        this.setValuesBarChart(data);
+        this.setFlights(data);
       },
       error => {
         alert(error.error.errors);
@@ -116,7 +135,16 @@ export class StatisticComponent implements OnInit {
     const initData = this.convertDate(this.weekAgo);
     this.adminService.getFlightsGroupData(initData, yesterday).subscribe(
       (data: Array<GroupFlightData>) => {
-        this.setValuesBarChart(data);
+        this.setFlights(data);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+
+    this.adminService.getFlightsAirports(initData, yesterday).subscribe(
+      (data: Array<Airport>) => {
+        this.setValuesAirports(data);
       },
       error => {
         alert(error.error.errors);
@@ -124,36 +152,79 @@ export class StatisticComponent implements OnInit {
     );
   }
 
-  convertDate(str) {
-    const date = new Date(str),
-      month = ('0' + (date.getMonth() + 1)).slice(-2),
-      day = ('0' + date.getDate()).slice(-2);
-    return [date.getFullYear(), month, day].join('-');
+  setValuesAirports(data: Array<Airport>) {
+    this.airports = data;
   }
 
-  setValuesBarChart(data: Array<GroupFlightData>) {
+  setFlights(data: Array<GroupFlightData>) {
+    this.flights = data;
+    this.setValuesBarChart();
+  }
+
+  setValuesBarChart() {
     const dataLabels = [];
     const dataInTime = [];
     const dataInTimePrediction = [];
     const dataDelayed = [];
     const dataDelayedPrediction = [];
-    data.forEach(dat => {
-      if (dataLabels.indexOf(dat.groupDate) === -1) {
-        dataLabels.push(dat.groupDate);
-      }
+    const inTimeColor = [];
+    const predictInTimeColor = [];
+    const delayedColor = [];
+    const predictDelayedColor = [];
 
-      if (dat.delay === 0) {
-        dataInTime.push(dat.countDelay);
-      } else if (dat.delay === 1) {
-        dataDelayed.push(dat.countDelay);
-      }
+    if  (this.airportId === -1) { // Todos los aeropuertos
+      this.flights.forEach(dat => {
+        if (dataLabels.indexOf(dat.groupDate) === -1) {
+          dataLabels.push(dat.groupDate);
+        }
 
-      if (dat.prediction === 0) {
-        dataInTimePrediction.push(dat.countPrediction);
-      } else if (dat.prediction === 1) {
-        dataDelayedPrediction.push(dat.countPrediction);
-      }
-    });
+        if (dat.delay === 0) {
+          dataInTime.push(dat.countDelay);
+          inTimeColor.push(this.inTimeColor);
+        } else if (dat.delay === 1) {
+          dataDelayed.push(dat.countDelay);
+          delayedColor.push(this.delayedColor);
+        }
+
+        if (dat.prediction === 0) {
+          dataInTimePrediction.push(dat.countPrediction);
+          predictInTimeColor.push(this.predictInTimeColor);
+        } else if (dat.prediction === 1) {
+          dataDelayedPrediction.push(dat.countPrediction);
+          predictDelayedColor.push(this.predictDelayedColor);
+        }
+      });
+    } else {
+      this.flights.forEach(dat => {
+        if (dat.airport_id === this.airportId) {
+          if (dataLabels.indexOf(dat.groupDate) === -1) {
+            dataLabels.push(dat.groupDate);
+          }
+
+          if (dat.delay === 0) {
+            dataInTime.push(dat.countDelay);
+            inTimeColor.push(this.inTimeColor);
+          } else if (dat.delay === 1) {
+            dataDelayed.push(dat.countDelay);
+            delayedColor.push(this.delayedColor);
+          }
+
+          if (dat.prediction === 0) {
+            dataInTimePrediction.push(dat.countPrediction);
+            predictInTimeColor.push(this.predictInTimeColor);
+          } else if (dat.prediction === 1) {
+            dataDelayedPrediction.push(dat.countPrediction);
+            predictDelayedColor.push(this.predictDelayedColor);
+          }
+        }
+      });
+    }
+
+    this.barCharColors = [
+      { backgroundColor: inTimeColor},
+      { backgroundColor: predictInTimeColor},
+      { backgroundColor: delayedColor},
+      { backgroundColor: predictDelayedColor}];
 
     this.barChartLabels = dataLabels;
     this.barChartData = [
@@ -164,6 +235,14 @@ export class StatisticComponent implements OnInit {
     ];
   }
 
+  setBarGraphic(airportId) {
+    this.airportId = airportId;
+    this.setValuesBarChart();
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
+
+  // -----------------------Pie Char -> statistic comments--------------------------
   getCities() {
     this.adminService.getCitiesComments().subscribe(
       (data: Array<City>) => {
@@ -255,5 +334,17 @@ export class StatisticComponent implements OnInit {
   radioBtnChanged() {
     this.changeLineChart();
   }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
+
+  // -----------------------OTHERS FUNCTIONS-------------------------------
+  convertDate(str) {
+    const date = new Date(str),
+      month = ('0' + (date.getMonth() + 1)).slice(-2),
+      day = ('0' + date.getDate()).slice(-2);
+    return [date.getFullYear(), month, day].join('-');
+  }
+  // -------------------------------------------------------------------------------
+  // -------------------------------------------------------------------------------
 }
 
