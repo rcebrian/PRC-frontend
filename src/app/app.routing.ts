@@ -67,6 +67,10 @@ export const routes: Routes = [
         path: 'airports/description',
         component: AirportDescriptionComponent
       },
+      {
+        path: 'airports/:airport_id',
+        component: AirportDescriptionComponent
+      },
     ]
   },
   { path: '**', component: E404Component }

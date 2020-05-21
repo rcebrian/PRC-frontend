@@ -9,6 +9,10 @@ export const endpoints = {
   // airports
   coordinates: `${environment.apiUrl}/airports/coordinates`,
 
+  // airports description
+  getFlights: `${environment.apiUrl}/airports/flights`,
+  getComments: `${environment.apiUrl}/airports/comments`,
+
   // flights
   dailyStats: `${environment.apiUrl}/flights/dailyStats`,
 

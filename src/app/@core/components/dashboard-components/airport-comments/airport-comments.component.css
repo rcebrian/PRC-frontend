@@ -1,0 +1,43 @@
+.h{
+  justify-content: center;
+  text-align: center;
+}
+.comment-date{
+  text-align: right;
+  justify-content: right;
+  right: 0;
+  margin-left: 5px;
+}
+.comment-title{
+  margin-left: 20px;
+  margin-top: 5px;
+}
+.grade-container{
+  margin-left: 45px;
+}
+.icon-star{
+  margin-right: 14px;
+  top: 0;
+}
+.avatar{
+  margin-top: 5px;
+}
+.write-comment{
+  width: 200px;
+  height: 35px;
+  margin-left: 10px;
+}
+.grade{
+  margin-left: 4px;
+}
+.grade:hover{
+  color: orange;
+}
+.btn-send{
+  width: 200px;
+  height: 35px;
+  align-content: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-top: 0;
+}

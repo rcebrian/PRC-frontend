@@ -1,6 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {MarkersService} from '../../../services/markers.service';
-import * as L from 'leaflet';
+import {Component, Input, OnInit} from '@angular/core';
+import {Airport} from '../../../models/airport';
+import {StatsService} from '../../../services/stats.service';
+import {AirportDescriptionService} from '../../../services/airport/airport-description.service';
+import {ActivatedRoute} from '@angular/router';
+
+export class Flight {
+  id: number;
+  airport_name: string;
+  airline_name: string;
+  date_time: string;
+  status_name: string;
+}
+export class Comment {
+  name: number;
+  city_name: string;
+  place: string;
+  title: string;
+  date_time: string;
+  original_message: string;
+  grade: string;
+}
 
 @Component({
   selector: 'app-airport-description',
@@ -9,19 +28,43 @@ import * as L from 'leaflet';
 })
 export class AirportDescriptionComponent implements OnInit {
 
-  constructor() { }
-  madridMap: any;
+  constructor(private airportDescription: AirportDescriptionService, private route: ActivatedRoute) { }
   isCollapsed = true;
+  flights: Array<Flight>;
+  comments: Array<Comment>;
+  airport_id: string;
+  airport_name: string;
 
   ngOnInit(): void {
-    this.mapMadrid();
+    this.getIDfromURL();
+    this.getFlights();
+    this.getComments();
   }
-  private mapMadrid() {
-    this.madridMap = L.map('map', {
-      center: [40.471926, -3.56264],
-      zoom: 12.5
+  getIDfromURL() {
+    this.route.paramMap.subscribe(params => {
+      this.airport_id = params.get('airport_id');
     });
-    const marker = L.marker([40.471926, -3.56264]).addTo(this.madridMap);
   }
-
+  getFlights() {
+    this.airportDescription.getFlights(this.airport_id).subscribe(
+      (data: Array<Flight>) => {
+        this.flights = data;
+        console.log(data[0]);
+      },
+      error => {
+        alert(error.error.errors);
+      }
+    );
+  }
+  getComments() {
+    this.airportDescription.getComments(this.airport_id).subscribe(
+      (data: Array<Comment>) => {
+        this.comments = data;
+        console.log(data[0]);
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
 }
