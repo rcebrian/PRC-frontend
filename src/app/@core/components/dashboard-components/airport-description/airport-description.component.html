@@ -12,6 +12,7 @@
             <th>From</th>
             <th>Date registered</th>
             <th>Status</th>
+            <th>Prediction</th>
           </tr>
           </thead>
           <tbody>
@@ -24,6 +25,9 @@
               'Cancelled': 'badge badge-danger', 'Scheduled': 'badge badge-primary', 'Unknown': 'badge badge-secondary',
                'Diverted': 'badge badge-dark', 'En-route': 'badge badge-info', 'Others': 'badge badge-light'}[flight.status_name]">{{flight.status_name}}</span>
             </td>
+            <td *ngIf="flight.prediction == null">-</td>
+            <td *ngIf="flight.prediction == 1">Delayed</td>
+            <td *ngIf="flight.prediction == 0">On time</td>
           </tr>
           </tbody>
         </table>

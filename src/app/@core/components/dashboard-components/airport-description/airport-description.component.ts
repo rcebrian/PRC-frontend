@@ -10,6 +10,7 @@ export class Flight {
   airline_name: string;
   date_time: string;
   status_name: string;
+  prediction: number;
 }
 export class Comment {
   name: number;
