@@ -62,7 +62,9 @@
               </div>
             </div>
             <div class="row grade-container">
-              {{comment.grade}} <i class="icon-star"></i>
+              <div class="" *ngFor="let grade of comments | slice:0:+comment.grade; let i=index">
+                <i class="icon-star" *ngIf="i<grade.grade"></i>
+              </div>
             </div>
           </div>
           <div class="card-body">
