@@ -3,6 +3,8 @@ import {Airport} from '../../../models/airport';
 import {StatsService} from '../../../services/stats.service';
 import {AirportDescriptionService} from '../../../services/airport/airport-description.service';
 import {ActivatedRoute} from '@angular/router';
+import {User} from '../../../models/user';
+import {TokenStorageService} from '../../../services/auth/token-storage.service';
 
 export class Flight {
   id: number;
@@ -29,13 +31,15 @@ export class Comment {
 })
 export class AirportDescriptionComponent implements OnInit {
 
-  constructor(private airportDescription: AirportDescriptionService, private route: ActivatedRoute) { }
+  constructor(private tokenStorage: TokenStorageService, private airportDescription: AirportDescriptionService, private route: ActivatedRoute) { }
+  user: User;
   isCollapsed = true;
   flights: Array<Flight>;
   comments: Array<Comment>;
   airport_id: string;
 
   ngOnInit(): void {
+    this.user = this.tokenStorage.getUser();
     this.getIDfromURL();
     this.getFlights();
     this.getComments();

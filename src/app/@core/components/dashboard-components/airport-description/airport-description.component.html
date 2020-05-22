@@ -90,7 +90,8 @@
           </ul>
           <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
                   (click)="isCollapsed = !isCollapsed"
-                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Write comment</button>
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"
+                  *ngIf="user">Write comment</button>
         </div>
 
         <div class="animated fadeIn" [collapse]="isCollapsed">
