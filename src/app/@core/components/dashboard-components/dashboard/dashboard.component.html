@@ -68,12 +68,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let airport of airportsLeft">
+                <tr *ngFor="let airport of airportsLeft | paginate: {itemsPerPage: 10, currentPage: pageActual}">
                   <td> <a routerLink="/airports/{{ airport.airport_id }}">{{ airport.airport_name }}</a> </td>
                   <td>{{ airport.airport_country + ' / ' + airport.airport_city }}</td>
                 </tr>
                 </tbody>
               </table>
+              <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
             </div>
             <div class="col-md-6">
               <table class="table table-sm table-striped">
@@ -84,7 +85,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let airport of airportsRight">
+                <tr *ngFor="let airport of airportsRight | paginate: {itemsPerPage: 10, currentPage: pageActual}">
                   <td> <a routerLink="/airports/{{ airport.airport_id }}">{{ airport.airport_name }}</a> </td>
                   <td>{{ airport.airport_country + ' / ' + airport.airport_city }}</td>
                 </tr>

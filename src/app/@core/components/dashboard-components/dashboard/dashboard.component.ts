@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
   airportForm = new FormGroup({
     airportId: new FormControl('', [Validators.required])
   });
+  pageActual: number = 1;
 
   constructor(private statsService: StatsService, private markers: MarkersService) { }
 
