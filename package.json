@@ -62,6 +62,7 @@
     "ng2-charts": "^2.3.2",
     "ngx-avatar": "^3.7.0",
     "ngx-bootstrap": "^5.6.1",
+    "ngx-pagination": "^5.0.0",
     "ngx-perfect-scrollbar": "^9.0.0",
     "rxjs": "^6.5.5",
     "simple-line-icons": "^2.4.1",

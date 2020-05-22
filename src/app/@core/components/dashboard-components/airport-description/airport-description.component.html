@@ -16,7 +16,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let flight of flights">
+          <tr *ngFor="let flight of flights | paginate: {itemsPerPage: 5, currentPage: pageActual}">
             <td>{{flight.id}}</td>
             <td>{{flight.airline_name}}</td>
             <td>{{flight.date_time}}</td>
@@ -31,16 +31,7 @@
           </tr>
           </tbody>
         </table>
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-          <li class="page-item active">
-            <a class="page-link" href="#">1</a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item"><a class="page-link" href="#">4</a></li>
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
+        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
       </div>
     </div>
   </div>
@@ -52,7 +43,7 @@
     <div class="card border-secondary">
       <div class="card-body">
         <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
-        <div class="card" *ngFor="let comment of comments"><!--ngFor-->
+        <div class="card" *ngFor="let comment of comments | paginate: {itemsPerPage: 5, currentPage: pageActualC}"><!--ngFor-->
           <div class="card-header">
             <div class="row">
               <div class="col-md-6">
@@ -78,16 +69,7 @@
           </div>
         </div>
         <div class="row">
-          <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
-            <li class="page-item active">
-              <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">4</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-          </ul>
+          <pagination-controls (pageChange)="pageActualC = $event"></pagination-controls>
           <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
                   (click)="isCollapsed = !isCollapsed"
                   [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"

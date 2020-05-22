@@ -31,12 +31,15 @@ export class Comment {
 })
 export class AirportDescriptionComponent implements OnInit {
 
-  constructor(private tokenStorage: TokenStorageService, private airportDescription: AirportDescriptionService, private route: ActivatedRoute) { }
+  constructor(private tokenStorage: TokenStorageService, private airportDescription: AirportDescriptionService,
+              private route: ActivatedRoute) { }
   user: User;
   isCollapsed = true;
   flights: Array<Flight>;
   comments: Array<Comment>;
   airport_id: string;
+  pageActual: number = 1;
+  pageActualC: number = 1;
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();

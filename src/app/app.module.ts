@@ -58,6 +58,7 @@ import { AirportDescriptionComponent } from './@core/components/dashboard-compon
 import { LoadingSpinnerComponent } from './@core/components/loading-spinner/loading-spinner.component';
 import { AirportCommentsComponent } from './@core/components/dashboard-components/airport-comments/airport-comments.component';
 import { AirportFlightsComponent } from './@core/components/dashboard-components/airport-flights/airport-flights.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -79,7 +80,8 @@ import { AirportFlightsComponent } from './@core/components/dashboard-components
     ReactiveFormsModule,
     NgSelectModule,
     CollapseModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   declarations: [
     AppComponent,
