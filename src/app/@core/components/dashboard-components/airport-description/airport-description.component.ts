@@ -33,7 +33,6 @@ export class AirportDescriptionComponent implements OnInit {
   flights: Array<Flight>;
   comments: Array<Comment>;
   airport_id: string;
-  airport_name: string;
 
   ngOnInit(): void {
     this.getIDfromURL();

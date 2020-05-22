@@ -1,3 +1,136 @@
-<!--hacer los ng for-->
-<app-airport-flights [flight] = 'flights[0]'></app-airport-flights>
-<app-airport-comments [comment] = 'comments[0]'></app-airport-comments>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="card border-secondary">
+      <div class="card-body">
+        <h2 class="h2" *ngIf="flights">{{flights[0].airport_name}}</h2>
+        <!--/.col-->
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Flight</th>
+            <th>From</th>
+            <th>Date registered</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let flight of flights">
+            <td>{{flight.id}}</td>
+            <td>{{flight.airline_name}}</td>
+            <td>{{flight.date_time}}</td>
+            <td>
+              <span [ngClass]="{'In time': 'badge badge-success', 'Delayed': 'badge badge-warning',
+              'Cancelled': 'badge badge-danger', 'Scheduled': 'badge badge-primary', 'Unknown': 'badge badge-secondary',
+               'Diverted': 'badge badge-dark', 'En-route': 'badge badge-info', 'Others': 'badge badge-light'}[flight.status_name]">{{flight.status_name}}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+          <li class="page-item active">
+            <a class="page-link" href="#">1</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="#">4</a></li>
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <div class="card border-secondary">
+      <div class="card-body">
+        <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
+        <div class="card" *ngFor="let comment of comments"><!--ngFor-->
+          <div class="card-header">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <ngx-avatar name="Scraper" [round]="true" size="50" bgColor="#2f353a" class="avatar"></ngx-avatar>
+                  <h5 class="comment-title">{{comment.place}} - {{comment.title}}</h5>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h6 class="comment-date text-right">{{comment.date_time}}</h6>
+              </div>
+            </div>
+            <div class="row grade-container">
+              {{comment.grade}} <i class="icon-star"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <p>
+              {{comment.original_message}}
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="#">Prev</a></li>
+            <li class="page-item active">
+              <a class="page-link" href="#">1</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">4</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          </ul>
+          <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
+                  (click)="isCollapsed = !isCollapsed"
+                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic">Write comment</button>
+        </div>
+
+        <div class="animated fadeIn" [collapse]="isCollapsed">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header">
+                  <strong></strong>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Summary">
+                      </div>
+                      <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea type="text" class="form-control" id="message" placeholder="Describe your experience..."></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="start-date">Select date</label>
+                        <input class="form-control" id="start-date" name="startDate" placeholder="date"
+                               type="date">
+                      </div>
+                      <div class="form-group">
+                        <label>Grade</label>
+                        <div class="row grade">
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div><!--/.row-->
+                </div>
+                <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button">Send</button>
+              </div><!--/.col-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-1"></div>
+</div>
+
