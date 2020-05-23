@@ -6,6 +6,7 @@ import {MarkersService} from '../../../services/markers.service';
 import * as L from 'leaflet';
 import {Airport} from '../../../models/airport';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 export class Model {
   name: string;
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
   });
   pageActual: number = 1;
 
-  constructor(private statsService: StatsService, private markers: MarkersService) { }
+  constructor(private statsService: StatsService, private markers: MarkersService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAirports();
@@ -85,6 +86,7 @@ export class DashboardComponent implements OnInit {
   }
 
   selectAirport() {
-
+    console.log('Estoy funcionando');
+    this.router.navigateByUrl('/airports/' + this.airportForm.value.airportId);
   }
 }

@@ -12,6 +12,7 @@ export const endpoints = {
   // airports description
   getFlights: `${environment.apiUrl}/airports/flights`,
   getComments: `${environment.apiUrl}/airports/comments`,
+  insertUserComment: `${environment.apiUrl}/airports/comments/new-comment`,
 
   // flights
   dailyStats: `${environment.apiUrl}/flights/dailyStats`,

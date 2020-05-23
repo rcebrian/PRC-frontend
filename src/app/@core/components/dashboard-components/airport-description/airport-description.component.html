@@ -16,7 +16,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let flight of flights | paginate: {itemsPerPage: 5, currentPage: pageActual}">
+          <tr *ngFor="let flight of flights | paginate: {itemsPerPage: 15, currentPage: pageActual}">
             <td>{{flight.id}}</td>
             <td>{{flight.airline_name}}</td>
             <td>{{flight.date_time}}</td>
@@ -86,33 +86,37 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-12">
-                      <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" placeholder="Summary">
-                      </div>
-                      <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea type="text" class="form-control" id="message" placeholder="Describe your experience..."></textarea>
-                      </div>
-                      <div class="form-group">
-                        <label for="start-date">Select date</label>
-                        <input class="form-control" id="start-date" name="startDate" placeholder="date"
-                               type="date">
-                      </div>
-                      <div class="form-group">
-                        <label>Grade</label>
-                        <div class="row grade">
-                          <i class="icon-star"></i>
-                          <i class="icon-star"></i>
-                          <i class="icon-star"></i>
-                          <i class="icon-star"></i>
-                          <i class="icon-star"></i>
+                      <form [formGroup]="commentForm" (ngSubmit)="insertUserComment()" action="" method="get" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="form-group">
+                          <label for="title">Title</label>
+                          <input name = "title" formControlName="title" type="text" class="form-control" id="title" placeholder="Summary"
+                                 [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.title.valid, 'is-invalid':commentForm.controls.title.errors?.invalid }">
                         </div>
-                      </div>
-                    </div>
+                        <div class="form-group">
+                          <label for="message">Message</label>
+                          <textarea name = "message" formControlName="message" type="text" class="form-control" id="message" placeholder="Describe your experience..."
+                                    [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.message.valid, 'is-invalid':commentForm.controls.message.errors?.invalid }"></textarea>
+                        </div>
+                        <div class="form-group">
+                          <label for="start-date">Select date</label>
+                          <input name = "date_time" formControlName="date_time" class="form-control" id="start-date" placeholder="date" type="date"
+                                 [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.date_time.valid, 'is-invalid':commentForm.controls.date_time.errors?.invalid }">
+                        </div>
+                        <div class="form-group">
+                          <label>Grade</label>
+                          <select name = "grade" formControlName="grade" class="form-control" id="grade"
+                                  [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.grade.valid, 'is-invalid':commentForm.controls.grade.errors?.invalid }">
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                          </select>
+                        </div>
+                        <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button" [disabled]="commentForm.invalid" (click)="insertUserComment()">Send</button>
+                      </form>
                   </div><!--/.row-->
                 </div>
-                <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button">Send</button>
               </div><!--/.col-->
             </div>
           </div>

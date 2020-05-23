@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         const now = new Date();
         this.tokenStorage.saveToken(data.access_token);
         this.tokenStorage.saveUser(data.user);
-        this.tokenStorage.tokenTimeOut(new Date(now.getTime() + 55 * 60000));
+        this.tokenStorage.tokenTimeOut(new Date(now.getTime() + 15 * 60000));
         this.redirectToDashboard();
       },
       err => {

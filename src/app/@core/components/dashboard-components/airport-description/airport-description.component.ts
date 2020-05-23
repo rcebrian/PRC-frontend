@@ -5,6 +5,7 @@ import {AirportDescriptionService} from '../../../services/airport/airport-descr
 import {ActivatedRoute} from '@angular/router';
 import {User} from '../../../models/user';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 export class Flight {
   id: number;
@@ -40,6 +41,12 @@ export class AirportDescriptionComponent implements OnInit {
   airport_id: string;
   pageActual: number = 1;
   pageActualC: number = 1;
+  commentForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    message: new FormControl('', [Validators.required]),
+    date_time: new FormControl('', [Validators.required]),
+    grade: new FormControl('', [Validators.required])
+  });
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();
@@ -71,6 +78,17 @@ export class AirportDescriptionComponent implements OnInit {
       },
       err => {
         console.log(err);
+      }
+    );
+  }
+  insertUserComment() {
+    this.airportDescription.insertUserComment(this.commentForm.value.title, this.commentForm.value.message, this.commentForm.value.date_time,
+      parseFloat(this.commentForm.value.grade), this.airport_id).subscribe(
+      data => {
+        alert('Comment saved correctly');
+      },
+      error => {
+        alert(error.error.error);
       }
     );
   }

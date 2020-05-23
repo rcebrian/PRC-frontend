@@ -20,15 +20,15 @@
                          formControlName="airportId">
                 <ng-option *ngFor="let airport of airports" [value]="airport.id">{{airport.name}}</ng-option>
               </ng-select>
+              <div class="form-actions">
+                <div class="center top-margin">
+                  <button class="btn btn-primary margin-btn submit" type="submit"
+                          [disabled]="!airportForm.valid">Search</button>
+                </div>
+              </div>
             </form>
           </div>
         </div><!--/.row-->
-        <div class="form-actions">
-          <div class="center top-margin">
-            <button class="btn btn-primary margin-btn submit" type="submit"
-                    [disabled]="!airportForm.valid">Search</button>
-          </div>
-        </div>
       </div><!--/.row-->
     </div>
   </div>
