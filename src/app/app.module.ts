@@ -56,8 +56,6 @@ import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AirportDescriptionComponent } from './@core/components/dashboard-components/airport-description/airport-description.component';
 import { LoadingSpinnerComponent } from './@core/components/loading-spinner/loading-spinner.component';
-import { AirportCommentsComponent } from './@core/components/dashboard-components/airport-comments/airport-comments.component';
-import { AirportFlightsComponent } from './@core/components/dashboard-components/airport-flights/airport-flights.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
@@ -100,8 +98,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     AirportComponent,
     AirportDescriptionComponent,
     LoadingSpinnerComponent,
-    AirportCommentsComponent,
-    AirportFlightsComponent
   ],
   providers: [
     {

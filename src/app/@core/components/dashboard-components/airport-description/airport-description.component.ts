@@ -7,24 +7,8 @@ import {User} from '../../../models/user';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../services/admin/admin.service';
-
-export class Flight {
-  id: number;
-  airport_name: string;
-  airline_name: string;
-  date_time: string;
-  status_name: string;
-  prediction: number;
-}
-export class Comment {
-  name: number;
-  city_name: string;
-  place: string;
-  title: string;
-  date_time: string;
-  original_message: string;
-  grade: string;
-}
+import { Flight } from '../../../models/flight';
+import { Comment} from '../../../models/comment';
 
 @Component({
   selector: 'app-airport-description',
