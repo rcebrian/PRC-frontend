@@ -1,11 +1,14 @@
+<div id="container-img" >
+  <img src="assets/img/sky-image.jpg" id="img">
+</div>
 <div class="row">
   <div class="col-md-1"></div>
   <div class="col-md-10">
-    <div class="card border-secondary">
+    <div class="card border-secondary table-flights">
       <div class="card-body">
         <h2 class="h2" *ngIf="flights">{{flights[0].airport_name}}</h2>
         <!--/.col-->
-        <table class="table table-striped">
+        <table class="table table-striped center-content">
           <thead>
           <tr>
             <th>Flight</th>
@@ -25,9 +28,9 @@
               'Cancelled': 'badge badge-danger', 'Scheduled': 'badge badge-primary', 'Unknown': 'badge badge-secondary',
                'Diverted': 'badge badge-dark', 'En-route': 'badge badge-info', 'Others': 'badge badge-light'}[flight.status_name]">{{flight.status_name}}</span>
             </td>
-            <td *ngIf="flight.prediction == null">-</td>
-            <td *ngIf="flight.prediction == 1">Delayed</td>
-            <td *ngIf="flight.prediction == 0">On time</td>
+            <td *ngIf="flight.prediction == null" class="prediction">-</td>
+            <td *ngIf="flight.prediction == 1" class="prediction">Delayed</td>
+            <td *ngIf="flight.prediction == 0" class="prediction">On time</td>
           </tr>
           </tbody>
         </table>
