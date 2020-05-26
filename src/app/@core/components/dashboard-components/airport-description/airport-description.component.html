@@ -12,7 +12,7 @@
           <thead>
           <tr>
             <th>Flight</th>
-            <th>From</th>
+            <th class="mobile-out">From</th>
             <th>Date registered</th>
             <th>Status</th>
             <th>Prediction</th>
@@ -21,7 +21,7 @@
           <tbody>
           <tr *ngFor="let flight of flights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
             <td>{{flight.id}}</td>
-            <td>{{flight.airline_name}}</td>
+            <td class="mobile-out">{{flight.airline_name}}</td>
             <td>{{flight.date_time}}</td>
             <td>
               <span [ngClass]="{'In time': 'badge badge-success', 'Delayed': 'badge badge-warning',

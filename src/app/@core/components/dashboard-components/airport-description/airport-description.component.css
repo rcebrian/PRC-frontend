@@ -66,4 +66,21 @@
   .avatar{
     display: none;
   }
+  .mobile-out{
+    display: none;
+  }
+  .table-flights{
+    margin-top: 0;
+    margin-left: -10px;
+    width: 107%;
+    flex: 1 1 auto;
+  }
+  #controlComments{
+    font-size: 10px;
+    margin-left: -35px;
+  }
+  #controlFlights{
+    margin-left: -30px;
+    font-size: 12px;
+  }
 }
