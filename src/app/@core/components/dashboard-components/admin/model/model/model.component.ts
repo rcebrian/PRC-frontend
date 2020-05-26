@@ -1,28 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService} from '../../../../../services/admin/admin.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-
-export class Algorithm {
-  id: number;
-  name: string;
-  description: string;
-}
-
-export class Model {
-  id: number;
-  type: number;
-  date: string;
-  report_num_rows: number;
-  report_precision_0: number;
-  report_precision_1: number;
-  report_recall_0: number;
-  report_recall_1: number;
-  report_f1_score_0: number;
-  report_f1_score_1: number;
-  report_accuracy_precision: number;
-  report_accuracy_recall: number;
-  report_accuracy_f1_score: number;
-}
+import { ModelTrain} from '../../../../../models/model-train';
+import { Algorithm } from '../../../../../models/algorithm';
 
 @Component({
   selector: 'app-model',
@@ -63,9 +43,9 @@ export class ModelComponent implements OnInit {
   selectedAlgorithm: number;
   selectedAlgorithmModel: number;
   selectedModel: number;
-  models: Array<Model>;
-  dateArrayModels: Array<Model>;
-  selectModel: Model;
+  models: Array<ModelTrain>;
+  dateArrayModels: Array<ModelTrain>;
+  selectModel: ModelTrain;
 
   // Errors
   characteristicsError: String;
@@ -186,7 +166,7 @@ export class ModelComponent implements OnInit {
   // -----------------------Change selected training model---------------------------
   onChangeModelType(id) {
     this.selectedAlgorithmModel = id;
-    const array: Array<Model> = [];
+    const array: Array<ModelTrain> = [];
     // tslint:disable-next-line:triple-equals
     this.models.forEach(x => { if (x.type == this.selectedAlgorithmModel) { array.push(x); }});
     this.dateArrayModels = array;
@@ -203,7 +183,7 @@ export class ModelComponent implements OnInit {
 
   getModels() {
     this.adminService.getModels().subscribe(
-      (data: Array<Model>) => {
+      (data: Array<ModelTrain>) => {
         this.getModelData(data);
       },
       error => {
@@ -224,7 +204,7 @@ export class ModelComponent implements OnInit {
     data.forEach(model => this.models.push(model));
 
     if (this.dateArrayModels.length > 0) {
-      const array: Array<Model> = [];
+      const array: Array<ModelTrain> = [];
       this.models.forEach(x => {
         if (x.type === this.dateArrayModels[0].type) {
           array.push(x);
@@ -239,7 +219,7 @@ export class ModelComponent implements OnInit {
       let max = 0;
       this.models.forEach(model => {if (model.id > max) {max = model.id; }});
       this.adminService.getLastModels(max).subscribe(
-        (data: Array<Model>) => {
+        (data: Array<ModelTrain>) => {
           if (data.length !== 0) {
             this.addModel(data);
           }

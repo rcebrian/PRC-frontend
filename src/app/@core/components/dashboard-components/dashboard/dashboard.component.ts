@@ -7,11 +7,7 @@ import * as L from 'leaflet';
 import {Airport} from '../../../models/airport';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
-
-export class Model {
-  name: string;
-  id: number;
-}
+import {NameId} from '../../../models/name-id';
 
 @Component({
   styleUrls: ['./dashboard.component.scss'],
@@ -25,7 +21,7 @@ export class DashboardComponent implements OnInit {
   dashboardMap: any;
   airportsRight: Airport[] = [];
   airportsLeft: Airport[] = [];
-  airports: Array<Model>;
+  airports: Array<NameId>;
   airportForm = new FormGroup({
     airportId: new FormControl('', [Validators.required])
   });
@@ -72,7 +68,7 @@ export class DashboardComponent implements OnInit {
 
   getAirports() {
     this.statsService.getAirports().subscribe(
-      (data: Array<Model>) => {
+      (data: Array<NameId>) => {
         this.setAirportValue(data);
       },
       error => {
@@ -81,7 +77,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  setAirportValue(data: Array<Model>) {
+  setAirportValue(data: Array<NameId>) {
     this.airports = data;
   }
 

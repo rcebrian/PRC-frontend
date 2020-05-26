@@ -1,45 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../../../services/admin/admin.service';
-import { Observable } from 'rxjs';
-
-export interface Person {
-  id: string;
-  isActive: boolean;
-  age: number;
-  name: string;
-  gender: string;
-  company: string;
-  email: string;
-  phone: string;
-  disabled?: boolean;
-}
-
-
-export class GroupFlightData {
-  groupDate: string;
-  airport_id: number;
-  delay: number;
-  countDelay: number;
-  prediction: number;
-  countPrediction: number;
-}
-
-export class City {
-  city: string;
-  city_id: number;
-}
-
-export class Airport {
-  airport_id: number;
-  name: number;
-}
-
-export class CommentData {
-  polarity: number;
-  sentiment: number;
-  grade: number;
-}
+import { CommentData } from '../../../../../models/comment-data';
+import { GroupFlightData} from '../../../../../models/group-flight-data';
+import { City} from '../../../../../models/city';
+import { AirportId} from '../../../../../models/airport-id';
 
 @Component({
   selector: 'app-statistic',
@@ -62,7 +27,7 @@ export class StatisticComponent implements OnInit {
   dataComments: Array<CommentData>;
 
   // Group airports
-  airports: Array<Airport>;
+  airports: Array<AirportId>;
   airportId = -1; // Todos los aeropuertos
 
   // Flights
@@ -143,7 +108,7 @@ export class StatisticComponent implements OnInit {
     );
 
     this.adminService.getFlightsAirports(initData, yesterday).subscribe(
-      (data: Array<Airport>) => {
+      (data: Array<AirportId>) => {
         this.setValuesAirports(data);
       },
       error => {
@@ -152,7 +117,7 @@ export class StatisticComponent implements OnInit {
     );
   }
 
-  setValuesAirports(data: Array<Airport>) {
+  setValuesAirports(data: Array<AirportId>) {
     this.airports = data;
   }
 

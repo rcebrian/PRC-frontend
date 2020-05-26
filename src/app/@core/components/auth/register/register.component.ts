@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroup, ValidatorFn, Validators, AbstractControl} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../services/auth/auth.service';
@@ -9,7 +9,7 @@ import {TokenStorageService} from '../../../services/auth/token-storage.service'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
   userForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]),
     surnames: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-zñÑáéíóúÁÉÍÓÚ ]+$')]),
@@ -26,9 +26,6 @@ export class RegisterComponent implements OnInit {
   errorEmail: String;
 
   constructor(private router: Router, private authService: AuthService, private tokenStorage: TokenStorageService) { }
-
-  ngOnInit(): void {
-  }
 
   registrer() {
     this.authService.register(this.userForm.value).subscribe(

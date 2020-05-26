@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AdminService} from '../../../../../services/admin/admin.service';
-import {AbstractControl, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-
-export class Model {
-  name: string;
-  id: number;
-}
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { NameId} from '../../../../../models/name-id';
 
 @Component({
   selector: 'app-scraper',
@@ -53,9 +49,9 @@ export class ScraperComponent implements OnInit {
   buttonUpdateWeatherNowStr: string = 'Weather';
   selectButtonNow: number;
 
-  airports: Array<Model>;
-  countries: Array<Model>;
-  cities: Array<Model>;
+  airports: Array<NameId>;
+  countries: Array<NameId>;
+  cities: Array<NameId>;
 
   // Update url data
   countryId: string;
@@ -81,7 +77,7 @@ export class ScraperComponent implements OnInit {
   // -----------------------------Update train data---------------------------------
   getAirports() {
     this.adminService.getAirports().subscribe(
-      (data: Array<Model>) => {
+      (data: Array<NameId>) => {
         this.setAirportValue(data);
       },
       error => {
@@ -90,7 +86,7 @@ export class ScraperComponent implements OnInit {
     );
   }
 
-  setAirportValue(data: Array<Model>) {
+  setAirportValue(data: Array<NameId>) {
     this.airports = data;
   }
 
@@ -235,7 +231,7 @@ export class ScraperComponent implements OnInit {
   // -----------------------------Update URL data-----------------------------------
   getCountries() {
     this.adminService.getCountries().subscribe(
-      (data: Array<Model>) => {
+      (data: Array<NameId>) => {
         this.setCountriesValue(data);
       },
       error => {
@@ -244,7 +240,7 @@ export class ScraperComponent implements OnInit {
     );
   }
 
-  setCountriesValue(data: Array<Model>) {
+  setCountriesValue(data: Array<NameId>) {
     this.countries = data;
   }
 
@@ -269,7 +265,7 @@ export class ScraperComponent implements OnInit {
   // -----------------------------Update comment data---------------------------------
   getCities() {
     this.adminService.getCities().subscribe(
-      (data: Array<Model>) => {
+      (data: Array<NameId>) => {
         this.setCitiesValue(data);
       },
       error => {
@@ -278,7 +274,7 @@ export class ScraperComponent implements OnInit {
     );
   }
 
-  setCitiesValue(data: Array<Model>) {
+  setCitiesValue(data: Array<NameId>) {
     this.cities = data;
   }
 
