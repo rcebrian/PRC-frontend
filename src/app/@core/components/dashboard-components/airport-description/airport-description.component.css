@@ -15,15 +15,19 @@
   justify-content: center;
   text-align: center;
 }
-.comment-date{
-  text-align: right;
-  justify-content: right;
-  right: 0;
-  margin-left: 5px;
+.avatar{
+  display: inline-block;
+  padding: 10px;
 }
 .comment-title{
   margin-left: 20px;
-  margin-top: 5px;
+  margin-top: 15px;
+}
+.comment-date{
+  text-align: right;
+  justify-content: right;
+  top: 5px;
+  margin-left: 80px;
 }
 .grade-container{
   margin-left: 55px;
@@ -31,9 +35,6 @@
 .icon-star{
   margin-right: 14px;
   top: 0;
-}
-.avatar{
-  margin-top: 5px;
 }
 .write-comment{
   width: 200px;
@@ -60,4 +61,9 @@
 }
 .prediction{
   font-weight: bold;
+}
+@media screen and (max-width: 700px) and (min-width: 400px) {
+  .avatar{
+    display: none;
+  }
 }
