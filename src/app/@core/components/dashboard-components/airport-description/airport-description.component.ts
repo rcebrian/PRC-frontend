@@ -39,8 +39,8 @@ export class AirportDescriptionComponent implements OnInit {
   flights: Array<Flight>;
   comments: Array<Comment>;
   airport_id: string;
-  pageActual: number = 1;
-  pageActualC: number = 1;
+  pageFlights: number = 1;
+  pageComments: number = 1;
   commentForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     message: new FormControl('', [Validators.required]),

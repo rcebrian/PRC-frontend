@@ -16,7 +16,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let flight of flights | paginate: {itemsPerPage: 15, currentPage: pageActual}">
+          <tr *ngFor="let flight of flights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
             <td>{{flight.id}}</td>
             <td>{{flight.airline_name}}</td>
             <td>{{flight.date_time}}</td>
@@ -31,7 +31,7 @@
           </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+        <pagination-controls id="controlFlights" (pageChange)="pageFlights = $event"></pagination-controls>
       </div>
     </div>
   </div>
@@ -43,7 +43,7 @@
     <div class="card border-secondary">
       <div class="card-body">
         <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
-        <div class="card" *ngFor="let comment of comments | paginate: {itemsPerPage: 5, currentPage: pageActualC}"><!--ngFor-->
+        <div class="card" *ngFor="let comment of comments | paginate: {id: 'controlComments', itemsPerPage: 5, currentPage: pageComments}"><!--ngFor-->
           <div class="card-header">
             <div class="row">
               <div class="col-md-6">
@@ -69,7 +69,7 @@
           </div>
         </div>
         <div class="row">
-          <pagination-controls (pageChange)="pageActualC = $event"></pagination-controls>
+          <pagination-controls id="controlComments" (pageChange)="pageComments = $event"></pagination-controls>
           <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
                   (click)="isCollapsed = !isCollapsed"
                   [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"
