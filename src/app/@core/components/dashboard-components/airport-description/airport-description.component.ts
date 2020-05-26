@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {User} from '../../../models/user';
 import {TokenStorageService} from '../../../services/auth/token-storage.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {AdminService} from '../../../services/admin/admin.service';
 
 export class Flight {
   id: number;
@@ -33,10 +34,10 @@ export class Comment {
 export class AirportDescriptionComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService, private airportDescription: AirportDescriptionService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute, private adminService: AdminService) { }
   user: User;
   isCollapsed = true;
-  flights: Array<Flight>;
+  flights: Array<Flight> = [];
   comments: Array<Comment>;
   airport_id: string;
   pageFlights: number = 1;
@@ -63,7 +64,9 @@ export class AirportDescriptionComponent implements OnInit {
     this.airportDescription.getFlights(this.airport_id).subscribe(
       (data: Array<Flight>) => {
         this.flights = data;
-        console.log(data[0]);
+        if (this.flights.length === 0) {
+          this.updateFlightsFuture();
+        }
       },
       error => {
         alert(error.error.errors);
@@ -74,7 +77,6 @@ export class AirportDescriptionComponent implements OnInit {
     this.airportDescription.getComments(this.airport_id).subscribe(
       (data: Array<Comment>) => {
         this.comments = data;
-        console.log(data[0]);
       },
       err => {
         console.log(err);
@@ -82,13 +84,27 @@ export class AirportDescriptionComponent implements OnInit {
     );
   }
   insertUserComment() {
-    this.airportDescription.insertUserComment(this.commentForm.value.title, this.commentForm.value.message, this.commentForm.value.date_time,
+    this.airportDescription.insertUserComment(this.commentForm.value.title, this.commentForm.value.message,
+      this.commentForm.value.date_time,
       parseFloat(this.commentForm.value.grade), this.airport_id).subscribe(
       data => {
         alert('Comment saved correctly');
       },
       error => {
         alert(error.error.error);
+      }
+    );
+  }
+
+  // -----------------------------------Load new Data-------------------------------
+  updateFlightsFuture() {
+    this.adminService.updateFutureFlightsData(this.airport_id).subscribe(
+      data => {
+        console.log(1);
+        this.getFlights();
+      },
+      error => {
+        console.log(error);
       }
     );
   }

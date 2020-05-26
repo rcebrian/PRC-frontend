@@ -32,21 +32,9 @@ export class ScraperComponent implements OnInit {
   yesterdayStr: string;
   minDateStr: string;
   dateStrTrain: string;
-  buttonDisabledAllTrainData: boolean = false;
-  buttonUpdateAllTrainStr: string = 'Update all';
-  buttonDisabledFlightTrainData: boolean = false;
-  buttonUpdateFlightTrainStr: string = 'Flights';
-  buttonDisabledWeatherTrainData: boolean = false;
-  buttonUpdateWeatherTrainStr: string = 'Weather';
   selectButtonTrain: number;
 
   // Update today data
-  buttonDisabledAllNowData: boolean = false;
-  buttonUpdateAllNowStr: string = 'Update all';
-  buttonDisabledFlightNowData: boolean = false;
-  buttonUpdateFlightNowStr: string = 'Flights';
-  buttonDisabledWeatherNowData: boolean = false;
-  buttonUpdateWeatherNowStr: string = 'Weather';
   selectButtonNow: number;
 
   airports: Array<NameId>;
@@ -55,8 +43,6 @@ export class ScraperComponent implements OnInit {
 
   // Update url data
   countryId: string;
-  buttonDisabledUrlData: boolean = false;
-  buttonUpdateUrlStr: string = 'Update';
 
   // Update comment data
   cityId: string;
@@ -92,16 +78,10 @@ export class ScraperComponent implements OnInit {
 
   updateTrainData() {
     if (this.selectButtonTrain === 0) { // Flights
-      this.buttonDisabledFlightTrainData = true;
-      this.buttonUpdateFlightTrainStr = 'Updating...';
       this.updateFlightsHistorical(this.historyForm.value.airportId);
     } else if (this.selectButtonTrain === 1) { // Weather
-      this.buttonDisabledWeatherTrainData = true;
-      this.buttonUpdateWeatherTrainStr = 'Updating...';
       this.updateWeathersHistorical(this.historyForm.value.airportId);
     } else { // Both
-      this.buttonDisabledAllTrainData = true;
-      this.buttonUpdateAllTrainStr = 'Updating...';
       this.updateFlightsHistorical(this.historyForm.value.airportId);
     }
   }
@@ -109,47 +89,18 @@ export class ScraperComponent implements OnInit {
   updateFlightsHistorical(id) {
     this.adminService.updateHistoricalFlightsData(this.dateStrTrain, id).subscribe(
       (data: any) => {
-        if (this.selectButtonTrain === 0) { // Flights
-          this.buttonDisabledFlightTrainData = false;
-          this.buttonUpdateFlightTrainStr = 'Flights';
-        } else {
+        if (this.selectButtonTrain !== 0) {
           this.updateWeathersHistorical(id);
         }
       },
-      error => {
-        alert(error.error.errors);
-        if (this.selectButtonTrain === 0) { // Flights
-          this.buttonDisabledFlightTrainData = false;
-          this.buttonUpdateFlightTrainStr = 'Flights';
-        } else { // Both
-          this.buttonDisabledAllTrainData = false;
-          this.buttonUpdateAllTrainStr = 'Update All';
-        }
-      }
+      error => {alert(error.error.errors); }
     );
   }
 
   updateWeathersHistorical(id) {
     this.adminService.updateHistoricalWeatherData(this.dateStrTrain, id).subscribe(
-      (data: any) => {
-        if (this.selectButtonTrain === 1) { // Weather
-          this.buttonDisabledWeatherTrainData = false;
-          this.buttonUpdateWeatherTrainStr = 'Weather';
-        } else { // Both
-          this.buttonDisabledAllTrainData = false;
-          this.buttonUpdateAllTrainStr = 'Update All';
-        }
-      },
-      error => {
-        alert(error.error.errors);
-        if (this.selectButtonTrain === 1) { // Weather
-          this.buttonDisabledWeatherTrainData = false;
-          this.buttonUpdateWeatherTrainStr = 'Weather';
-        } else { // Both
-          this.buttonDisabledAllTrainData = false;
-          this.buttonUpdateAllTrainStr = 'Update All';
-        }
-      }
+      (data: any) => {},
+      error => {alert(error.error.errors); }
     );
   }
   // -------------------------------------------------------------------------------
@@ -158,16 +109,10 @@ export class ScraperComponent implements OnInit {
   // -----------------------------Update today data---------------------------------
   updateNowData() {
     if (this.selectButtonNow === 0) { // Flights
-      this.buttonDisabledFlightNowData = true;
-      this.buttonUpdateFlightNowStr = 'Updating...';
       this.updateFlightsFuture(this.forecastForm.value.airportId);
     } else if (this.selectButtonNow === 1) { // Weather
-      this.buttonDisabledWeatherNowData = true;
-      this.buttonUpdateWeatherNowStr = 'Updating...';
       this.updateWeathersFuture(this.forecastForm.value.airportId);
     } else { // Both
-      this.buttonDisabledAllNowData = true;
-      this.buttonUpdateAllNowStr = 'Updating...';
       this.updateFlightsFuture(this.forecastForm.value.airportId);
     }
   }
@@ -175,21 +120,14 @@ export class ScraperComponent implements OnInit {
   updateFlightsFuture(id) {
     this.adminService.updateFutureFlightsData(id).subscribe(
       (data: any) => {
-        if (this.selectButtonNow === 0) { // Flights
-          this.buttonDisabledFlightNowData = false;
-          this.buttonUpdateFlightNowStr = 'Flights';
-        } else {
+        if (this.selectButtonNow !== 0) { // Flights
           this.updateWeathersFuture(id);
         }
       },
       error => {
         alert(error.error.errors);
         if (this.selectButtonNow === 0) { // Flights
-          this.buttonDisabledFlightNowData = false;
-          this.buttonUpdateFlightNowStr = 'Flights';
         } else { // Both
-          this.buttonDisabledAllNowData = false;
-          this.buttonUpdateAllNowStr = 'Update All';
         }
       }
     );
@@ -197,24 +135,9 @@ export class ScraperComponent implements OnInit {
 
   updateWeathersFuture(id) {
     this.adminService.updateFutureWeatherData(id).subscribe(
-      (data: any) => {
-        if (this.selectButtonNow === 1) { // Weather
-          this.buttonDisabledWeatherNowData = false;
-          this.buttonUpdateWeatherNowStr = 'Weather';
-        } else { // Both
-          this.buttonDisabledAllNowData = false;
-          this.buttonUpdateAllNowStr = 'Update All';
-        }
-      },
+      (data: any) => {},
       error => {
         alert(error.error.errors);
-        if (this.selectButtonNow === 1) { // Weather
-          this.buttonDisabledWeatherNowData = false;
-          this.buttonUpdateWeatherNowStr = 'Weather';
-        } else { // Both
-          this.buttonDisabledAllNowData = false;
-          this.buttonUpdateAllNowStr = 'Update All';
-        }
       }
     );
   }
@@ -245,17 +168,11 @@ export class ScraperComponent implements OnInit {
   }
 
   updateUrlData() {
-    this.buttonDisabledUrlData = true;
-    this.buttonUpdateUrlStr = 'Updating...';
     this.adminService.updateUrlFlights(this.urlForm.value.countryId).subscribe(
       (data: any) => {
-        this.buttonDisabledUrlData = false;
-        this.buttonUpdateUrlStr = 'Update';
       },
       error => {
         alert(error.error.errors);
-        this.buttonDisabledUrlData = false;
-        this.buttonUpdateUrlStr = 'Update';
       }
     );
   }
@@ -283,8 +200,6 @@ export class ScraperComponent implements OnInit {
       (data: any) => {},
       error => {
         alert(error.error.errors);
-        this.buttonDisabledUrlData = false;
-        this.buttonUpdateUrlStr = 'Update';
       }
     );
   }

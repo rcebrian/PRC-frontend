@@ -1,125 +1,148 @@
-<div id="container-img" >
-  <img src="assets/img/sky-image.jpg" id="img">
+<div *ngIf="flights.length === 0" class="align-items-center d-flex justify-content-center" id="container-load">
+  <div id="container-spinner">
+    <div class="center">
+      <div class="lds-facebook">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+
+
+    <div class="text-center">
+      <h4>It seems that there are no flights loaded</h4>
+      <p>Wait a moment while we load new data</p>
+    </div>
+
+  </div>
+
 </div>
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
-    <div class="card border-secondary table-flights">
-      <div class="card-body">
-        <h2 class="h2" *ngIf="flights">{{flights[0].airport_name}}</h2>
-        <!--/.col-->
-        <table class="table table-striped center-content">
-          <thead>
-          <tr>
-            <th>Flight</th>
-            <th class="mobile-out">From</th>
-            <th>Date registered</th>
-            <th>Status</th>
-            <th>Prediction</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let flight of flights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
-            <td>{{flight.id}}</td>
-            <td class="mobile-out">{{flight.airline_name}}</td>
-            <td>{{flight.date_time}}</td>
-            <td>
+
+<div *ngIf="flights.length > 0">
+  <div id="container-img" >
+    <img src="assets/img/sky-image.jpg" id="img">
+  </div>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="card border-secondary table-flights">
+        <div class="card-body">
+          <h2 class="h2" *ngIf="flights">{{flights[0].airport_name}}</h2>
+          <!--/.col-->
+          <table class="table table-striped center-content">
+            <thead>
+            <tr>
+              <th>Flight</th>
+              <th class="mobile-out">From</th>
+              <th>Date registered</th>
+              <th>Status</th>
+              <th>Prediction</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let flight of flights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
+              <td>{{flight.id}}</td>
+              <td class="mobile-out">{{flight.airline_name}}</td>
+              <td>{{flight.date_time}}</td>
+              <td>
               <span [ngClass]="{'In time': 'badge badge-success', 'Delayed': 'badge badge-warning',
               'Cancelled': 'badge badge-danger', 'Scheduled': 'badge badge-primary', 'Unknown': 'badge badge-secondary',
                'Diverted': 'badge badge-dark', 'En-route': 'badge badge-info', 'Others': 'badge badge-light'}[flight.status_name]">{{flight.status_name}}</span>
-            </td>
-            <td *ngIf="flight.prediction == null" class="prediction">-</td>
-            <td *ngIf="flight.prediction == 1" class="prediction">Delayed</td>
-            <td *ngIf="flight.prediction == 0" class="prediction">On time</td>
-          </tr>
-          </tbody>
-        </table>
-        <pagination-controls id="controlFlights" (pageChange)="pageFlights = $event"></pagination-controls>
+              </td>
+              <td *ngIf="flight.prediction == null" class="prediction">-</td>
+              <td *ngIf="flight.prediction == 1" class="prediction">Delayed</td>
+              <td *ngIf="flight.prediction == 0" class="prediction">On time</td>
+            </tr>
+            </tbody>
+          </table>
+          <pagination-controls id="controlFlights" (pageChange)="pageFlights = $event"></pagination-controls>
+        </div>
       </div>
     </div>
+    <div class="col-md-1"></div>
   </div>
-  <div class="col-md-1"></div>
-</div>
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
-    <div class="card border-secondary">
-      <div class="card-body">
-        <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
-        <div class="card" *ngFor="let comment of comments | paginate: {id: 'controlComments', itemsPerPage: 5, currentPage: pageComments}"><!--ngFor-->
-          <div class="card-header">
-            <div class="row">
-              <ngx-avatar name="Scraper" [round]="true" size="50" bgColor="#2f353a" class="avatar"></ngx-avatar>
-              <h5 class="comment-title col-md-10">{{comment.place}} - {{comment.title}}</h5>
-              <h6 class="comment-date">{{comment.date_time}}</h6>
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="card border-secondary">
+        <div class="card-body">
+          <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
+          <div class="card" *ngFor="let comment of comments | paginate: {id: 'controlComments', itemsPerPage: 5, currentPage: pageComments}"><!--ngFor-->
+            <div class="card-header">
+              <div class="row">
+                <ngx-avatar name="Scraper" [round]="true" size="50" bgColor="#2f353a" class="avatar"></ngx-avatar>
+                <h5 class="comment-title col-md-10">{{comment.place}} - {{comment.title}}</h5>
+                <h6 class="comment-date">{{comment.date_time}}</h6>
+              </div>
+              <div class="row grade-container">
+                <div class="" *ngFor="let grade of comments | slice:0:+comment.grade; let i=index">
+                  <i class="icon-star" *ngIf="i<grade.grade"></i>
+                </div>
+              </div>
             </div>
-            <div class="row grade-container">
-              <div class="" *ngFor="let grade of comments | slice:0:+comment.grade; let i=index">
-                <i class="icon-star" *ngIf="i<grade.grade"></i>
+            <div class="card-body">
+              <p>
+                {{comment.original_message}}
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <pagination-controls id="controlComments" (pageChange)="pageComments = $event"></pagination-controls>
+            <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
+                    (click)="isCollapsed = !isCollapsed"
+                    [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"
+                    *ngIf="user">Write comment</button>
+          </div>
+
+          <div class="animated fadeIn" [collapse]="isCollapsed">
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-header">
+                    <strong></strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <form [formGroup]="commentForm" (ngSubmit)="insertUserComment()" action="" method="get" enctype="multipart/form-data" class="form-horizontal">
+                          <div class="form-group">
+                            <label for="title">Title</label>
+                            <input name = "title" formControlName="title" type="text" class="form-control" id="title" placeholder="Summary"
+                                   [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.title.valid, 'is-invalid':commentForm.controls.title.errors?.invalid }">
+                          </div>
+                          <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea name = "message" formControlName="message" type="text" class="form-control" id="message" placeholder="Describe your experience..."
+                                      [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.message.valid, 'is-invalid':commentForm.controls.message.errors?.invalid }"></textarea>
+                          </div>
+                          <div class="form-group">
+                            <label for="start-date">Select date</label>
+                            <input name = "date_time" formControlName="date_time" class="form-control" id="start-date" placeholder="date" type="date"
+                                   [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.date_time.valid, 'is-invalid':commentForm.controls.date_time.errors?.invalid }">
+                          </div>
+                          <div class="form-group">
+                            <label>Grade</label>
+                            <select name = "grade" formControlName="grade" class="form-control" id="grade"
+                                    [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.grade.valid, 'is-invalid':commentForm.controls.grade.errors?.invalid }">
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </select>
+                          </div>
+                          <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button" [disabled]="commentForm.invalid" (click)="insertUserComment()">Send</button>
+                        </form>
+                      </div><!--/.row-->
+                    </div>
+                  </div><!--/.col-->
+                </div>
               </div>
             </div>
           </div>
-          <div class="card-body">
-            <p>
-              {{comment.original_message}}
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <pagination-controls id="controlComments" (pageChange)="pageComments = $event"></pagination-controls>
-          <button aria-pressed="true" class="btn btn-block btn-dark active write-comment" type="button"
-                  (click)="isCollapsed = !isCollapsed"
-                  [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"
-                  *ngIf="user">Write comment</button>
-        </div>
-
-        <div class="animated fadeIn" [collapse]="isCollapsed">
-          <div class="row">
-            <div class="col-sm-6">
-              <div class="card">
-                <div class="card-header">
-                  <strong></strong>
-                </div>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <form [formGroup]="commentForm" (ngSubmit)="insertUserComment()" action="" method="get" enctype="multipart/form-data" class="form-horizontal">
-                        <div class="form-group">
-                          <label for="title">Title</label>
-                          <input name = "title" formControlName="title" type="text" class="form-control" id="title" placeholder="Summary"
-                                 [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.title.valid, 'is-invalid':commentForm.controls.title.errors?.invalid }">
-                        </div>
-                        <div class="form-group">
-                          <label for="message">Message</label>
-                          <textarea name = "message" formControlName="message" type="text" class="form-control" id="message" placeholder="Describe your experience..."
-                                    [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.message.valid, 'is-invalid':commentForm.controls.message.errors?.invalid }"></textarea>
-                        </div>
-                        <div class="form-group">
-                          <label for="start-date">Select date</label>
-                          <input name = "date_time" formControlName="date_time" class="form-control" id="start-date" placeholder="date" type="date"
-                                 [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.date_time.valid, 'is-invalid':commentForm.controls.date_time.errors?.invalid }">
-                        </div>
-                        <div class="form-group">
-                          <label>Grade</label>
-                          <select name = "grade" formControlName="grade" class="form-control" id="grade"
-                                  [ngClass]="{'is-valid ng-valid[required] ng-valid required':commentForm.controls.grade.valid, 'is-invalid':commentForm.controls.grade.errors?.invalid }">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                          </select>
-                        </div>
-                        <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button" [disabled]="commentForm.invalid" (click)="insertUserComment()">Send</button>
-                      </form>
-                  </div><!--/.row-->
-                </div>
-              </div><!--/.col-->
-            </div>
-          </div>
         </div>
       </div>
+      <div class="col-md-1"></div>
     </div>
   </div>
-  <div class="col-md-1"></div>
 </div>
