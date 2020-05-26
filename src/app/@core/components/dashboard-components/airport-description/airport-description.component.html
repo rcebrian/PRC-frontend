@@ -61,12 +61,14 @@
     </div>
     <div class="col-md-1"></div>
   </div>
+
   <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div class="card border-secondary">
         <div class="card-body">
-          <h4 class="" *ngIf="comments">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
+          <h4 class="" *ngIf="comments.length > 0">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
+          <h4 class="" *ngIf="comments.length === 0">Todavía no tenemos valoraciones de este destino</h4><hr>
           <div class="card" *ngFor="let comment of comments | paginate: {id: 'controlComments', itemsPerPage: 5, currentPage: pageComments}"><!--ngFor-->
             <div class="card-header">
               <div class="row">

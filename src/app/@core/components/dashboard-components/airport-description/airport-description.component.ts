@@ -38,7 +38,7 @@ export class AirportDescriptionComponent implements OnInit {
   user: User;
   isCollapsed = true;
   flights: Array<Flight> = [];
-  comments: Array<Comment>;
+  comments: Array<Comment> = [];
   airport_id: string;
   pageFlights: number = 1;
   pageComments: number = 1;
@@ -100,7 +100,6 @@ export class AirportDescriptionComponent implements OnInit {
   updateFlightsFuture() {
     this.adminService.updateFutureFlightsData(this.airport_id).subscribe(
       data => {
-        console.log(1);
         this.getFlights();
       },
       error => {

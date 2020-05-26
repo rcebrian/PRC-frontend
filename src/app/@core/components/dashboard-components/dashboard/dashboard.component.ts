@@ -58,7 +58,6 @@ export class DashboardComponent implements OnInit {
           }
           const marker = L.marker([a.airport_lat, a.airport_lon]).addTo(this.dashboardMap);
         }
-        console.log(this.airportsRight);
       },
       err => {
         console.log(err);
@@ -82,7 +81,6 @@ export class DashboardComponent implements OnInit {
   }
 
   selectAirport() {
-    console.log('Estoy funcionando');
     this.router.navigateByUrl('/airports/' + this.airportForm.value.airportId);
   }
 }
