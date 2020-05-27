@@ -44,6 +44,7 @@ export class DefaultLayoutComponent implements OnInit {
       this.admin = false;
       this.sidebarToggleValue = false;
       this.tokenStorage.signOut();
+      window.location.reload(); // Reload all the page
     }, err => {
       console.log(err);
     });
