@@ -34,15 +34,14 @@
           <h2 class="h2" *ngIf="flights">Departures - {{flights[0].airport_name}}</h2>
 
           <div class="row" id="filter">
-            <div class="col-sm-5"></div>
+            <div class="col-sm-4"></div>
             <div class="col-sm-3">
               <div class="form-group">
-                <input class="form-control" id="select-date" name="date-input" placeholder="date"
-                       type="date">
-                       <!--min="{{minDateStr != undefined ? minDateStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                       max="{{yesterdayStr != undefined ? yesterdayStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
-                       [(ngModel)]="dateStrTrain"
-                       [ngClass]="{'is-valid':historyForm.controls.date.valid}"-->
+                <ng-select class="form-control input-sm"
+                           bindLabel="name"
+                           bindValue="id" readonly [(ngModel)]="selectDate">
+                  <ng-option *ngFor="let date of dates" [value]="date">{{date}}</ng-option>
+                </ng-select>
               </div>
             </div>
 
@@ -65,11 +64,13 @@
                 </ng-select>
               </div>
             </div>
+
+            <div class="col-sm-1 center">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary px-4" (click)="filterFlights()">Go</button>
+              </div>
+            </div>
           </div>
-
-
-
-
    <!--/.col-->
           <table class="table table-striped center-content">
             <thead>
@@ -82,7 +83,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let flight of flights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
+            <tr *ngFor="let flight of selectFlights | paginate: {id: 'controlFlights', itemsPerPage: 15, currentPage: pageFlights}">
               <td>{{flight.id}}</td>
               <td class="mobile-out">{{flight.airline_name}}</td>
               <td>{{flight.date_time}}</td>

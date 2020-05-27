@@ -62,6 +62,9 @@
 .prediction{
   font-weight: bold;
 }
+#flights-card{
+  margin-top: 100px;
+}
 @media screen and (max-width: 700px) and (min-width: 400px) {
   .avatar{
     display: none;
@@ -82,6 +85,9 @@
   #controlFlights{
     margin-left: -30px;
     font-size: 12px;
+  }
+  #flights-card{
+    margin-top: 0px;
   }
 }
 
@@ -151,6 +157,4 @@
   margin-top: 20px;
 }
 
-#flights-card{
-  margin-top: 100px;
-}
+
