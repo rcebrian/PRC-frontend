@@ -54,7 +54,7 @@ export class ContactComponent implements OnInit {
   sendMail(n, e, m) {
     this.mailService.sendMail(n, e, m).subscribe(
       data => {
-        alert(data.msg);
+        alert('Email sent correctly');
       },
       error => {
         alert(error.error.error);
