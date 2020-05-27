@@ -1,4 +1,4 @@
-<div *ngIf="flights.length === 0" class="align-items-center d-flex justify-content-center" id="container-load">
+<div *ngIf="noData && flights.length === 0" class="align-items-center d-flex justify-content-center container-load">
   <div id="container-spinner">
     <div class="center">
       <div class="lds-facebook">
@@ -7,28 +7,70 @@
         <div></div>
       </div>
     </div>
-
-
     <div class="text-center">
       <h4>It seems that there are no flights loaded</h4>
       <p>Wait a moment while we load new data</p>
     </div>
-
   </div>
+</div>
 
+<div *ngIf="!noData && flights.length === 0" class="align-items-center d-flex justify-content-center container-load">
+  <div class="text-center">
+    <i class="fa fa-plane fa-lg mt-4 fa-4x"></i>
+    <h4>There are no flights for this airport</h4>
+  </div>
 </div>
 
 <div *ngIf="flights.length > 0">
   <div id="container-img" >
     <img src="assets/img/sky-image.jpg" id="img">
   </div>
-  <div class="row">
+
+  <div class="row" id="flights-card">
     <div class="col-md-1"></div>
     <div class="col-md-10">
       <div class="card border-secondary table-flights">
         <div class="card-body">
-          <h2 class="h2" *ngIf="flights">{{flights[0].airport_name}}</h2>
-          <!--/.col-->
+          <h2 class="h2" *ngIf="flights">Departures - {{flights[0].airport_name}}</h2>
+
+          <div class="row" id="filter">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-3">
+              <div class="form-group">
+                <input class="form-control" id="select-date" name="date-input" placeholder="date"
+                       type="date">
+                       <!--min="{{minDateStr != undefined ? minDateStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                       max="{{yesterdayStr != undefined ? yesterdayStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                       [(ngModel)]="dateStrTrain"
+                       [ngClass]="{'is-valid':historyForm.controls.date.valid}"-->
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="form-group">
+                <ng-select class="form-control input-sm"
+                           bindLabel="name"
+                           bindValue="id" readonly [(ngModel)]="selectStartHour">
+                  <ng-option *ngFor="let hour of hours" [value]="hour">{{hour}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="form-group">
+                <ng-select class="form-control input-sm"
+                           bindLabel="name"
+                           bindValue="id" readonly [(ngModel)]="selectFinishHour">
+                  <ng-option *ngFor="let hour of hours" [value]="hour">{{hour}}</ng-option>
+                </ng-select>
+              </div>
+            </div>
+          </div>
+
+
+
+
+   <!--/.col-->
           <table class="table table-striped center-content">
             <thead>
             <tr>

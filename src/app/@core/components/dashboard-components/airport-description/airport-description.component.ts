@@ -19,6 +19,12 @@ export class AirportDescriptionComponent implements OnInit {
 
   constructor(private tokenStorage: TokenStorageService, private airportDescription: AirportDescriptionService,
               private route: ActivatedRoute, private adminService: AdminService) { }
+  // Filter search
+  hours = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00',
+    '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'];
+  selectStartHour = this.hours[0];
+  selectFinishHour = this.hours[1];
+
   user: User;
   isCollapsed = true;
   flights: Array<Flight> = [];
@@ -26,6 +32,7 @@ export class AirportDescriptionComponent implements OnInit {
   airport_id: string;
   pageFlights: number = 1;
   pageComments: number = 1;
+  noData: boolean = true;
   commentForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     message: new FormControl('', [Validators.required]),
@@ -48,8 +55,10 @@ export class AirportDescriptionComponent implements OnInit {
     this.airportDescription.getFlights(this.airport_id).subscribe(
       (data: Array<Flight>) => {
         this.flights = data;
-        if (this.flights.length === 0) {
+        if (this.flights.length === 0 && this.noData === true) {
           this.updateFlightsFuture();
+        } else {
+          this.noData = false;
         }
       },
       error => {
@@ -84,6 +93,7 @@ export class AirportDescriptionComponent implements OnInit {
   updateFlightsFuture() {
     this.adminService.updateFutureFlightsData(this.airport_id).subscribe(
       data => {
+        this.noData = false;
         this.getFlights();
       },
       error => {
