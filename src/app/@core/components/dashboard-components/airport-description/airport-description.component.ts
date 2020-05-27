@@ -142,6 +142,7 @@ export class AirportDescriptionComponent implements OnInit {
         flights.push(element);
       }
     });
+    console.log(flights);
     this.selectFlights = flights;
   }
 }

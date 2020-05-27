@@ -3,6 +3,7 @@ import { AdminService} from '../../../../../services/admin/admin.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { ModelTrain} from '../../../../../models/model-train';
 import { Algorithm } from '../../../../../models/algorithm';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-model',
@@ -236,6 +237,9 @@ export class ModelComponent implements OnInit {
     if (this.selectModel != null) {
       this.adminService.setModelInUse(this.selectModel.id).subscribe(
         (data: any) => {
+          const model = this.dateArrayModels.find(element => element.id === this.selectModel.id);
+          const algorithm = this.algorithms.find(element => element.id  == this.selectedAlgorithmModel);
+          this.modelInUse = algorithm.name + ' ' + model.date;
         },
         error => {
           alert(error.error.errors);
@@ -244,27 +248,6 @@ export class ModelComponent implements OnInit {
       );
     } else {
       console.log('error');
-    }
-
-    let date = '';
-    let notFound = true;
-    let i = 0;
-    while (notFound) {
-      if (this.selectModel.id === this.dateArrayModels[i].id) {
-        date = this.dateArrayModels[i].date;
-        notFound = false;
-      }
-      i += 1;
-    }
-
-    notFound = true;
-    i = 0;
-    while (notFound ) {
-      if (this.algorithms[i].id === this.selectModel.id) {
-        this.modelInUse = this.algorithms[i].name + ' ' + date;
-        notFound = false;
-      }
-      i += 1;
     }
     this.interval = setInterval(this.getLastModels.bind(this), 2000);
   }
