@@ -98,7 +98,7 @@ export class AirportDescriptionComponent implements OnInit {
       this.commentForm.value.date_time,
       parseFloat(this.commentForm.value.grade), this.airport_id).subscribe(
       data => {
-        alert('Comment saved correctly');
+        this.getComments();
       },
       error => {
         alert(error.error.error);
@@ -142,7 +142,6 @@ export class AirportDescriptionComponent implements OnInit {
         flights.push(element);
       }
     });
-    console.log(flights);
     this.selectFlights = flights;
   }
 }
