@@ -4,6 +4,6 @@ export interface Comment {
   place: string;
   title: string;
   date_time: string;
-  original_message: string;
+  message: string;
   grade: string;
 }

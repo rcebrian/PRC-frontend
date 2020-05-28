@@ -110,8 +110,8 @@
     <div class="col-md-10">
       <div class="card border-secondary">
         <div class="card-body">
-          <h4 class="" *ngIf="comments.length > 0">Valoraciones sobre - {{comments[0].city_name}}</h4><hr>
-          <h4 class="" *ngIf="comments.length === 0">Todavía no tenemos valoraciones de este destino</h4><hr>
+          <h4 class="" *ngIf="comments.length > 0">Ratings about - {{comments[0].city_name}}</h4><hr>
+          <h4 class="" *ngIf="comments.length === 0">We do not have reviews of this destination yet</h4><hr>
           <div class="card" *ngFor="let comment of comments | paginate: {id: 'controlComments', itemsPerPage: 5, currentPage: pageComments}"><!--ngFor-->
             <div class="card-header">
               <div class="row">
@@ -127,7 +127,7 @@
             </div>
             <div class="card-body">
               <p>
-                {{comment.original_message}}
+                {{comment.message}}
               </p>
             </div>
           </div>
@@ -139,8 +139,8 @@
                     *ngIf="user">Write comment</button>
           </div>
 
-          <div class="animated fadeIn" [collapse]="isCollapsed">
-            <div class="row">
+          <div class="animated fadeIn"  [collapse]="isCollapsed">
+            <div class="row" id="commentCard">
               <div class="col-sm-6">
                 <div class="card">
                   <div class="card-header">
@@ -176,7 +176,9 @@
                               <option>5</option>
                             </select>
                           </div>
-                          <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button" [disabled]="commentForm.invalid" (click)="insertUserComment()">Send</button>
+                          <div class="center">
+                            <button aria-pressed="true" class="btn btn-block btn-dark active btn-send" type="button" [disabled]="commentForm.invalid" (click)="insertUserComment()">Send</button>
+                          </div>
                         </form>
                       </div><!--/.row-->
                     </div>

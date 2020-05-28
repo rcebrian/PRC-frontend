@@ -12,9 +12,8 @@
         <ngx-avatar name="{{ user.name + ' ' + user.surnames }}" [round]="true" size="40"></ngx-avatar>
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
-        <div class="dropdown-header text-center"><strong>Account</strong></div>
-        <a class="dropdown-item" href="#"><i class="fa fa-comments"></i> My Comments</a>
-        <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
+        <div class="dropdown-header text-center"><strong>API documentation</strong></div>
+        <a class="dropdown-item" href="http://localhost:8000/api/documentation"><i class="fa fa-file-text-o"></i> Documentation</a>
         <div class="dropdown-header text-center"><strong>Session</strong></div>
         <a class="dropdown-item" (click)="submitLogOut()"><i class="fa fa-sign-out"></i> Logout</a>
       </div>

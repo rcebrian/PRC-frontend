@@ -157,4 +157,10 @@
   margin-top: 20px;
 }
 
+#commentCard{
+  margin-top: 20px;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+}
 

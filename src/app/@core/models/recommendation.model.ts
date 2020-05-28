@@ -1,4 +1,4 @@
-export class RecommendationModel {
+export interface RecommendationModel {
   city: string;
   grade: number;
   sentiment: number;

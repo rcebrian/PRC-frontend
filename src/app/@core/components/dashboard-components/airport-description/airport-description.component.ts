@@ -8,7 +8,6 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AdminService} from '../../../services/admin/admin.service';
 import { Flight } from '../../../models/flight';
 import { Comment} from '../../../models/comment';
-import {element} from 'protractor';
 
 @Component({
   selector: 'app-airport-description',
