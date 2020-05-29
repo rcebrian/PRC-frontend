@@ -56,7 +56,8 @@ export class DashboardComponent implements OnInit {
           } else {
             this.airportsRight.push(a);
           }
-          const marker = L.marker([a.airport_lat, a.airport_lon]).addTo(this.dashboardMap);
+          console.log(a.id)
+          const marker = L.marker([a.airport_lat, a.airport_lon]).addTo(this.dashboardMap).on('click', () => this.router.navigateByUrl(`/airports/${res.data[i].airport_id}`));
         }
       },
       err => {
