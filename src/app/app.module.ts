@@ -51,7 +51,6 @@ import {AvatarModule} from 'ngx-avatar';
 import { StatisticComponent } from './@core/components/dashboard-components/admin/statistic/statistic/statistic.component';
 import {providerDef} from '@angular/compiler/src/view_compiler/provider_compiler';
 import {AuthInterceptorService} from './@core/services/auth/auth-interceptor.service';
-import {AirportComponent} from './@core/components/dashboard-components/airport/airport.component';
 import {CollapseModule} from 'ngx-bootstrap/collapse';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AirportDescriptionComponent } from './@core/components/dashboard-components/airport-description/airport-description.component';
@@ -95,7 +94,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ScraperComponent,
     ModelComponent,
     StatisticComponent,
-    AirportComponent,
     AirportDescriptionComponent,
     LoadingSpinnerComponent,
   ],
