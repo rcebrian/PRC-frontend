@@ -135,8 +135,6 @@ export class AirportDescriptionComponent implements OnInit {
     const endTime = parseInt(this.selectFinishHour.substring(0, 2));
     this.flights.forEach(element => {
       const time = parseInt(moment(element.date_time).format('H'));
-      console.log(startTime);
-
       if (element.date_time.match(this.selectDate) && time >= startTime && time < endTime) {
         flights.push(element);
       }
