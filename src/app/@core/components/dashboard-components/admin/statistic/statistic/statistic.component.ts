@@ -5,6 +5,7 @@ import { CommentData } from '../../../../../models/comment-data';
 import { GroupFlightData} from '../../../../../models/group-flight-data';
 import { City} from '../../../../../models/city';
 import { AirportId} from '../../../../../models/airport-id';
+import {element} from 'protractor';
 
 @Component({
   selector: 'app-statistic',
@@ -137,53 +138,89 @@ export class StatisticComponent implements OnInit {
     const delayedColor = [];
     const predictDelayedColor = [];
 
+    let lastDate = '';
+    let numDelays = 0;
+    let numInTime = 0;
+    let predictNumDelays = 0;
+    let predictNumInTime = 0;
     if  (this.airportId === -1) { // Todos los aeropuertos
       this.flights.forEach(dat => {
         if (dataLabels.indexOf(dat.groupDate) === -1) {
           dataLabels.push(dat.groupDate);
-        }
+          if (lastDate !== '') {
+            dataInTime.push(numInTime);
+            inTimeColor.push(this.inTimeColor);
+            dataDelayed.push(numDelays);
+            delayedColor.push(this.delayedColor);
+            dataInTimePrediction.push(predictNumInTime);
+            predictInTimeColor.push(this.predictInTimeColor);
+            dataDelayedPrediction.push(predictNumDelays);
+            predictDelayedColor.push(this.predictDelayedColor);
 
+            numDelays = 0;
+            numInTime = 0;
+            predictNumDelays = 0;
+            predictNumInTime = 0;
+          }
+          lastDate = dat.groupDate;
+        }
         if (dat.delay === 0) {
-          dataInTime.push(dat.countDelay);
-          inTimeColor.push(this.inTimeColor);
+          numInTime += dat.countDelay;
         } else if (dat.delay === 1) {
-          dataDelayed.push(dat.countDelay);
-          delayedColor.push(this.delayedColor);
+          numDelays += dat.countDelay;
         }
 
         if (dat.prediction === 0) {
-          dataInTimePrediction.push(dat.countPrediction);
-          predictInTimeColor.push(this.predictInTimeColor);
+          predictNumInTime += dat.countPrediction;
         } else if (dat.prediction === 1) {
-          dataDelayedPrediction.push(dat.countPrediction);
-          predictDelayedColor.push(this.predictDelayedColor);
+          predictNumDelays += dat.countPrediction;
         }
       });
     } else {
       this.flights.forEach(dat => {
+
         if (dat.airport_id === this.airportId) {
           if (dataLabels.indexOf(dat.groupDate) === -1) {
             dataLabels.push(dat.groupDate);
-          }
+            if (lastDate !== '') {
+              dataInTime.push(numInTime);
+              inTimeColor.push(this.inTimeColor);
+              dataDelayed.push(numDelays);
+              delayedColor.push(this.delayedColor);
+              dataInTimePrediction.push(predictNumInTime);
+              predictInTimeColor.push(this.predictInTimeColor);
+              dataDelayedPrediction.push(predictNumDelays);
+              predictDelayedColor.push(this.predictDelayedColor);
 
+              numDelays = 0;
+              numInTime = 0;
+              predictNumDelays = 0;
+              predictNumInTime = 0;
+            }
+            lastDate = dat.groupDate;
+          }
           if (dat.delay === 0) {
-            dataInTime.push(dat.countDelay);
-            inTimeColor.push(this.inTimeColor);
+            numInTime += dat.countDelay;
           } else if (dat.delay === 1) {
-            dataDelayed.push(dat.countDelay);
-            delayedColor.push(this.delayedColor);
+            numDelays += dat.countDelay;
           }
 
           if (dat.prediction === 0) {
-            dataInTimePrediction.push(dat.countPrediction);
-            predictInTimeColor.push(this.predictInTimeColor);
+            predictNumInTime += dat.countPrediction;
           } else if (dat.prediction === 1) {
-            dataDelayedPrediction.push(dat.countPrediction);
-            predictDelayedColor.push(this.predictDelayedColor);
+            predictNumDelays += dat.countPrediction;
           }
         }
       });
     }
+    dataInTime.push(numInTime);
+    inTimeColor.push(this.inTimeColor);
+    dataDelayed.push(numDelays);
+    delayedColor.push(this.delayedColor);
+    dataInTimePrediction.push(predictNumInTime);
+    predictInTimeColor.push(this.predictInTimeColor);
+    dataDelayedPrediction.push(predictNumDelays);
+    predictDelayedColor.push(this.predictDelayedColor);
 
     this.barCharColors = [
       { backgroundColor: inTimeColor},
