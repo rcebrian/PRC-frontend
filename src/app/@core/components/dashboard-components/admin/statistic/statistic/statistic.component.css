@@ -1,0 +1,35 @@
+.center{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+.red{
+  color: red;
+}
+
+.form-control.ng-select {
+  border: none;
+  padding: 0;
+}
+
+.ng-select.state-error .ng-control {
+  background-color: #ffcccc;
+  border-color: #ff0000;
+}
+
+.max{
+  width: 100%;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.margin-right {
+  margin-right: 20px;
+}
+
+.container{
+  margin-top: 20px;
+}

@@ -1,0 +1,145 @@
+<div class="center margin-top">
+  <a class="navbar-brand" ng-reflect-router-link="/dashboard" href="/dashboard">
+    <img class="navbar-brand-full" ng-reflect-ng-class="navbar-brand-full" src="assets/img/brand/logo.svg" width="200" height="50"
+         alt="EasyTravel Logo" ng-reflect-app-html-attr="[object Object]">
+  </a>
+</div>
+
+
+<div class="app-body margin-top">
+    <main class="main d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card mx-4">
+                        <div class="card-body p-4">
+                          <form (ngSubmit)="registrer()" [formGroup]="userForm" novalidate>
+                                <h1>Register</h1>
+                                <p class="text-muted">Create your account</p>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input type="text" id="name" class="form-control" placeholder="Name"
+                                         formControlName="name">
+                                    <div *ngIf="userForm.controls.name.touched && userForm.controls.name.errors?.required"
+                                         class="error">Name is required.
+                                    </div>
+                                    <div *ngIf="userForm.controls.name.touched && userForm.controls.name.errors?.pattern"
+                                         class="error">Invalid format.
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-user"></i></span>
+                                  </div>
+                                  <input type="text" id="surnames" class="form-control" placeholder="Surnames"
+                                         formControlName="surnames">
+                                  <div *ngIf="userForm.controls.surnames.touched && userForm.controls.surnames.errors?.required"
+                                       class="error">Surnames is required.
+                                  </div>
+                                  <div *ngIf="userForm.controls.surnames.touched && userForm.controls.surnames.errors?.pattern"
+                                       class="error">Invalid format.
+                                  </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-address-card-o"></i></span>
+                                  </div>
+                                  <input type="text" id="nif" class="form-control" placeholder="DNI/NIF"
+                                         formControlName="nif" (change)="errorDni = null">
+                                  <div *ngIf="userForm.controls.nif.touched && userForm.controls.nif.errors?.required"
+                                       class="error">Dni is required.
+                                  </div>
+                                  <div *ngIf="userForm.controls.nif.touched &&
+                                      !userForm.controls.nif.errors?.required && userForm.controls.nif.errors?.dniIncorrect"
+                                       class="error">Invalid format.
+                                  </div>
+                                  <div *ngIf="errorDni" class="error">{{errorDni}}</div>
+                                </div>
+                                <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                  </div>
+                                  <input type="text" id="phoneNumber" class="form-control" placeholder="Phone number"
+                                         formControlName="phoneNumber" (change)="errorPhoneNumber = null">
+                                  <div *ngIf="userForm.controls.phoneNumber.touched && userForm.controls.phoneNumber.errors?.required"
+                                       class="error">Phone number is required.
+                                  </div>
+                                  <div *ngIf="userForm.controls.phoneNumber.touched && userForm.controls.phoneNumber.errors?.pattern"
+                                       class="error">Invalid format.
+                                  </div>
+                                  <div *ngIf="errorPhoneNumber" class="error">{{errorPhoneNumber}}</div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">@</span>
+                                    </div>
+                                    <input type="text" class="form-control" placeholder="Email" autocomplete="email"
+                                           formControlName="email" (change)="errorEmail = null">
+                                  <div *ngIf="userForm.controls.email.touched && userForm.controls.email.errors?.required"
+                                       class="error">Email is required.
+                                  </div>
+                                  <div *ngIf="userForm.controls.email.touched && userForm.controls.email.errors?.email"
+                                       class="error">Invalid format.
+                                  </div>
+                                  <div *ngIf="errorEmail" class="error">{{errorEmail}}</div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Password"
+                                        autocomplete="new-password"  formControlName="password">
+                                    <div *ngIf="userForm.controls.password.touched && userForm.controls.password.errors?.required"
+                                         class="error">Password is required.
+                                    </div>
+                                    <div *ngIf="userForm.controls.password.touched &&
+                                    !userForm.controls.password.errors?.required && userForm.controls.password.errors?.passwordIncorrect"
+                                         class="error">Invalid password format. The password must have a minimum of 8 digits, a letter and a special character.
+                                    </div>
+                                </div>
+                                <div class="input-group mb-4">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-lock"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control" placeholder="Repeat password"
+                                        autocomplete="new-password"  formControlName="password_confirmation">
+                                  <div *ngIf="userForm.controls.password_confirmation.touched &&
+                                        userForm.controls.password_confirmation.errors?.required"
+                                       class="error">Password is required.
+                                  </div>
+                                  <div *ngIf="userForm.controls.password_confirmation.touched &&
+                                        userForm.controls.password_confirmation.errors?.samePasswordIncorrectb &&
+                                        !userForm.controls.password.errors?.required"
+                                       class="error">Passwords are not the same.
+                                  </div>
+                                </div>
+                                <button type="submit" class="btn btn-block btn-success"
+                                        [disabled]="!userForm.valid">Create Account</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<!-- Footer -->
+<hr style="margin-bottom:0px"/>
+<footer class="page-footer font-small pt-2" id="footer">
+  <div class="container-fluid text-center">
+    <!-- Content -->
+    <div>
+      <h6 class="text-uppercase">Contacto</h6>
+      <span class=""><i class="icon-envelope"></i> easytraveluem@gmail.com</span><br />
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-2"><a href="https://universidadeuropea.es/">Universidad Europea de Madrid
+    </a>© 2020 Proyectos de Computación.</div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

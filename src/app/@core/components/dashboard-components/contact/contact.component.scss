@@ -1,0 +1,28 @@
+$background-blue: #2780E3;
+$background-white: white;
+.btn{
+  background-color: black;
+  border-color: black;
+  color: $background-white;
+  align-content: center;
+  margin-top: 10px;
+}
+.unfilled{
+  color: red;
+}
+.filled{
+  color: #4dbd74;
+}
+/*colores input en funcion de si es valido*/
+.ng-valid[required], .ng-valid.required{
+  /*border-left: 5px solid #4dbd74;  green */
+  border-color: #4dbd74;
+}
+.ng-invalid:not(form){ /*el not(form) es para limitarlo a los elementos input, no al formulario*/
+  /*border-left: 5px solid #f86c6b;  red */
+  border-color: #f86c6b;
+}
+.ng-untouched[required], .ng-untouched.required{
+  /*border-left: 5px solid black; */
+  border-color: #e4e7ea;
+}

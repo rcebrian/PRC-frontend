@@ -1,0 +1,173 @@
+<div class="container">
+  <div class="row">
+    <!-- HISTORY SCRAPER -->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>Run history data
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateTrainData()" [formGroup]="historyForm" novalidate>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label for="select-date">Select a date</label>
+                  <input class="form-control" id="select-date" name="date-input" placeholder="date"
+                         formControlName="date"
+                         type="date"
+                         min="{{minDateStr != undefined ? minDateStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                         max="{{yesterdayStr != undefined ? yesterdayStr : '9999-01-01' | date: 'yyyy-MM-dd'}}"
+                         [(ngModel)]="dateStrTrain"
+                         [ngClass]="{'is-valid':historyForm.controls.date.valid}">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Airport ID</label>
+                  <ng-select class="form-control input-sm"
+                             bindLabel="name"
+                             bindValue="id"
+                             formControlName="airportId">
+                    <ng-option *ngFor="let airport of airports" [value]="airport.id">{{airport.name}}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="center top-margin">
+                <button class="btn btn-outline-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonTrain = 0" [disabled]="!historyForm.valid">Flights</button>
+                <button class="btn btn-outline-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonTrain = 1" [disabled]="!historyForm.valid">Weather</button>
+                <button class="btn btn-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonTrain =2" [disabled]="!historyForm.valid">Update All</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>Run URLs airports
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateUrlData()" [formGroup]="urlForm" novalidate>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Country ID</label>
+                  <ng-select class="form-control input-sm"
+                             bindLabel="name"
+                             bindValue="id"
+                             formControlName="countryId">
+                    <ng-option *ngFor="let country of countries" [value]="country.id">{{country.name}}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="center top-margin">
+                <button class="btn btn-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        [disabled]="!urlForm.valid">Update</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODAY SCRAPER -->
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>Run today data
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateNowData()" [formGroup]="forecastForm" novalidate>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>Airport ID</label>
+                  <ng-select class="form-control input-sm"
+                             bindLabel="name"
+                             bindValue="id"
+                             formControlName="airportId">
+                    <ng-option *ngFor="let airport of airports" [value]="airport.id">{{airport.name}}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="center top-margin">
+                <button class="btn btn-outline-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonNow = 0"
+                        [disabled]="!forecastForm.valid">Flights</button>
+                <button class="btn btn-outline-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonNow = 1"
+                        [disabled]="!forecastForm.valid">Weather</button>
+                <button class="btn btn-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        (click)="selectButtonNow =2"
+                        [disabled]="!forecastForm.valid">Update All</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>Run comments data
+        </div>
+        <div class="card-body">
+          <form (ngSubmit)="updateCommentData()" [formGroup]="commentForm" novalidate>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <label>City ID</label>
+                  <ng-select class="form-control input-sm"
+                             bindLabel="name"
+                             bindValue="id"
+                             formControlName="cityId">
+                    <ng-option *ngFor="let city of cities" [value]="city.id">{{city.name}}</ng-option>
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <div class="center top-margin">
+                <button class="btn btn-primary margin-btn" type="submit"
+                        ngbTooltip="Scraper sent, you will receive an email when it is finished."
+                        triggers="click:blur"
+                        [disabled]="!commentForm.valid">Update</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

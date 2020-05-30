@@ -1,0 +1,59 @@
+<div class="center margin-top">
+  <a class="navbar-brand" ng-reflect-router-link="/dashboard" href="/dashboard">
+    <img class="navbar-brand-full" ng-reflect-ng-class="navbar-brand-full" src="assets/img/brand/logo.svg" width="200" height="50"
+         alt="EasyTravel Logo" ng-reflect-app-html-attr="[object Object]">
+  </a>
+</div>
+
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card p-4">
+            <div class="card-body">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+                <h1>Sign In</h1>
+                 <p class="text-muted">Sign In to your account</p>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend"><span class="input-group-text"><i class="icon-envelope"></i></span></div>
+                  <input type="email" name="email" class="form-control" formControlName="email" placeholder="Email" autocomplete="email" [ngClass]="{'is-valid':loginForm.controls.email.valid, 'is-invalid':loginForm.controls.email.errors?.email }">
+                  <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required" class="invalid-feedback">Email is required.</div>
+                  <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email" class="invalid-feedback">Invalid email format.</div>
+                </div>
+                <div class="input-group mb-4">
+                  <div class="input-group-prepend"><span class="input-group-text"><i class="icon-lock"></i></span></div>
+                  <input type="password" name="password" class="form-control" placeholder="Password" autocomplete="current-password" formControlName="password" [ngClass]="{'is-valid':loginForm.controls.password.valid, 'is-invalid':loginForm.controls.password.errors?.invalid }">
+                  <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required" class="invalid-feedback">Password is required.<div *ngIf="isLoginFailed" class="alert">Incorrect email or password.</div></div>
+                  <div *ngIf="isLoginFailed" class="text-right" id="error">Incorrect email or password.</div>
+                </div>
+                <div class="row">
+                  <div class="col-6"><button type="button" class="btn btn-primary px-4" [disabled]="!loginForm.valid" (click)="onSubmit()">Login</button></div>
+                  <div class="col-6 text-right"><button type="button" class="btn btn-link px-0" (click)="registerClick()">Forgot password?</button></div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Footer -->
+<hr style="margin-bottom:0px"/>
+<footer class="page-footer font-small pt-2" id="footer">
+  <div class="container-fluid text-center">
+    <!-- Content -->
+    <div>
+      <h6 class="text-uppercase">Contacto</h6>
+      <span class=""><i class="icon-envelope"></i> easytraveluem@gmail.com</span><br />
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-2"><a href="https://universidadeuropea.es/">Universidad Europea de Madrid
+  </a>© 2020 Proyectos de Computación.</div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->

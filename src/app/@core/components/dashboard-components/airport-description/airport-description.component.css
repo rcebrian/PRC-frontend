@@ -1,0 +1,166 @@
+#container-img{
+  margin: -20px auto -30px -30px;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 100px;
+}
+#img {
+  width: 100vw;
+}
+.table-flights{
+  margin-top: -200px;
+}
+.h{
+  justify-content: center;
+  text-align: center;
+}
+.avatar{
+  display: inline-block;
+  padding: 10px;
+}
+.comment-title{
+  margin-left: 20px;
+  margin-top: 15px;
+}
+.comment-date{
+  text-align: right;
+  justify-content: right;
+  top: 5px;
+  margin-left: 80px;
+}
+.grade-container{
+  margin-left: 55px;
+}
+.icon-star{
+  margin-right: 14px;
+  top: 0;
+}
+.write-comment{
+  width: 200px;
+  height: 35px;
+  margin-left: 10px;
+}
+.grade{
+  margin-left: 4px;
+}
+.grade:hover{
+  color: orange;
+}
+.btn-send{
+  width: 200px;
+  height: 35px;
+  align-content: center;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+.center-content{
+  text-align: center;
+  justify-content: center;
+}
+.prediction{
+  font-weight: bold;
+}
+#flights-card{
+  margin-top: 100px;
+}
+@media screen and (max-width: 700px) and (min-width: 400px) {
+  .avatar{
+    display: none;
+  }
+  .mobile-out{
+    display: none;
+  }
+  .table-flights{
+    margin-top: 0;
+    margin-left: -10px;
+    width: 107%;
+    flex: 1 1 auto;
+  }
+  #controlComments{
+    font-size: 10px;
+    margin-left: -35px;
+  }
+  #controlFlights{
+    margin-left: -30px;
+    font-size: 12px;
+  }
+  #flights-card{
+    margin-top: 0px;
+  }
+}
+
+/* Spinner */
+.lds-facebook {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-facebook div {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: black;
+  animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.lds-facebook div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.lds-facebook div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.lds-facebook div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes lds-facebook {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
+.container-load{
+  height: 70vh;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+}
+
+#container-spinner{
+  width: 100%;
+}
+
+.form-control.ng-select {
+  border: none;
+  padding: 0;
+}
+
+.ng-select.state-error .ng-control {
+  background-color: #ffcccc;
+  border-color: #ff0000;
+}
+
+#filter {
+  margin-top: 20px;
+}
+
+#commentCard{
+  margin-top: 20px;
+  justify-items: center;
+  justify-content: center;
+  display: flex;
+}
+
